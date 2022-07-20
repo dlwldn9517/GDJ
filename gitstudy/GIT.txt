@@ -84,7 +84,7 @@
 
 ** 앞으로 push만 하면 된다.**
  1. git add .
- 2. git commit -m '메세지(날짜)'
+ 2. git commit -m '메세지(날짜)'	***** git commit -am '메세지' (1번과 2번 합친거, 최초 1회는 3단계 걸쳐야 한다.)
  3. git push origin main
  4. 사이트에 가서 확인하기
 
