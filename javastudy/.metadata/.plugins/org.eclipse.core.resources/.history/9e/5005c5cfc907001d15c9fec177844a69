@@ -1,0 +1,12 @@
+package ex04_condition;
+
+public class EX02 {
+
+	public static void main(String[] args) {
+		
+		// 논리 연산자
+		// 논리 AND : 
+
+	}
+
+}

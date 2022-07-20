@@ -51,13 +51,6 @@ public class Ex03 {
 		// balance = balance + balance * 0.05; 실패. 결과가 double 이라서 long balance에 저장할 수 없다.
 		// balance = (long)(balance + balance * 0.05); 성공. balance + balance * 0.05 결과를 long으로 casting해서 저장할 수 있다.
 		
-		
-		
-		
-		
-		
-		
-
 	}
 
 }
