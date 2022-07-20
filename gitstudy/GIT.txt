@@ -62,7 +62,7 @@
      git push origin main
 
  # Github 개인토큰
- *****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*****
+    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
 
 # T Github 레파지토리 주소
 *****https://github.com/goodeeit/GDJ54.git*****
