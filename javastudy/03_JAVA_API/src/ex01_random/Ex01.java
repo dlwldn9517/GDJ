@@ -41,15 +41,34 @@ public class Ex01 {		// class
 		// 연습
 		// 6자리 숫자 인증번호 만들기
 		// String code = "501924"
+		// int로 하면 안되는 이유 ?
+		// 숫자라면 모두 더해지고, 앞자리가 '0'이면 보여지지 않는다
 		
-		String code = "";
+		String code1 = "";
+		for(int n = 0; n < 6; n++) {
+			code1 += (int)(Math.random() * 10);
+		}
+		System.out.println("인증번호 : " + code1);
 		
 		
+		System.out.println((char)((int)(Math.random() * 26) + 'A'));			// 대문자
+		
+		System.out.println((char)((int)(Math.random() * 26) + 97));			// 소문자
+		
+		// 1 + 'A' = 66으로 계산해준다.
 		
 		
-		
-		
-		
+		// 연습
+		// 6자리 영문(대/소문자) 인증번호 만들기
+		String code2 = "";
+		for(int n = 0; n < 6; n++) {
+			if(Math.random() < 0.5) {
+				code2 += (char)((int)(Math.random() * 26) + 65);
+			} else {
+				code2 += (char)((int)(Math.random() * 26) + 97);
+			}
+		}
+		System.out.println("영문 인증번호 : " + code2);
 		
 	}
 
