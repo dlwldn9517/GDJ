@@ -56,7 +56,7 @@ public class Ex04_Calendar {
 		
 		
 		// Timestamp
-		long timestamp = cal.getTimeInMillis();
+		long timestamp = cal.getTimeInMillis();		// 두 날짜 간의 차이 계산
 		System.out.println(timestamp);
 		
 		
