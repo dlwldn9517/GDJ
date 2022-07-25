@@ -48,7 +48,7 @@ public class Ex01 {
 		
 		// 정수 타입
 		int score = 100;
-		long view = 10000000000L;	// long 타입의 값은 마지막에 L 또는 l을 추가해야 한다.
+		long view = 1000000000L;	// long 타입의 값은 마지막에 L 또는 l을 추가해야 한다.
 		System.out.println(score);
 		System.out.println(view);
 		
