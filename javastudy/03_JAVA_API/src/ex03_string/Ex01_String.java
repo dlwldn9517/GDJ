@@ -8,11 +8,14 @@ public class Ex01_String {
 		String str2 = "hello";
 		
 		/*
-		str1	0x123
-		str2	0x123
-
-				hello	0x123
-		*/
+	     |-------|
+	str1 | 0x123 |
+	     |-------|
+	str2 | 0x123 |
+	     |-------|
+	     | hello | 0x123
+	     |-------|
+	*/
 		
 		System.out.println(str1 == str2);
 		
@@ -21,12 +24,16 @@ public class Ex01_String {
 		String str4 = new String("hi");		
 		
 		/*
-		str3	0x123
-		str4	0x456
-		
-				hi		0x123
-				hi		0x456
-		*/
+	     |-------|
+	str3 | 0x123 |
+	     |-------|
+	str4 | 0x456 |
+	     |-------|
+	     | hi    | 0x123
+	     |-------|
+	     | hi    | 0x456
+	     |-------|
+	*/
 		
 		System.out.println(str3 == str4);
 		

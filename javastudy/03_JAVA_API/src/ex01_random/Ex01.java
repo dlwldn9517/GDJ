@@ -51,7 +51,7 @@ public class Ex01 {		// class
 		System.out.println("인증번호 : " + code1);
 		
 		
-		System.out.println((char)((int)(Math.random() * 26) + 'A'));			// 대문자
+		System.out.println((char)((int)(Math.random() * 26) + 'A'));		// 대문자
 		
 		System.out.println((char)((int)(Math.random() * 26) + 97));			// 소문자
 		
