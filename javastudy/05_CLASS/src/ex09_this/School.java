@@ -31,10 +31,10 @@ public class School {
 	public void printStudents() {
 //		for(int i = 0; i < idx; i++) {
 //			System.out.println(students[i].getName() + "," + students[i].getStuNo());
-//		}
+//		} // 값이 없어도 반복하게 되니까 null값이 반환된다.
 //	}
-	
-	// 향상 for문 활용해서 출력방법
+
+	 //향상 for문 활용해서 출력방법
 		for(Student student : students) {
 			if(students != null) {
 				System.out.println(student.getName() + "," + student.getStuNo());
