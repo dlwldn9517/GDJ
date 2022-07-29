@@ -5,7 +5,7 @@ public class SchoolMain {
 	public static void main(String[] args) {
 		
 		School school = new School();
-		school.name = "경인중학교";
+		school.name = "바다중학교";
 		
 		Student student1 = new Student();
 		student1.stuNo = "11025";

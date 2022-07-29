@@ -10,8 +10,6 @@ public class StudentMain {
 		student.sleep();
 		student.walk();
 		student.study();
-		
-
 	}
 
 }
