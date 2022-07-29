@@ -2,12 +2,24 @@ package prac01;
 
 public class Watch {
 
-	String addHour(int hour) {
-		return hour + "시간 후 (" + hour % 24 + "시간)";
+	private int hour;
+	private int minute;
+	private int second;
+	
+	public Watch(int hour, int minute, int second) {
+		this.hour = hour;
+		this.minute = minute;
+		this.second = second;
 	}
 	
-	String addMinute(int minute) {
-		return minute + "분 후 (" + (minute / 60) + "시간 " + (minute % 60) + "분)";
+	public void addHour(int hour) {
+		if(hour < 0)
+			return;
+	}
+	
+	public void addMinute(int minute) {
+		
+		return;
 	}
 	
 	String addSecond(int second) {
