@@ -37,4 +37,6 @@
     <fullyQualifiedTypeName name="quiz01_coffee.Americano"/>
     <fullyQualifiedTypeName name="java.lang.Override"/>
     <fullyQualifiedTypeName name="quiz04_cart.Customer"/>
+    <fullyQualifiedTypeName name="ex11_downcasting.Hybrid"/>
+    <fullyQualifiedTypeName name="java.lang.Math"/>
 </qualifiedTypeNameHistroy>
