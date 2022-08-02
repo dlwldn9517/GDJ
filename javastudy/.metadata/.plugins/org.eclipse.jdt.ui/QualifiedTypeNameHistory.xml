@@ -35,8 +35,9 @@
     <fullyQualifiedTypeName name="ex08_override.Square"/>
     <fullyQualifiedTypeName name="quiz01_coffee.Espresso"/>
     <fullyQualifiedTypeName name="quiz01_coffee.Americano"/>
-    <fullyQualifiedTypeName name="java.lang.Override"/>
     <fullyQualifiedTypeName name="quiz04_cart.Customer"/>
     <fullyQualifiedTypeName name="ex11_downcasting.Hybrid"/>
     <fullyQualifiedTypeName name="java.lang.Math"/>
+    <fullyQualifiedTypeName name="java.lang.Override"/>
+    <fullyQualifiedTypeName name="quiz06_game.GameUnit"/>
 </qualifiedTypeNameHistroy>

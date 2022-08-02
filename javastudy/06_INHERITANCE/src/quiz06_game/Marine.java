@@ -17,7 +17,7 @@ public class Marine extends GameUnit {
 		// 상대 공격력 : unit.getPower()
 		// 상대 이름 : unit.getName()
 			
-		// 40% 확률로 KO 시킬 수 있다.
+		// 30% 확률로 KO 시킬 수 있다.
 		if(Math.random() < 0.3) {
 			unit.setEnergy(0);		// 읽는건 get, 쓰는건 set
 			unit.setAlive(false);
