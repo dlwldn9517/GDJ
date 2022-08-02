@@ -6,6 +6,7 @@ public class Library {
 
 	private Scanner sc;
 	private Book[] books;
+	private int idx;
 	
 	public Library() {
 		sc = new Scanner(System.in);
@@ -13,7 +14,17 @@ public class Library {
 	}
 	
 	private void addBook() {
+		if(idx > 99) {
+			return;
+		}
 		System.out.println("===== 책 등록 =====");
+		System.out.print("제목 입력 >>> ");
+		String title = sc.next();
+		System.out.print("저자 입력 >>> ");
+		String author = sc.next();
+		Book book = new Book(idx + 1, title, author);
+		books[idx++] = book;
+		
 	}
 	
 	private void removeBook() {

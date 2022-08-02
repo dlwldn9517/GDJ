@@ -10,9 +10,9 @@ import lombok.Setter;
 @Getter	// getBookNo(), getTitle(), getAuthor()
 @Setter	// setBookNo(1), setTitle("어린왕자"), setAuthor("생텍쥐베리")
 public class Book {
-	private int bookNo;
-	private String title;
-	private String author;
+	private int bookNo;		// 1~100 자동부여
+	private String title;	// 사용자 입력
+	private String author;	// 사용자 입력
 	
 
 }
