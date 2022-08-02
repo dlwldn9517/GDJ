@@ -6,7 +6,7 @@ public class Main {
 
 		Car[] cars = new Car[10];
 		
-		for(int i = 0; i <cars.length; i ++) {
+		for(int i = 0; i < cars.length; i ++) {
 			if(Math.random() < 0.33) {
 				cars[i] = new Car();
 			} else if(Math.random() < 0.66) {
