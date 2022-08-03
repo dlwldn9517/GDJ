@@ -51,12 +51,14 @@ public class WeekScheduler {
 					String yesNo = sc.next().substring(0, 1);
 					sc.nextLine();
 					if(yesNo.equalsIgnoreCase("y")) {
-						System.out.println("새 스케쥴 입력 >>> ");
-						String newSchedule = sc.nextLine();
+						System.out.print("새 스케쥴 입력 >>> ");
+						String schedule = sc.nextLine();
 						Day day = new Day();
-						day.setSchedule(newSchedule);
+						day.setSchedule(schedule);
 						week[i] = day;
 						System.out.println(dayName + "요일에 새 스케쥴이 등록 되었습니다.");
+					} else {
+						System.out.println("스케쥴 변경이 취소 되었습니다.");
 					}
 				} else {
 					System.out.println(dayName + "요일의 스케쥴은 " + week[i].getSchedule() + "입니다.");
@@ -64,11 +66,9 @@ public class WeekScheduler {
 					String yesNo = sc.next().substring(0, 1);
 					sc.nextLine();
 					if(yesNo.equalsIgnoreCase("y")) {
-						System.out.println("변경할 스케쥴 입력 >>> ");
-						String chSchedule = sc.nextLine();
-						Day day = new Day();
-						day.setSchedule(chSchedule);
-						week[i] = day;
+						System.out.print("변경할 스케쥴 입력 >>> ");
+						String schedule = sc.nextLine();
+						week[i].setSchedule(schedule);
 						System.out.println(dayName + "요일의 스케쥴이 변경 되었습니다.");
 					} else {
 						System.out.println("스케쥴 변경이 취소 되었습니다.");

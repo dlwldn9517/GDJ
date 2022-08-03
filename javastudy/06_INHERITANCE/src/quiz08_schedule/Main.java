@@ -7,5 +7,4 @@ public class Main {
 		WeekScheduler scheduler = new WeekScheduler(38);
 		scheduler.manage();
 	}
-
 }
