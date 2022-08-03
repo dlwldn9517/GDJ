@@ -19,6 +19,5 @@ public class User {
 	public static User getInstance() {	// User 타입의 user를 받겠다.
 		return user;
 	}
-	
 
 }
