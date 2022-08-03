@@ -10,5 +10,10 @@ public class Song {
 		this.title = title;
 		this.playTime = playTime;
 	}
+
+	@Override
+	public String toString() {
+		return "Song [title=" + title + ", playTime=" + playTime + "]";
+	}
 	
 }
