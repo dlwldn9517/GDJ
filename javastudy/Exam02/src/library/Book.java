@@ -16,5 +16,4 @@ public class Book {
 	private String title;	// 사용자 입력
 	private String author;	// 사용자 입력
 	
-
 }

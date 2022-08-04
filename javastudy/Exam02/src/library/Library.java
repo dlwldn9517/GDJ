@@ -58,7 +58,7 @@ public class Library {
 			// 저장된 책 제목 : books[i].getTitle();
 			// 조회할 책 제목 : title
 			// String의 동등비교 : equals() 메소드
-			if(books[i].getTitle().equals(title)) {		// if(title..equals(books[i].getTitle())도 가능
+			if(books[i].getTitle().equals(title)) {		// if(title.equals(books[i].getTitle())도 가능
 				System.out.println(books[i]);
 				return;	// findBook() 메소드 종료
 			} 
