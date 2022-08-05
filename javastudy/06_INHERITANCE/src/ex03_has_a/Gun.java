@@ -21,6 +21,7 @@ public class Gun {
 		this.bullet = bullet;
 	}
 	
+	
 	// 장전
 	public void reload(int bullet) {
 		if(this.bullet == MAX_BULLET) {
@@ -30,6 +31,8 @@ public class Gun {
 		this.bullet = (this.bullet > MAX_BULLET) ? MAX_BULLET : this.bullet;	// 15발이 넘는다면 15발로 맞춰줘야
 	}
 	
+	
+
 	// 총쏘기
 	public void shoot() {
 		if(bullet == 0) {

@@ -9,7 +9,6 @@ public class Main {
 		// throw
 		// 1. 예외 객체를 만들어서 직접 throw할 수 있다.
 		// 2. 자바는 예외로 인식하지 않지만, 실제로는 예외인 경우에 주로 사용한다.
-		// 3. 
 		
 		Scanner sc = new Scanner(System.in);
 		
