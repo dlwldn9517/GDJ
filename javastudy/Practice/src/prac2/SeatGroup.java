@@ -65,7 +65,10 @@ public class SeatGroup {
 			if(seats[i].isOccupied()) {
 				System.out.print(seats[i].getName().substring(0, 1) + "* ");
 			} else {
-				System.out.print((i + 1) + "   ");
+				System.out.print((i + 1) + (i < 9 ? "   " : "  "));
+			}
+			if((i + 1) % 10 == 0) {
+				System.out.println();
 			}
 		}
 		System.out.println();
