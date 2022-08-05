@@ -45,9 +45,7 @@ public class UpDownGame {
 		
 		// 맞힐 때까지 무한루프
 		while(true) {
-			
 			int n = input();
-			
 			if(n < rand) {
 				System.out.println("Up!");
 			} else if(n > rand) {
