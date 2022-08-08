@@ -57,15 +57,12 @@ public class ParkingLot {
 			} catch (RuntimeException e) {
 				System.out.println(e.getMessage());
 			}
-			
 		}
-		
 	}
 	
 	
 	public static void main(String[] args) {
 		new ParkingLot().manage();
-		
 	}
 		
 }
