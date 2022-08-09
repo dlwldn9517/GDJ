@@ -47,10 +47,8 @@ public class Main {
 		// 1. 배열을 리스트로 변환하는 과정
 		// 2. 고정된 크기를 가짐
 		// asList(String... a) : 값이 여러개
-		// asList(String a, b) : 값이 2개
 		// asList(String a) : 값이 1개
 		List<String> list = Arrays.asList("일", "월", "화", "목");
-		
 		
 		// 리스트 길이
 		int size = list.size();
