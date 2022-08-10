@@ -50,10 +50,22 @@ public class JSONWriter {
 		
 		String str = "{\"name\":\"손석구\",\"man\":true,\"age\":45,\"height\":180}";
 		
+		JSONObject obj = new JSONObject(str);
+		
+		String name = obj.getString("name");
+		boolean man = obj.getBoolean("man");
+		int age = obj.getInt("age");
+		double height = obj.getDouble("height");
+		
+		System.out.println(name);
+		System.out.println(man);
+		System.out.println(age);
+		System.out.println(height);
+		
 	}
 	
 	public static void main(String[] args) {
-		m1();
+		m3();
 	}
 	
 }
