@@ -1,11 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-    <fullyQualifiedTypeName name="quiz01_coffee.Espresso"/>
-    <fullyQualifiedTypeName name="quiz01_coffee.Americano"/>
-    <fullyQualifiedTypeName name="quiz04_cart.Customer"/>
-    <fullyQualifiedTypeName name="ex11_downcasting.Hybrid"/>
-    <fullyQualifiedTypeName name="quiz06_game.GameUnit"/>
-    <fullyQualifiedTypeName name="library.Book"/>
     <fullyQualifiedTypeName name="library.Library"/>
     <fullyQualifiedTypeName name="quiz07_song.Producer"/>
     <fullyQualifiedTypeName name="quiz08_schedule.WeekScheduler"/>
@@ -38,26 +32,32 @@
     <fullyQualifiedTypeName name="java.lang.Exception"/>
     <fullyQualifiedTypeName name="java.util.EmptyStackException"/>
     <fullyQualifiedTypeName name="quiz04_employee.Employee"/>
-    <fullyQualifiedTypeName name="java.lang.Override"/>
     <fullyQualifiedTypeName name="quiz04_employee.Regular"/>
     <fullyQualifiedTypeName name="quiz04_employee.Temporary"/>
     <fullyQualifiedTypeName name="quiz04_employee.EmployeeException"/>
     <fullyQualifiedTypeName name="prac2.Seat"/>
     <fullyQualifiedTypeName name="prac2.SeatGroup"/>
-    <fullyQualifiedTypeName name="java.lang.String"/>
     <fullyQualifiedTypeName name="quiz01_library.Book"/>
     <fullyQualifiedTypeName name="java.util.InputMismatchException"/>
-    <fullyQualifiedTypeName name="java.lang.RuntimeException"/>
     <fullyQualifiedTypeName name="java.util.Arrays"/>
     <fullyQualifiedTypeName name="com.sun.tools.classfile.Opcode.Set"/>
     <fullyQualifiedTypeName name="java.util.Scanner"/>
     <fullyQualifiedTypeName name="java.lang.System"/>
-    <fullyQualifiedTypeName name="java.util.Set"/>
-    <fullyQualifiedTypeName name="java.util.HashSet"/>
-    <fullyQualifiedTypeName name="java.lang.Integer"/>
-    <fullyQualifiedTypeName name="java.util.Map"/>
-    <fullyQualifiedTypeName name="java.util.HashMap"/>
-    <fullyQualifiedTypeName name="java.util.List"/>
-    <fullyQualifiedTypeName name="java.util.ArrayList"/>
+    <fullyQualifiedTypeName name="java.util.TreeMap"/>
     <fullyQualifiedTypeName name="java.util.Map.Entry"/>
+    <fullyQualifiedTypeName name="java.util.NavigableMap"/>
+    <fullyQualifiedTypeName name="java.lang.String"/>
+    <fullyQualifiedTypeName name="java.lang.Integer"/>
+    <fullyQualifiedTypeName name="java.lang.Iterable"/>
+    <fullyQualifiedTypeName name="java.util.HashSet"/>
+    <fullyQualifiedTypeName name="java.util.Map"/>
+    <fullyQualifiedTypeName name="java.util.Set"/>
+    <fullyQualifiedTypeName name="java.util.ArrayList"/>
+    <fullyQualifiedTypeName name="java.util.Iterator"/>
+    <fullyQualifiedTypeName name="java.util.List"/>
+    <fullyQualifiedTypeName name="java.util.HashMap"/>
+    <fullyQualifiedTypeName name="java.util.Collections"/>
+    <fullyQualifiedTypeName name="prac03.BreadAndChange"/>
+    <fullyQualifiedTypeName name="java.lang.RuntimeException"/>
+    <fullyQualifiedTypeName name="java.lang.Override"/>
 </qualifiedTypeNameHistroy>

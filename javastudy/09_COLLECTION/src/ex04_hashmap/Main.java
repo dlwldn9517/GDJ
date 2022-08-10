@@ -7,7 +7,7 @@ import java.util.Map;
 
 public class Main {
 
-	//  Map은 key랑 Value값으로 이루어져있고, key는 변수랑 똑같은 개념
+	// Map은 key랑 Value값으로 이루어져있고, key는 변수랑 똑같은 개념
 	// Map : key와 Value값으로 이루어진 데이터
 	// Array나 ArrayList의 경우 자동으로 index가 할당되지만, Map의 key값은 자유롭게 만들면 된다.
 	// key 값은 중복 불가능, Value는 중복 가능
