@@ -116,7 +116,7 @@ public class JSONWriter {
 			arr.put(obj);			
 		}
 		
-		File file = new File("C:\\\\storage", "product.json");
+		File file = new File("C:\\storage", "product.json");
 		FileWriter fw = null;
 		BufferedWriter bw = null;
 		try {
@@ -134,8 +134,5 @@ public class JSONWriter {
 				e.printStackTrace();
 			}
 		}
-		
-		
 	}
-	
 }
