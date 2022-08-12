@@ -5,10 +5,7 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.ObjectOutputStream;
 
 public class Main {
 
@@ -44,10 +41,45 @@ public class Main {
 			}
 		} 
 	}
+	
+	public static void q2() {
+
+		File src = new File("C:\\GDJ\\installer", "eclipse.zip");
+		
+		File dir = new File("C:\\storage");
+		if(dir.exists() == false) {
+			dir.mkdir();
+		}
+		File dst = new File("C:\\storage", src.getName());
+		
+		BufferedInputStream bis = null;
+		BufferedOutputStream bos = null;
+		
+		try {
+			bis = new BufferedInputStream(new FileInputStream(src));
+			bos = new BufferedOutputStream(new FileOutputStream(dst));
+			
+			byte[] b = new byte[1024];
+			int readByte = 0;
+			
+			while((readByte = bis.read(b)) != -1) {
+				bos.write(b, 0, readByte);
+			}
+			bos.close();
+			bis.close();
+			
+			// 원본과 복사본의 크기가 동일하면 원본을 제거
+			if(src.length() == dst.length()) {
+				src.deleteOnExit();
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}	
+	}
 
 		
 	public static void main(String[] args) {
-		q1();
+		q2();
 	}
 
 }
