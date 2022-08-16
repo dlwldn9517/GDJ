@@ -5,9 +5,13 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 
 public class Main {
 
@@ -23,7 +27,7 @@ public class Main {
 		//    1) https : secure http, 하이퍼텍스트 전송 프로토콜 (통신규약)
 		//    2) 호스트 : 서버주소
 		//    3) 서버경로 : URL Mapping
-		//    4) 파라미터 : 서버로 전송하는 데이터
+		//    4) 파라미터 (변수) : 서버로 전송하는 데이터
 		
 		try {
 			// URL 처리를 위한 URL 클래스
@@ -118,9 +122,33 @@ public class Main {
 		}
 	}
 	
+	public static void m4() {
+		
+		// 인코딩 : UTF-8 방식으로 암호화
+		// 디코딩 : UTF-8 방식으로 복호화
+		// 원본데이터 → 인코딩 → 전송 → 디코딩 → 원본데이터
+		
+		try {
+			// 원본 데이터
+			String str1 = "한글 english 12345 !@#$+";	// 공백을 인코딩하면 +로 변경 / 원래 +는 2B로 변경
+			
+			// 인코딩
+			String encode = URLEncoder.encode(str1, "UTF-8");
+			System.out.println(encode);
+			
+			// 디코딩
+			String decode = URLDecoder.decode(encode, StandardCharsets.UTF_8);
+			System.out.println(decode);
+			
+		} catch (UnsupportedEncodingException e) {	// 인코딩만 있고, 디코딩 예외는 없다.
+			e.printStackTrace();
+		}
+		
+	}
+	
 	
 	public static void main(String[] args) {
-		m3();
+		m4();
 	}
 
 }

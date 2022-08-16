@@ -40,7 +40,7 @@ public class Main {
 				sb.append(new String(b, 0, readByte));
 			}
 			// 문자를 바이트 스트림으로 읽었기 때문에 문제가 발생
-			System.out.println(sb.toString());
+			System.out.println(sb.toString());		// Apple Mango 맛있��.
 			
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -51,7 +51,8 @@ public class Main {
 				e.printStackTrace();
 			}
 		}
-	}
+	}	
+	
 	
 	public static void m2() {
 		
@@ -73,7 +74,7 @@ public class Main {
 			while((readCnt = isr.read(cbuf)) != -1) {
 				sb.append(cbuf, 0, readCnt);
 			}
-			System.out.println(sb.toString());
+			System.out.println(sb.toString());		// 안녕하세요 반갑습니다.
 			
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -102,7 +103,7 @@ public class Main {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public static void m3() {
 		
 		// 변수를 그대로 입력 받는 DataInputStream
@@ -119,7 +120,7 @@ public class Main {
 			int age = dis.readInt();
 			double height = dis.readDouble();
 			
-			System.out.println(name + ", " + age + ", " + height);
+			System.out.println(name + ", " + age + ", " + height);		// 에밀리, 30, 165.5
 		
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -134,7 +135,7 @@ public class Main {
 	
 	public static void m4() {
 		
-		// 객체를 그대로 입력 받는 Ob
+		// 객체를 그대로 입력 받는 ObjectInputStream
 		File file = new File("C:\\storage", "b4.dat");
 		FileInputStream	fis = null;
 		ObjectInputStream ois = null;
