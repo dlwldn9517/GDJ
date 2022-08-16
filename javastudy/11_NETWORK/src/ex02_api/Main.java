@@ -55,25 +55,6 @@ public class Main {
 			apiURL += "&WEIGHTED_ENVLP_MTHD=" + URLEncoder.encode("소각용","UTF-8");
 			apiURL += "&WEIGHTED_ENVLP_PRPOS=" + URLEncoder.encode("생활쓰레기","UTF-8");
 			apiURL += "&WEIGHTED_ENVLP_TRGET=" + URLEncoder.encode("기타","UTF-8");
-			apiURL += "&PRICE_1=" + URLEncoder.encode("0","UTF-8");
-			apiURL += "&PRICE_1_HALF=" + URLEncoder.encode("0","UTF-8");
-			apiURL += "&PRICE_2=" + URLEncoder.encode("0","UTF-8");
-			apiURL += "&PRICE_2_HALF=" + URLEncoder.encode("0","UTF-8");
-			apiURL += "&PRICE_3=" + URLEncoder.encode("0","UTF-8");
-			apiURL += "&PRICE_5=" + URLEncoder.encode("160","UTF-8");
-			apiURL += "&PRICE_10=" + URLEncoder.encode("310","UTF-8");
-			apiURL += "&PRICE_20=" + URLEncoder.encode("0","UTF-8");
-			apiURL += "&PRICE_30=" + URLEncoder.encode("0","UTF-8");
-			apiURL += "&PRICE_50=" + URLEncoder.encode("0","UTF-8");
-			apiURL += "&PRICE_60=" + URLEncoder.encode("0","UTF-8");
-			apiURL += "&PRICE_75=" + URLEncoder.encode("0","UTF-8");
-			apiURL += "&PRICE_100=" + URLEncoder.encode("3060","UTF-8");
-			apiURL += "&PRICE_120=" + URLEncoder.encode("0","UTF-8");
-			apiURL += "&PRICE_125=" + URLEncoder.encode("0","UTF-8");
-			apiURL += "&CHRG_DEPT_NM=" + URLEncoder.encode("청결지도팀","UTF-8");
-			apiURL += "&PHONE_NUMBER=" + URLEncoder.encode("032-450-5464","UTF-8");
-			apiURL += "&REFERENCE_DATE=" + URLEncoder.encode("2020-02-01","UTF-8");
-			apiURL += "&instt_code=" + URLEncoder.encode("B551295","UTF-8");
 			apiURL += "&serviceKey=" + URLEncoder.encode(serviceKey,"UTF-8");
 		
 		} catch (UnsupportedEncodingException e) {
