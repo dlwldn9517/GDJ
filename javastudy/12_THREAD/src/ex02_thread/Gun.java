@@ -17,5 +17,12 @@ public class Gun {
 		bullet--;
 		System.out.println("탕! " + bullet + "발 남음");
 	}
+
+	public int getBullet() {
+		return bullet;
+	}
+	public void setBullet(int bullet) {
+		this.bullet = bullet;
+	}
 	
 }

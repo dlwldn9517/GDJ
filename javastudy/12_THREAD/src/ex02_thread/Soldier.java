@@ -1,6 +1,6 @@
 package ex02_thread;
 
-public class Soldier {
+public class Soldier extends Thread {
 
 	private String name;
 	private Gun gun;
@@ -16,4 +16,18 @@ public class Soldier {
 		gun.shoot();
 	}
 	
+	@Override
+	public void run() {
+		
+		try {
+			// 1초에 한 발씩 쏘기
+			while(gun.getBullet() != 0) {
+				shoot();
+				Thread.sleep(1000);
+			}
+		
+		} catch (InterruptedException e) {	// 인터럽트 : 가로채기
+			e.printStackTrace();
+		}
+	}
 }
