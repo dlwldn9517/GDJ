@@ -133,9 +133,11 @@ public class Main {
 			
 			char[] cbuf = new char[5];
 			StringBuilder sb = new StringBuilder();
-			int readCnt;
+			int readCnt;	// 실제로 읽은 개수
+			
 			while((readCnt = fr.read(cbuf)) != -1) {
-				sb.append(cbuf, 0, readCnt);
+				sb.append(cbuf, 0, readCnt);	
+				// 0, readCnt를 사용한 이유는 배열을 5로 정했는데 3개만 남았을 때 그 3개만 가져오기 위해서
 			}
 			String str = sb.toString();
 			System.out.println(str);
@@ -210,7 +212,7 @@ public class Main {
 	}
 	
 	public static void main(String[] args) {
-		m5();
+		m2();
 	}
 
 }

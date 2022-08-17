@@ -65,8 +65,8 @@ public class Main {
 			while((readByte = bis.read(b)) != -1) {
 				bos.write(b, 0, readByte);
 			}
-			bos.close();
-			bis.close();
+			bos.close();	// 파일 내용을 복사하고 삭제하는거라서 try문 안에서 닫아준다.
+			bis.close();	// 삭제하는게 아니면 finally에서 삭제해도 무방
 			
 			// 원본과 복사본의 크기가 동일하면 원본을 제거
 			if(src.length() == dst.length()) {

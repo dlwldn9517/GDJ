@@ -23,7 +23,7 @@ public class Main {
 			fos = new FileOutputStream(file);
 			
 			// 출력할 데이터
-			// 1. 1개 : int
+			// 1. 1개 : int	- 영어, 숫자만 가능 (특수문자, 한글 X)
 			// 2. 여러개 : byte[]
 			
 			// 출력할 데이터
@@ -125,7 +125,7 @@ public class Main {
 					new User(2, "lee", 40),
 					new User(3, "choi", 50)
 			);
-			//2. User 1개
+			// 2. User 1개
 			User user = new User(4, "min", 60);
 			
 			fos = new FileOutputStream(file);
@@ -146,7 +146,7 @@ public class Main {
 	}
 	
 	public static void main(String[] args) {
-		m4();
+		m1();
 	}
 
 }

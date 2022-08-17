@@ -39,7 +39,7 @@ public class Main {
 			while((readByte = fis.read(b)) != -1) {		// 읽은 내용이 있으면
 				sb.append(new String(b, 0, readByte));
 			}
-			// 문자를 바이트 스트림으로 읽었기 때문에 문제가 발생
+			// 문자를 바이트 스트림으로 읽었기 때문에 문제가 발생	// 영어는 꺠지지 않는다
 			System.out.println(sb.toString());		// Apple Mango 맛있��.
 			
 		} catch (IOException e) {
@@ -56,7 +56,7 @@ public class Main {
 	
 	public static void m2() {
 		
-		// 바이트 입력 스트림을 문자 입력 스트림으로 변환하는 InputStreamReader
+		// 바이트 입력 스트림을 문자 입력 스트림으로 변환하는 InputStreamReader : 한글이 깨지지 않기 위해 사용
 		
 		File file = new File("C:\\storage", "b2.bin");
 		FileInputStream fis = null;

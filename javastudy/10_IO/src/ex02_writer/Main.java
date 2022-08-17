@@ -134,7 +134,6 @@ public class Main {
 			// 속도 향상을 위한 보조 스트림
 			// 메인 스트림이 없으면 사용 불가
 			bw = new BufferedWriter(fw);
-			
 			bw.write("오늘은 수요일인데 수업이 안 끝나요 ㅎㅎㅎ");
 			
 		} catch (IOException e) {
