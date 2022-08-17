@@ -1,6 +1,9 @@
 package ex02_api;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
@@ -8,6 +11,12 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 public class Main {
 	
@@ -100,8 +109,30 @@ public class Main {
 		} catch (IOException e) {
 			System.out.println("API 응답 실패");
 		}
+		// API로부터 전달받은 xml 데이터
 		String response = sb.toString();
-		System.out.println(response);
+		
+		// File 생성
+		File file = new File("C:\\storage", "api1.xml");
+		try {
+			BufferedWriter bw = new BufferedWriter(new FileWriter(file));
+			bw.write(response);
+			bw.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		// xml 분석
+		try {
+			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder builder = factory.newDocumentBuilder();
+			Document doc = builder.parse(file);
+			
+			Element element = doc.getDocumentElement();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 		// 접속 종료
 		con.disconnect();
