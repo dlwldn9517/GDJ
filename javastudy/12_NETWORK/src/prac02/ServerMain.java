@@ -14,7 +14,7 @@ public class ServerMain {
 	// Server 하나가 Client 하나를 담당
 	
 	// 생성된 Server 목록
-	private static List<Server> servers = new ArrayList<>();
+	public static List<Server> servers = new ArrayList<>();
 
 	// 모든 Server에 메시지 전송
 												   // Server 클래스의 run()메소드의 ServerMain~으로 던져진다.
@@ -38,6 +38,7 @@ public class ServerMain {
 			while(true) {
 				
 				client = server.accept();
+				
 				Server s = new Server(client);
 				servers.add(s);
 				
