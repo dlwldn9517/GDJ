@@ -1,0 +1,21 @@
+package ex02_thread;
+
+public class Gun {
+
+	private int bullet;
+
+	public Gun(int bullet) {
+		super();
+		this.bullet = bullet;
+	}
+	
+	public void shoot() {
+		if(bullet == 0) {
+			System.out.println("총알 없음");
+			return;
+		}
+		bullet--;
+		System.out.println("탕! " + bullet + "발 남음");
+	}
+	
+}
