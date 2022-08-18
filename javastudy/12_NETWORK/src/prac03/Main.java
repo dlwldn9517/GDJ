@@ -16,6 +16,8 @@ import java.util.Scanner;
 public class Main {
 
 	public static void main(String[] args) {
+		
+		// 일별 박스오피스 API 서비스
 
 		String key = "2226b7bc92047543a3afd798f6033fa3";
 		
