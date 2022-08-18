@@ -172,77 +172,76 @@ public class Main {
 		
 		// 보건복지부_코로나 19 감염현황 조회 서비스
 		
-				// 인증키(Decoding)
-				String serviceKey = "YGWZ4QeKRDz2kadVfxowJsKAEq3+Pu8sHt2L0UStVWScPr2R2QxBjTCyVEsy4E9CbP2ltlsuOJOkkQqjmXdv/g==";
-				
-				// API 주소	(주소 + 요청 파라미터)
-				StringBuilder urlBuilder = new StringBuilder();
-				try {
-					urlBuilder.append("http://openapi.data.go.kr/openapi/service/rest/Covid19/getCovid19InfStateJson");
-					urlBuilder.append("?serviceKey=").append(URLEncoder.encode(serviceKey, "UTF-8"));
-					urlBuilder.append("&startCreateDt=20220808");
-					urlBuilder.append("&endCreateDt=20220812");
+		// 인증키(Decoding)
+		String serviceKey = "YGWZ4QeKRDz2kadVfxowJsKAEq3+Pu8sHt2L0UStVWScPr2R2QxBjTCyVEsy4E9CbP2ltlsuOJOkkQqjmXdv/g==";
+		
+		// API 주소	(주소 + 요청 파라미터)
+		StringBuilder urlBuilder = new StringBuilder();
+		try {
+			urlBuilder.append("http://openapi.data.go.kr/openapi/service/rest/Covid19/getCovid19InfStateJson");
+			urlBuilder.append("?serviceKey=").append(URLEncoder.encode(serviceKey, "UTF-8"));
+			urlBuilder.append("&startCreateDt=20220808");
+			urlBuilder.append("&endCreateDt=20220812");
 					
-				} catch (UnsupportedEncodingException e) {
-					e.printStackTrace();
-				}
-
-				String apiURL = urlBuilder.toString();
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		String apiURL = urlBuilder.toString();
+		
+		// API 주소 접속
+		URL url = null;
+		HttpURLConnection con = null;
 				
-				// API 주소 접속
-				URL url = null;
-				HttpURLConnection con = null;
-				
-				try {
-					url = new URL(apiURL);
-					con = (HttpURLConnection) url.openConnection();
-					con.setRequestMethod("GET");
-					con.setRequestProperty("Content-Type", "application/xml; charset=UTF-8");
+		try {
+			url = new URL(apiURL);
+			con = (HttpURLConnection) url.openConnection();
+			con.setRequestMethod("GET");
+			con.setRequestProperty("Content-Type", "application/xml; charset=UTF-8");
 					
-				} catch (MalformedURLException e) {
-					System.out.println("API 주소 오류");
-				} catch (IOException e) {
-					System.out.println("API 주소 접속 실패");
-				}
+		} catch (MalformedURLException e) {
+			System.out.println("API 주소 오류");
+		} catch (IOException e) {
+			System.out.println("API 주소 접속 실패");
+		}
 				
-				// 입력 스트림(응답) 생성
-				// 1. 서버가 보낸 데이터를 읽어야 하므로 입력 스트림이 필요
-				// 2. 서버와 연결된 입력 스트림은 바이트 스트림이므로 문자 스트림으로 변환해야 함
-				BufferedReader reader = null;
-				StringBuilder sb = new StringBuilder();
+		// 입력 스트림(응답) 생성
+		// 1. 서버가 보낸 데이터를 읽어야 하므로 입력 스트림이 필요
+		// 2. 서버와 연결된 입력 스트림은 바이트 스트림이므로 문자 스트림으로 변환해야 함
+		BufferedReader reader = null;
+		StringBuilder sb = new StringBuilder();
 				
-				try {	// 응답 성공 시 정상 스트림, 실패 시 에러 스트림
-					if(con.getResponseCode() == HttpURLConnection.HTTP_OK) {
-						reader = new BufferedReader(new InputStreamReader(con.getInputStream()));
-					} else {
-						reader = new BufferedReader(new InputStreamReader(con.getErrorStream()));
-					}
+		try {	// 응답 성공 시 정상 스트림, 실패 시 에러 스트림
+			if(con.getResponseCode() == HttpURLConnection.HTTP_OK) {
+				reader = new BufferedReader(new InputStreamReader(con.getInputStream()));
+			} else {
+				reader = new BufferedReader(new InputStreamReader(con.getErrorStream()));
+			}
 					
-					String line = null;	 // BufferedReader 써야 readLine()를 사용할 수 있다.
-					while((line = reader.readLine()) != null) {
-						sb.append(line + "\n");
-					}
+			String line = null;	 // BufferedReader 써야 readLine()를 사용할 수 있다.
+			while((line = reader.readLine()) != null) {
+				sb.append(line + "\n");
+			}
 					
-					// 스트림 종료
-					reader.close();
+			// 스트림 종료
+			reader.close();
 					
-				} catch (IOException e) {
-					System.out.println("API 응답 실패");
-				}
+		} catch (IOException e) {
+			System.out.println("API 응답 실패");
+		}
+			
+		// API로부터 전달받은 xml 데이터
+		String response = sb.toString();
 				
-				// API로부터 전달받은 xml 데이터
-				String response = sb.toString();
-				
-				// File 생성
-				File file = new File("C:\\storage", "api2.xml");
-				try {
-					BufferedWriter bw = new BufferedWriter(new FileWriter(file));
-					bw.write(response);
-					bw.close();
+		// File 생성
+		File file = new File("C:\\storage", "api2.xml");
+		try {
+			BufferedWriter bw = new BufferedWriter(new FileWriter(file));
+			bw.write(response);
+			bw.close();
 					
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		
 	}
 	
@@ -299,9 +298,239 @@ public class Main {
 		
 	}
 	
+	public static void m4() {
+		
+		// 기상청41_단기예보 조회서비스_오픈API활용가이드
+		
+		// 초단기 날씨 예측
+		// 오늘 날짜, 11시 기준 - 파일명 api3.xml
+
+		// 인증키(Decoding)
+		String serviceKey = "YGWZ4QeKRDz2kadVfxowJsKAEq3+Pu8sHt2L0UStVWScPr2R2QxBjTCyVEsy4E9CbP2ltlsuOJOkkQqjmXdv/g==";
+				
+		StringBuilder urlBuilder = new StringBuilder();
+	      
+	    // API 요청변수
+	    try {
+	    	urlBuilder.append("http://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtNcst");
+	        urlBuilder.append("?serviceKey=").append(URLEncoder.encode(serviceKey, "UTF-8"));
+	        urlBuilder.append("&pageNo=1");
+	        urlBuilder.append("&numOfRows=1000");
+	        urlBuilder.append("&base_date=20220818");
+	        urlBuilder.append("&base_time=1100");
+	        urlBuilder.append("&nx=58");
+	        urlBuilder.append("&ny=125");
+
+	    } catch (UnsupportedEncodingException e) {
+	    	e.printStackTrace();
+	    }
+	    String apiURL = urlBuilder.toString();
+				
+		// API 주소 접속
+		URL url = null;
+		HttpURLConnection con = null;
+				
+		try {
+			url = new URL(apiURL);
+	        con = (HttpURLConnection)url.openConnection();
+	        con.setRequestMethod("GET");
+	        con.setRequestProperty("content-Type", "application/xml; charset=UTF-8");
+					
+		} catch (MalformedURLException e) {
+			System.out.println("API 주소 오류");
+		} catch (IOException e) {
+			System.out.println("API 접속 실패");
+		}
+			
+		// 입력 스트림(response) 생성
+		BufferedReader reader = null;
+		StringBuilder sb = new StringBuilder();
+				
+		try {
+			if(con.getResponseCode() == HttpURLConnection.HTTP_OK) {
+				reader = new BufferedReader(new InputStreamReader(con.getInputStream()));
+			} else {
+				reader = new BufferedReader(new InputStreamReader(con.getErrorStream()));
+			}
+					
+			String line = null;
+			while((line = reader.readLine()) != null) {
+				sb.append(line + "\n");
+			}
+			reader.close();
+			
+		} catch (IOException e) {
+			System.out.println("API 응답 실패");
+		}
+				
+		// API로부터 전달받은 xml 데이터
+		String response = sb.toString();
+		
+		// xml File 생성
+		File file = new File("C:\\storage", "api3.xml");
+		try {
+			BufferedWriter bw = new BufferedWriter(new FileWriter(file));
+			bw.write(response);
+			bw.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}	
+	
+	public static void m5() {
+		
+		// 내가 윗부분 참조해서 작성
+		
+		File file = new File("C:\\storage", "api2.xml");
+	    StringBuilder sb = null;
+	      
+	    try {
+	       DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+	       DocumentBuilder builder = factory.newDocumentBuilder();
+	       Document doc = builder.parse(file);
+	         
+	       sb = new StringBuilder();
+	        
+	       Element root = doc.getDocumentElement();
+	         
+	       NodeList items = root.getElementsByTagName("item");
+	        
+	       for(int i = 0; i < items.getLength(); i++) {
+	          Node item = items.item(i);
+	          NodeList itemChildren = item.getChildNodes();
+	            
+	          for(int j = 0; j < itemChildren.getLength(); j++) {
+	             Node itemChild = itemChildren.item(j);
+//	             if(itemChild.getNodeName().equals(""))
+	          }
+	      }
+	         
+	         
+	      } catch (Exception e) {
+	         e.printStackTrace();
+	      }
+
+		
+	}
+	
+	
+	public static void m6() {
+		
+		// 선생님 방식
+		
+		File file = new File("C:\\storage", "api3.xml");
+		
+		// Node - 태그, 줄바꿈, ...
+		// 	Element - 태그
+		//	getElementsByTagName() - Element에서만 지원 / Node는 지원 X
+		
+		// Node → Element
+		// 부모 → 자식 (다운캐스팅)
+		
+		// xml 파싱
+		try {
+			
+			// api3.xml 문서 -> doc 객체
+			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder builder = factory.newDocumentBuilder();
+			Document doc = builder.parse(file);
+			
+			// api3.xml 문서의 최상위 태그 -> root
+			Element root = doc.getDocumentElement();
+			
+			StringBuilder sb = new StringBuilder();
+			
+			// <item>...</item> 태그 하나 == 특정 날짜의 데이터
+			NodeList items = root.getElementsByTagName("item");	// 태그 이름으로 찾기
+			
+			for(int i = 0; i < items.getLength(); i++) {
+				Element item = (Element)items.item(i);	// Node → Element 타입으로 다운캐스팅
+				NodeList categories = item.getElementsByTagName("category");
+				Node category = item.getElementsByTagName("category").item(0);	// 실제 카테고리가 1개만 있어서 '0'번째 = 첫번째 요소를 지정
+				Node obsrValue = item.getElementsByTagName("obsrValue").item(0);
+				
+				String strCategory = null;
+				switch(category.getTextContent()) {
+				case "PTY": strCategory = "강수형태"; break;
+				case "REH": strCategory = "습도"; break;
+				case "RN1": strCategory = "강수량(1시간)"; break;
+				case "T1H": strCategory = "기온"; break;
+				case "UUU": strCategory = "동서바람속도"; break;
+				case "VEC": strCategory = "풍향"; break;
+				case "VVV": strCategory = "남북바람속도"; break;
+				case "WSD": strCategory = "풍속"; break;
+				}
+				System.out.println(strCategory + " : " + obsrValue.getTextContent());
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static void m7() {
+		
+		// 기상청 RSS
+		
+		// 제주특별자치도 서귀포시 중문동
+		String apiURL = "http://www.kma.go.kr/wid/queryDFSRSS.jsp?zone=5013061000";
+		
+		// 접속
+		URL url = null;
+		HttpURLConnection con = null;
+		
+		try {
+			
+			url = new URL(apiURL);
+			con = (HttpURLConnection)url.openConnection();
+			con.setRequestMethod("GET");
+			con.setRequestProperty("content-Type", "application/xml; charset=UTF-8");
+			
+		} catch (MalformedURLException e) {
+			System.out.println("API 주소 오류");
+		} catch (IOException e) {
+			System.out.println("API 접속 실패");
+		}
+		
+		// 입력 스트림(response) 생성 및 응답 데이터 받기
+		BufferedReader reader = null;
+		StringBuilder sb = new StringBuilder();
+		
+		try {
+			
+			if(con.getResponseCode() == HttpURLConnection.HTTP_OK) {
+				reader = new BufferedReader(new InputStreamReader(con.getInputStream()));
+			} else {
+				reader = new BufferedReader(new InputStreamReader(con.getErrorStream()));
+			}
+			
+			String line = null;
+			while((line = reader.readLine()) != null) {
+				sb.append(line + "\n");
+			}
+			reader.close();
+			
+		} catch (IOException e) {
+			System.out.println("API 응답 실패");
+		}
+		
+		// API로부터 전달 받은 xml 데이터
+		String response = sb.toString();
+		
+		// xml File 생성
+		File file = new File("C:\\storage", "api4.xml");
+		try {
+			BufferedWriter bw = new BufferedWriter(new FileWriter(file));
+			bw.write(response);
+			bw.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+		
 	
 	public static void main(String[] args) {
-		m3();
+		m7();
 
 	}
 
