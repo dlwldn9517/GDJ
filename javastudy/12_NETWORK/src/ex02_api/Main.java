@@ -57,7 +57,7 @@ public class Main {
 		try {
 			
 			String serviceKey = "YGWZ4QeKRDz2kadVfxowJsKAEq3+Pu8sHt2L0UStVWScPr2R2QxBjTCyVEsy4E9CbP2ltlsuOJOkkQqjmXdv/g==";
-			apiURL += "?pageNo=0" + URLEncoder.encode("0","UTF-8");
+			apiURL += "?pageNo=" + URLEncoder.encode("0","UTF-8");
 			apiURL += "&numOfRows=" + URLEncoder.encode("100","UTF-8");
 			apiURL += "&type=" + URLEncoder.encode("xml","UTF-8");
 			apiURL += "&CTPRVN_NM=" + URLEncoder.encode("인천광역시", "UTF-8");
@@ -168,8 +168,140 @@ public class Main {
 	}
 
 	
+	public static void m2() {
+		
+		// 보건복지부_코로나 19 감염현황 조회 서비스
+		
+				// 인증키(Decoding)
+				String serviceKey = "YGWZ4QeKRDz2kadVfxowJsKAEq3+Pu8sHt2L0UStVWScPr2R2QxBjTCyVEsy4E9CbP2ltlsuOJOkkQqjmXdv/g==";
+				
+				// API 주소	(주소 + 요청 파라미터)
+				StringBuilder urlBuilder = new StringBuilder();
+				try {
+					urlBuilder.append("http://openapi.data.go.kr/openapi/service/rest/Covid19/getCovid19InfStateJson");
+					urlBuilder.append("?serviceKey=").append(URLEncoder.encode(serviceKey, "UTF-8"));
+					urlBuilder.append("&startCreateDt=20220808");
+					urlBuilder.append("&endCreateDt=20220812");
+					
+				} catch (UnsupportedEncodingException e) {
+					e.printStackTrace();
+				}
+
+				String apiURL = urlBuilder.toString();
+				
+				// API 주소 접속
+				URL url = null;
+				HttpURLConnection con = null;
+				
+				try {
+					url = new URL(apiURL);
+					con = (HttpURLConnection) url.openConnection();
+					con.setRequestMethod("GET");
+					con.setRequestProperty("Content-Type", "application/xml; charset=UTF-8");
+					
+				} catch (MalformedURLException e) {
+					System.out.println("API 주소 오류");
+				} catch (IOException e) {
+					System.out.println("API 주소 접속 실패");
+				}
+				
+				// 입력 스트림(응답) 생성
+				// 1. 서버가 보낸 데이터를 읽어야 하므로 입력 스트림이 필요
+				// 2. 서버와 연결된 입력 스트림은 바이트 스트림이므로 문자 스트림으로 변환해야 함
+				BufferedReader reader = null;
+				StringBuilder sb = new StringBuilder();
+				
+				try {	// 응답 성공 시 정상 스트림, 실패 시 에러 스트림
+					if(con.getResponseCode() == HttpURLConnection.HTTP_OK) {
+						reader = new BufferedReader(new InputStreamReader(con.getInputStream()));
+					} else {
+						reader = new BufferedReader(new InputStreamReader(con.getErrorStream()));
+					}
+					
+					String line = null;	 // BufferedReader 써야 readLine()를 사용할 수 있다.
+					while((line = reader.readLine()) != null) {
+						sb.append(line + "\n");
+					}
+					
+					// 스트림 종료
+					reader.close();
+					
+				} catch (IOException e) {
+					System.out.println("API 응답 실패");
+				}
+				
+				// API로부터 전달받은 xml 데이터
+				String response = sb.toString();
+				
+				// File 생성
+				File file = new File("C:\\storage", "api2.xml");
+				try {
+					BufferedWriter bw = new BufferedWriter(new FileWriter(file));
+					bw.write(response);
+					bw.close();
+					
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+		
+	}
+	
+	
+	public static void m3() {
+		
+		// xml 파싱
+		
+		// < > </ > → element, node라고 부른다.
+											// Document = doc으로 설정
+		File file = new File("C:\\storage", "api2.xml");
+		
+		try {
+			//api2.xml 문서 → doc 객체
+			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder builder = factory.newDocumentBuilder();
+			Document doc = builder.parse(file);
+			
+			// api2.xml 문서의 최상위 태그 → root
+			Element root = doc.getDocumentElement();	
+			
+			// <item>...</item> 태그 하나 == 특정 날짜의 데이터
+			StringBuilder sb = new StringBuilder();
+			NodeList items = root.getElementsByTagName("item");	// 태그 이름으로 찾기 	// getElementsByTagName에서 "Elements" → NodeList라는 뜻
+			
+			for(int i = 0; i < items.getLength(); i++) {
+				Node item = items.item(i);
+				NodeList itemChildren = item.getChildNodes();
+				Node stateDt = itemChildren.item(4);	// 5번째 노드
+				
+				for(int j = 0; j < itemChildren.getLength(); j++) {
+					Node itemChild = itemChildren.item(j);
+					if(itemChild.getNodeName().equals("stateDt")) {
+						sb.append(" 날짜 : ").append(itemChild.getTextContent());
+					}
+					else if(itemChild.getNodeName().equals("decideCnt")) {
+						sb.append(" 확진자 수 : ").append(itemChild.getTextContent());
+					}
+					else if(itemChild.getNodeName().equals("deathCnt")) {
+						sb.append(" 사망자 수 : ").append(itemChild.getTextContent());
+					}
+				}
+				sb.append("\n");
+				
+				// Node stateDt 			== <stateDt>20220812</stateDt>
+				// stateDt.getNodeName() 	== stateDt (태그이름)
+				// stateDt.getTextContent() == 20220812 (태그내부텍스트)
+			}
+			System.out.println(sb.toString());
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
+	
 	public static void main(String[] args) {
-		m1();
+		m3();
 
 	}
 

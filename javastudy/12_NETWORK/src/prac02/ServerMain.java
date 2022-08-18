@@ -33,16 +33,20 @@ public class ServerMain {
 		try {
 			server = new ServerSocket();
 			server.bind(new InetSocketAddress("localhost", 9090));
+			
 			System.out.println("☆ 채팅 서버 오픈 ☆");
 			
 			while(true) {
 				
+				// 서버 중지 조건은 없는 상태
+				
 				client = server.accept();
+				System.out.println("클라이언트 접속(" + client.getInetAddress() + ")");
 				
 				Server s = new Server(client);
-				servers.add(s);
-				
 				s.start();
+				
+				servers.add(s);
 				
 				System.out.println("현재 접속 중인 클라이언트 " + servers.size() + "명");
 			}
