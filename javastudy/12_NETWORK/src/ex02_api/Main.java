@@ -20,6 +20,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+
 public class Main {
 	
 	// 요청 (어떤 데이터를 (처리)달라고 요청하는 것)
@@ -244,7 +245,7 @@ public class Main {
 		}
 		
 	}
-	
+
 	
 	public static void m3() {
 		
@@ -297,6 +298,7 @@ public class Main {
 		}
 		
 	}
+
 	
 	public static void m4() {
 		
@@ -376,43 +378,41 @@ public class Main {
 			e.printStackTrace();
 		}
 	}	
+
 	
 	public static void m5() {
 		
 		// 내가 윗부분 참조해서 작성
-		
-		File file = new File("C:\\storage", "api2.xml");
-	    StringBuilder sb = null;
-	      
-	    try {
-	       DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-	       DocumentBuilder builder = factory.newDocumentBuilder();
-	       Document doc = builder.parse(file);
-	         
-	       sb = new StringBuilder();
-	        
-	       Element root = doc.getDocumentElement();
-	         
-	       NodeList items = root.getElementsByTagName("item");
-	        
-	       for(int i = 0; i < items.getLength(); i++) {
-	          Node item = items.item(i);
-	          NodeList itemChildren = item.getChildNodes();
-	            
-	          for(int j = 0; j < itemChildren.getLength(); j++) {
-	             Node itemChild = itemChildren.item(j);
-//	             if(itemChild.getNodeName().equals(""))
-	          }
-	      }
-	         
-	         
-	      } catch (Exception e) {
-	         e.printStackTrace();
+//		
+//		File file = new File("C:\\storage", "api2.xml");
+//	    StringBuilder sb = null;
+//	      
+//	    try {
+//	       DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+//	       DocumentBuilder builder = factory.newDocumentBuilder();
+//	       Document doc = builder.parse(file);
+//	         
+//	       sb = new StringBuilder();
+//	        
+//	       Element root = doc.getDocumentElement();
+//	         
+//	       NodeList items = root.getElementsByTagName("item");
+//	        
+//	       for(int i = 0; i < items.getLength(); i++) {
+//	          Node item = items.item(i);
+//	          NodeList itemChildren = item.getChildNodes();
+//	            
+//	          for(int j = 0; j < itemChildren.getLength(); j++) {
+//	             Node itemChild = itemChildren.item(j);
+//	             // if(itemChild.getNodeName().equals(""))
+//	          }
+//	          
+//	      }
+//	         
+//	      } catch (Exception e) {
+//	        e.printStackTrace();
 	      }
 
-		
-	}
-	
 	
 	public static void m6() {
 		
@@ -438,14 +438,11 @@ public class Main {
 			// api3.xml 문서의 최상위 태그 -> root
 			Element root = doc.getDocumentElement();
 			
-			StringBuilder sb = new StringBuilder();
-			
 			// <item>...</item> 태그 하나 == 특정 날짜의 데이터
 			NodeList items = root.getElementsByTagName("item");	// 태그 이름으로 찾기
 			
 			for(int i = 0; i < items.getLength(); i++) {
 				Element item = (Element)items.item(i);	// Node → Element 타입으로 다운캐스팅
-				NodeList categories = item.getElementsByTagName("category");
 				Node category = item.getElementsByTagName("category").item(0);	// 실제 카테고리가 1개만 있어서 '0'번째 = 첫번째 요소를 지정
 				Node obsrValue = item.getElementsByTagName("obsrValue").item(0);
 				
@@ -467,6 +464,7 @@ public class Main {
 			e.printStackTrace();
 		}
 	}
+
 	
 	public static void m7() {
 		
@@ -480,11 +478,8 @@ public class Main {
 		HttpURLConnection con = null;
 		
 		try {
-			
 			url = new URL(apiURL);
 			con = (HttpURLConnection)url.openConnection();
-			con.setRequestMethod("GET");
-			con.setRequestProperty("content-Type", "application/xml; charset=UTF-8");
 			
 		} catch (MalformedURLException e) {
 			System.out.println("API 주소 오류");
@@ -514,23 +509,89 @@ public class Main {
 			System.out.println("API 응답 실패");
 		}
 		
-		// API로부터 전달 받은 xml 데이터
-		String response = sb.toString();
-		
 		// xml File 생성
 		File file = new File("C:\\storage", "api4.xml");
 		try {
 			BufferedWriter bw = new BufferedWriter(new FileWriter(file));
-			bw.write(response);
+			bw.write(sb.toString());
 			bw.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
+	
+	
+	public static void m8() {
 		
+		File file = new File("C:\\storage", "api4.xml");
+		
+		// xml 파싱
+		try {
+			
+			// api4.xml 문서 → doc 객체
+			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder builder = factory.newDocumentBuilder();
+			Document doc = builder.parse(file);
+			
+			// api4.xml 문서의 최상위 태그 → root
+			Element root = doc.getDocumentElement();
+			
+			StringBuilder sb = new StringBuilder();
+			
+			//Node pubDate = root.getT
+			
+			System.out.println(sb.toString());
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
+	
+	public static void m9() {
+		
+	}
+	
+	
+	public static void m10() {
+		
+		File file = new File("C:\\storage", "sfc_web_map.xml");
+		
+		try {
+			
+			StringBuilder sb = new StringBuilder();
+			
+			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder builder = factory.newDocumentBuilder();
+			Document doc = builder.parse(file);
+			
+			Element root = doc.getDocumentElement();	// <current xmlns="current">태그
+			
+			Element weather = (Element)root.getElementsByTagName("weather").item(0);	// <weather hour="15" day="18" month="08" year="2022">
+			sb.append(weather.getAttribute("year") + "년 ");
+			sb.append(weather.getAttribute("month") + "월 ");
+			sb.append(weather.getAttribute("day") + "일 ");
+			sb.append(weather.getAttribute("hour") + "시\n");
+			
+			NodeList locals = root.getElementsByTagName("local");
+			for(int i = 0; i < locals.getLength(); i++) {
+				Element local =(Element)locals.item(i);
+				sb.append(local.getTextContent() + " : ");
+				sb.append(local.getAttribute("ta") + "℃ ");
+				sb.append(local.getAttribute("desc") + "\n");
+			}
+			System.out.println(sb.toString());
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
 	
 	public static void main(String[] args) {
-		m7();
+		m10();
 
 	}
 

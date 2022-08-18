@@ -54,7 +54,7 @@ public class PublicMain {
 		try {
 			url = new URL(apiURL);
 			con = (HttpURLConnection) url.openConnection();
-			con.setRequestMethod("GET");
+			con.setRequestMethod("GET");	// "GET"은 무조건 대문자
 			con.setRequestProperty("Content-Type", "application/xml; charset=UTF-8");
 			
 		} catch (MalformedURLException e) {
