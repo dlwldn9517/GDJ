@@ -21,7 +21,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 
-public class Main {
+public class Main1_XML {
 	
 	// 요청 (어떤 데이터를 (처리)달라고 요청하는 것)
 	// 클라이언트 → 서버
@@ -113,7 +113,7 @@ public class Main {
 		// API로부터 전달받은 xml 데이터
 		String response = sb.toString();
 		
-		// xml File 생성
+		// XML File 생성
 		File file = new File("C:\\storage", "api1.xml");
 		try {
 			BufferedWriter bw = new BufferedWriter(new FileWriter(file));
@@ -133,7 +133,7 @@ public class Main {
 		// XML File 생성
 		File file = new File("C:\\storage", "api1.xml");
 		
-		// xml 분석
+		// XML 분석
 		try {
 			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder builder = factory.newDocumentBuilder();
@@ -308,7 +308,7 @@ public class Main {
 	
 	public static void m5() {
 		
-		// 기상청41_단기예보 조회서비스_오픈API활용가이드
+		// 기상청41_단기예보 조회서비스
 		
 		// 초단기 날씨 예측
 		// 오늘 날짜, 11시 기준 - 파일명 api3.xml

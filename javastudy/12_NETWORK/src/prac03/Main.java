@@ -49,7 +49,7 @@ public class Main {
 		try {
 		
 			if(con.getResponseCode() == HttpURLConnection.HTTP_OK) {
-				return readBody(con.getInputStream());	// 반환타입 : 스트림
+				return readBody(con.getInputStream());
 			} else {
 				return readBody(con.getErrorStream());
 			}
