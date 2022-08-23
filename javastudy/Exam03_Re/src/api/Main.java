@@ -53,10 +53,12 @@ public class Main {
 		String language = channel.getString("language");
 		String title = channel.getString("title");
 		String pubDate = channel.getString("pubDate");
+		bw.write(pubDate + "\n");
 		JSONObject item = channel.getJSONObject("item");
 		String author = item.getString("author");
 		String link2 = item.getString("link");
 		String category = item.getString("category");
+		bw.write(category + "\n");
 		String title2 = item.getString("title");
 		JSONObject description2 = item.getJSONObject("description");
 		JSONObject body = description2.getJSONObject("body");
@@ -69,11 +71,17 @@ public class Main {
 			String wfKor = data.getString("wfKor");
 			int wd = data.getInt("wd");
 			int hour = data.getInt("hour");
+			bw.write(hour + "시, " + temp + "도, " + wfKor + "\n");
 		}
+		
+		bw.close();
+		br.close();
+		con.disconnect();
 		
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
 		
 		
 	}
