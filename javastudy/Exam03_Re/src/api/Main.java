@@ -44,9 +44,15 @@ public class Main {
 		BufferedWriter bw = new BufferedWriter(new FileWriter(file));
 		
 		// StringBuilder에 저장된 응답(XML) 데이터를 JSON으로 변경하기
-		JSONObject obj = XML.toJSONObject(sb.toString());
-		JSONObject rss = obj.getJSONObject("rss");
-		JSONObject channel = rss.getJSONObject("channel");
+//		JSONObject obj = XML.toJSONObject(sb.toString());
+//		JSONObject rss = obj.getJSONObject("rss");
+//		JSONObject channel = rss.getJSONObject("channel");
+		
+		// 위에 3줄을 1줄로 만들었다.
+		JSONObject channel = XML.toJSONObject(sb.toString())
+							.getJSONObject("rss")
+							.getJSONObject("channel");
+		
 		String link = channel.getString("link");
 		String description = channel.getString("description");
 		String generator = channel.getString("generator");
@@ -81,8 +87,6 @@ public class Main {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		
 		
 	}
 
