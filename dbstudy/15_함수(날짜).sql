@@ -47,3 +47,31 @@ SELECT
 --     (1) 1년 후   : 12개월 후 계산, 함수 없음
 --     (2) 1개월 후 : ADD_MONTHS, 함수 사용
 --     (1) 1일 후   : +1, 함수 없음
+
+SELECT
+       SYSDATE - 1 AS 어제
+     , SYSDATE + 1 AS 내일
+     , SYSDATE - 0.5 AS "12시간전"
+     , SYSDATE + 0.5 AS "12시간후"
+     , TO_CHAR(SYSDATE - 0.5, 'MM/DD AM HH24:MI:SS') AS "12시간전"
+     , TO_CHAR(SYSDATE - 0.5, 'MM/DD AM HH24:MI:SS') AS "12시간후"
+     , TO_CHAR(SYSDATE + (1/24), 'MM/DD AM HH24:MI:SS') AS "1시간후"
+  FROM
+       DUAL; 
+
+
+-- 5. N개월 전후 날짜
+--    ADD_MONTHS(날짜, N)
+SELECT
+       ADD_MONTHS(SYSDATE, -1) AS "1개월전"
+     , ADD_MONTHS(SYSDATE, 1) AS "1개월후"
+  FROM
+       DUAL;
+       
+       
+-- 6. 경과한 개월 수
+--    MONTHS_BETWEEN(최근날짜, 이전날짜) : 두 날짜 사이의 경과한 개월 수
+SELECT
+       MONTHS_BETWEEN(SYSDATE,HIRE_DATE)
+  FROM
+       EMPLOYEE;

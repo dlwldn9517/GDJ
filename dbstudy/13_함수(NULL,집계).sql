@@ -140,23 +140,7 @@ SELECT NVL(NAME, '아무개') AS 성명
      , NVL(KOR, 0) AS 국어
      , NVL(ENG, 0) AS 영어
      , NVL(MATH, 0) AS 수학
-     , SUM(국어) + SUM(영어) + SUM(수학) AS 합계
-     , AVG(합계)
+     , NVL(KOR, 0) + NVL(ENG, 0) + NVL(MATH, 0) AS 합계
+     , (NVL(KOR, 0) + NVL(ENG, 0) + NVL(MATH, 0)) / 3 AS 평균
   FROM
-       SAMPLE
-;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+       SAMPLE;
