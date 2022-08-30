@@ -1,0 +1,12 @@
+lombok-1.18.18.jar
+
+롬복
+이클립스에 설치해야 함.
+Getter/Setter/Constructor 등을 쉽게 만들어 준다.
+
+
+설치과정
+1. 명령프롬프트 열기
+C:\Users\GDJ54> cd C:\GDJ\installer\jar
+C:\ GDJ\installer\jar > java -jar lombok-1.18.18.jar
+
