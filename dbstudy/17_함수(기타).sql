@@ -124,13 +124,13 @@ SELECT
 -- EMPOYEE_ID, HIRE_DATE(YYYY-MM-DD), 근무개월수, 퇴직금정산대상유무 조회하기
 -- 퇴직금정산대상 : 근무개월수가 240개월 이상이면 '정산대상', 아니면 빈 문자열
 SELECT
-       EMPLOYEE_ID
-     , TO_CHAR(HIRE_DATE, 'YYYY-MM-DD') 
+       EMPLOYEE_ID AS 사원번호
+     , TO_CHAR(HIRE_DATE, 'YYYY-MM-DD') AS 입사일
      , FLOOR(MONTHS_BETWEEN(SYSDATE, HIRE_DATE)) AS 근무개월수
      , CASE
             WHEN FLOOR(MONTHS_BETWEEN(SYSDATE, HIRE_DATE)) >= 240 THEN '정산대상'
             ELSE ' '
        END AS 퇴직금정산대상유무
   FROM 
-       EMPLOYEES;     
-     
+       EMPLOYEES; 
+  
