@@ -123,16 +123,18 @@ COMMIT;
     3. 조인할 때 드라이브 테이블을 드리븐 테이블보다 먼저 작성
 */
 
+
+
 -- 1. 크로스 조인 확인
 SELECT E.EMP_NO, E.NAME, E.SALARY, D.DEPT_NO, D.DEPT_NAME
-  FROM EMPLOYEE E CROSS JOIN DEPARTMENT D;
+  FROM DEPARTMENT D CROSS JOIN EMPLOYEE E;
 
 
 -- 2. 내부 조인 확인
 --    사원번호, 사원명, 부서명을 조회하기
 SELECT E.EMP_NO, E.NAME, D.DEPT_NAME
-  FROM EMPLOYEE E INNER JOIN DEPARTMENT D
-    ON E.DEPART = D.DEPT_NO;
+  FROM DEPARTMENT D INNER JOIN EMPLOYEE E
+    ON D.DEPT_NO = E.DEPART;
 
 
 -- 3. 외부 조인 확인
@@ -144,9 +146,12 @@ SELECT E.EMP_NO, E.NAME, D.DEPT_NAME
 --    모두 포함시킬 사원테이블을 OUTER JOIN의 왼쪽/오른쪽에 두느냐에 따라
 --    왼쪽 외부 조인/오른쪽 외부 조인으로 구분함
 
+-- DRIVE/DRIVEN 테이블이 잘못 지정된 조인
 SELECT E.EMP_NO, E.NAME, D.DEPT_NAME
   FROM EMPLOYEE E LEFT OUTER JOIN DEPARTMENT D  -- 왼쪽의 EMPLOYEE 테이블은 모두 조회
     ON E.DEPART = D.DEPT_NO;
+
+-- DRIVE/DRIVEN 테이블이 잘 지정된 조인
 
 SELECT E.EMP_NO, E.NAME, D.DEPT_NAME
   FROM DEPARTMENT D RIGHT OUTER JOIN EMPLOYEE E  -- 오른쪽의 EMPLOYEE 테이블은 모두 조회
