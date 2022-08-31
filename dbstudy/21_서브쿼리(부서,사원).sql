@@ -278,5 +278,3 @@ SELECT A.EMP_NO, A.NAME, A.POSITION
          WHERE DEPART = 1) A;   -- 인라인뷰의 별명은 A
          
 
-
-  
