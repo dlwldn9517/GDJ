@@ -159,8 +159,36 @@ SELECT
        EMPLOYEES E INNER JOIN EMPLOYEES M
     ON 
        E.MANAGER_ID = M.EMPLOYEE_ID
-
+ WHERE
+       TO_DATE(E.HIRE_DATE) < TO_DATE(M.HIRE_DATE);
 
 
 -- 10. 같은 부서의 사원들 중에서 나보다 늦게 입사하였으나 연봉을 더 많이 받는 사원이 있는 사원들의
 --     DEPARTMENT_ID, LAST_NAME, SALARY, HIRE_DATE와 높은 연봉을 받는 사원의 LAST_NAME, SALARY, HIRE_DATE를 조회하시오.
+
+-- 비교 대상
+-- 1) 나 : EMPLOYEES ME
+-- 2) 남 : EMPLOYEES YOU
+
+-- 조인조건
+-- ME.DEPARTMENT_ID = YOU.DEPARTMENT_ID
+
+SELECT 
+       ME.DEPARTMENT_ID     -- 내 부서번호
+     , ME.LAST_NAME         -- 내 이름
+     , ME.SALARY            -- 내 급여
+     , ME.HIRE_DATE         -- 내 입사일
+     , YOU.DEPARTMENT_ID    -- 남 부서번호
+     , YOU.LAST_NAME        -- 남 이름
+     , YOU.SALARY           -- 남 급여
+     , YOU.HIRE_DATE        -- 남 입사일
+  FROM 
+       EMPLOYEES ME INNER JOIN EMPOYEES YOU
+    ON 
+       ME.DEPARTMENT_ID = YOU.DEPARTMENT_ID
+ WHERE
+       TO_DATE(ME.HIRE_DATE) < TO_DATE(YOU.HIRE_DATE)
+
+
+
+
