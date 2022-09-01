@@ -197,9 +197,3 @@ BEGIN
      DBMS_OUTPUT.PUT_LINE('연봉 ' || SAL || '은 ' || RES || '입니다.');
 END;  
     
-    
-    
-    
-    
-    
-    
