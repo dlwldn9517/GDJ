@@ -74,14 +74,78 @@ SELECT COUNTRY_ID, COUNTRY_NAME
     
 -- 6. MANAGER가 아닌 사원들의 EMPLOYEE_ID, FIRST_NAME을 조회하시오.
 
+-- MANAGER가 아닌 사원 : EMPLOYEE_ID가 MANAGER_ID에 없는 사원
+
+-- 서브쿼리 : MANAGER_ID의 중복 제거 결과(MANAGER의 번호 모아두기)
+-- 메인쿼리 : SELECT 칼럼 FROM 테이블 WHERE EMPLOYEE_ID NOT IN(서브쿼리)
+
+-- 서브쿼리의 결과가 NULL을 포함하면 메인쿼리가 동작하지 않는다.
+
+SELECT EMPLOYEE_ID, FIRST_NAME
+  FROM EMPLOYEES
+ WHERE EMPLOYEE_ID NOT IN (SELECT DISTINCT MANAGER_ID
+                             FROM EMPLOYEES
+                            WHERE MANAGER_ID IS NOT NULL);
 
 -- 7. 근무하는 CITY가 'Southlake'인 사원들의 EMPLOYEE_ID, FIRST_NAME를 조회하시오.
+
+-- 관계
+-- LOCATIONS         - DEPARTMENTS                - EMPLOYEES
+-- CITY, LOCATION_ID - LOCATION_ID, DEPARTMENT_ID - DEPARTMENT_ID, EMPLOYEE_ID, FIRST_NAME
+--       (PK)               (FK)        (PK)            (FK)
+
+SELECT E.EMPLOYEE_ID, E.FIRST_NAME, L.CITY
+  FROM LOCATIONS L, DEPARTMENTS D, EMPLOYEES E
+ WHERE L.LOCATION_ID = D.LOCATION_ID
+   AND D.DEPARTMENT_ID = E.DEPARTMENT_ID
+   AND L.CITY = 'Southlake';
+
+-- 2) 서브쿼리
+
+
+
 
 
 -- 8. 가장 많은 사원이 근무 중인 부서의 DEPARTMENT_ID와 근무 인원 수를 조회하시오.
 
+-- 가장 많은 사원이 근무 중인 부서 : 부서별 사원수를 구해야 알 수 있다. → GROUP BY
+
+-- 조건 : 근무중인 사원수 = 최대사원수
+-- HAVING절, 집계함수를 이용한 조건은 HAVING절만 가능하다.
+
+SELECT DEPARTMENT_ID, COUNT(*)
+  FROM EMPLOYEES
+ WHERE DEPARTMENT_ID IS NOT NULL
+ GROUP BY DEPARTMENT_ID
+HAVING COUNT(*) = (SELECT MAX(COUNT(*))
+                     FROM EMPLOYEES
+                    GROUP BY DEPARTMENT_ID);
+
+-- PARTITION BY를 활용
+
 
 -- 9. 전체 사원 중 최대 연봉을 받는 사원의 EMPLOYEE_ID, FIRST_NAME, SALARY를 조회하시오.
 
+-- 인라인뷰 A : 최대 연봉이 맨 위에 있는 테이블
+-- 인라인뷰 B : 연봉순으로 정렬된 테이블에 행 번호를 부착시켜 둔 테이블
+-- 최종결과 : 인라인뷰 B에서 행 번호(RN)가 1인 행 조회
+
+SELECT B.EMPLOYEE_ID, B.FIRST_NAME, B.SALARY
+  FROM (SELECT ROWNUM AS RN, A.EMPLOYEE_ID, A.FIRST_NAME, A.SALARY
+          FROM (SELECT EMPLOYEE_ID, FIRST_NAME, SALARY
+                  FROM EMPLOYEES
+                 ORDER BY SALARY DESC) A) B
+ WHERE B.RN BETWEEN 1 AND 1;
+
 
 -- 10. 연봉 TOP 11 ~ 20 사원의 EMPLOYEE_ID, FIRST_NAME, SALARY를 조회하시오.
+
+-- 인라인뷰 A : 연봉순으로 정렬된 뒤 행 번호(RN)가 부착된 테이블
+
+
+SELECT A.EMPLOYEE_ID, A.FIRST_NAME, A.SALARY
+  FROM (SELECT ROW_NUMBER() OVER(ORDER BY SALARY DESC) AS RN, EMPLOYEE_ID, FIRST_NAME, SALARY
+          FROM EMPLOYEES) A
+ WHERE A.RN BETWEEN 11 AND 20;
+
+
