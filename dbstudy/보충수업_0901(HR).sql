@@ -102,8 +102,13 @@ SELECT E.EMPLOYEE_ID, E.FIRST_NAME, L.CITY
 
 -- 2) 서브쿼리
 
-
-
+SELECT EMPLOYEE_ID, FIRST_NAME
+  FROM EMPLOYEES
+ WHERE DEPARTMENT_ID IN(SELECT DEPARTMENT_ID
+                          FROM DEPARTMENTS
+                         WHERE LOCATION_ID IN(SELECT LOCATION_ID
+                                                FROM LOCATIONS
+                                               WHERE CITY = 'Southlake'));  -- CITY는 PK/UNIQUE 아니므로 다중 행 서브쿼리
 
 
 -- 8. 가장 많은 사원이 근무 중인 부서의 DEPARTMENT_ID와 근무 인원 수를 조회하시오.
@@ -123,7 +128,12 @@ HAVING COUNT(*) = (SELECT MAX(COUNT(*))
 
 -- PARTITION BY를 활용
 
-
+SELECT B.DEPARTMENT_ID, B.CNT
+  FROM (SELECT A.DEPARTMENT_ID, A.CNT
+          FROM (SELECT DISTINCT DEPARTMENT_ID, COUNT(*) OVER(PARTITION BY DEPARTMENT_ID) AS CNT
+                  FROM EMPLOYEES) A
+        ORDER BY CNT DESC) B
+ WHERE ROWNUM = 1;
 
 
 -- 9. 전체 사원 중 최대 연봉을 받는 사원의 EMPLOYEE_ID, FIRST_NAME, SALARY를 조회하시오.

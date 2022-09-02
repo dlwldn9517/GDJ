@@ -280,17 +280,65 @@ BEGIN
         EMP_NO := EMP_NO + 1;
     END LOOP;
 END;
+
+
+-- 8. FOR문
+/*
+    FOR 변수 IN 시작..종료 LOOP
+        실행문
+    END LOOP;
+*/
+    
+-- 1) 1 ~ 5
+DECLARE
+    FOR N IN 1..5 LOOP
+        DBMS_OUTPUT.PUT_LINE(N);
+    END LOOP;
+END;
+
+-- 2) 짝수 / 홀수
+DECLARE
+    N NUMBER;
+    MODULAR NUMBER(1);   -- 2로 나눈 나머지 값을 저장
+    RESULT VARCHAR2(10 BYTE);
+BEGIN
+    FOR N IN 1..10 LOOP
+        SELECT MOD(N, 2)
+          INTO MODULAR
+          FROM DUAL;
+        IF MODULAR = 0 THEN
+            RESULT := '짝수';
+        ELSE
+            RESULT := '홀수';
+        END IF;
+        DBMS_OUTPUT.PUT_LINE(N || '은 ' || RESULT || '입니다.');
+    END LOOP;
+END;
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
+-- 3) EMPLOYEES 테이블의 모든 사원의 연봉합계 / 연봉평균 조회하기   
+DECLARE
+    EMP_NO EMPLOYEES.EMPLOYEE_ID%TYPE;
+    SAL EMPLOYEES.SALARY%TYPE;
+    TOTAL NUMBER;
+    CNT NUMBER;
+    AVERAGE NUMBER;
+BEGIN
+    TOTAL := 0;
+    CNT := 0;
+    FOR EMP_NO IN 100..206 LOOP
+        SELECT SALARY
+          INTO SAL
+          FROM EMPLOYEES
+         WHERE EMPLOYEE_ID = EMP_NO;
+        TOTAL := TOTAL + SAL;
+        CNT := CNT + 1;
+    END LOOP;
+    AVERAGE := TOTAL / CNT;
+    DBMS_OUTPUT.PUT_LINE('연봉합계 : ' || TOTAL);
+    DBMS_OUTPUT.PUT_LINE('연봉평균 : ' || AVERAGE);
+END;
+
     
     
     
