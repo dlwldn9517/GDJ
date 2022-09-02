@@ -124,6 +124,8 @@ HAVING COUNT(*) = (SELECT MAX(COUNT(*))
 -- PARTITION BY를 활용
 
 
+
+
 -- 9. 전체 사원 중 최대 연봉을 받는 사원의 EMPLOYEE_ID, FIRST_NAME, SALARY를 조회하시오.
 
 -- 인라인뷰 A : 최대 연봉이 맨 위에 있는 테이블
@@ -142,10 +144,7 @@ SELECT B.EMPLOYEE_ID, B.FIRST_NAME, B.SALARY
 
 -- 인라인뷰 A : 연봉순으로 정렬된 뒤 행 번호(RN)가 부착된 테이블
 
-
 SELECT A.EMPLOYEE_ID, A.FIRST_NAME, A.SALARY
   FROM (SELECT ROW_NUMBER() OVER(ORDER BY SALARY DESC) AS RN, EMPLOYEE_ID, FIRST_NAME, SALARY
           FROM EMPLOYEES) A
  WHERE A.RN BETWEEN 11 AND 20;
-
-
