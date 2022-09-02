@@ -17,3 +17,20 @@
         END 프로시저_이름;
 
 */
+
+-- 프로시저 PROC1 정의(만들기)
+CREATE OR REPLACE PROCEDURE PROC1
+IS
+    NAME VARCHAR2(10 BYTE);
+BEGIN
+    NAME := '손석구';
+    DBMS_OUTPUT.PUT_LINE(NAME);
+END PROC1;
+
+-- 프로시저 PROC1 호출(실행)
+EXECUTE PROC1();
+
+
+
+
+
