@@ -339,9 +339,123 @@ BEGIN
     DBMS_OUTPUT.PUT_LINE('연봉평균 : ' || AVERAGE);
 END;
 
+
+-- 4) DEPARTMENT_ID가 50인 사원정보를 DEPT50 테이블에 복사하기
+--  (1) EMPLOYEES와 구조가 동일한 DEPT50 테이블 생성
+--  (2) 행 변수를 이용해 EMPLOYEES 정보 읽기
+--  (3) 행 변수의 DEPARTMENT_ID가 50이면 DEPT50에 INSERT
+
+CREATE TABLE DEPT50
+        AS (SELECT * FROM EMPLOYEES WHERE 1 = 2);
+
+DECLARE
+    V_ROW EMPLOYEES%ROWTYPE;
+BEGIN
+    FOR V_ROW IN(SELECT * FROM EMPLOYEES) LOOP
+        IF V_ROW.DEPARTMENT_ID = 50 THEN
+            INSERT INTO DEPT50 VALUES V_ROW;
+        END IF;
+    END LOOP;
+    COMMIT;
+
     
+-- 9. EXIT문
+-- LOOP 종료
+DECLARE
+    N NUMBER;
+BEGIN
+    N := 1;
+    WHILE TRUE LOOP
+        IF N > 100 THEN
+            EXIT;
+        END IF;
+        N := N + 1;
+    END LOOP;
+    DBMS_OUTPUT.PUT_LINE(N);
+END;
+
+
+-- 10. CONTINUE문
+-- LOOP문의 시작부터 다시 시작
+
+-- DEPARTMENT_ID가 50인 사원을 제외하고 연봉합계 조회하기
+
+DECLARE
+    EMP_ID EMPLOYEES.EMPLOYEE_ID%TYPE;
+    SAL EMPLOYEES.SALARY%TYPE;
+    DEPT_ID EMPLOYEES.DEPARTMENT_ID%TYPE;
+    TOTAL NUMBER;
+BEGIN
+    TOTAL := 0;
+    FOR EMP_ID IN 100..206 LOOP
+        SELECT SALARY, DEPARTMENT_ID
+          INTO SAL, DEPT_ID
+          FROM EMPLOYEES
+         WHERE EMPLOYEE_ID = EMP_ID;
+        IF DEPT_ID = 50 THEN
+            CONTINUE;
+        END IF;
+        TOTAL := TOTAL + SAL;
+    END LOOP;
+    DBMS_OUTPUT.PUT_LINE('연봉합계 : ' || TOTAL);
+END;
+
+
+-- 11. 배열 선언하기
+-- 테이블 타입 : 특정 칼럼의 모든 데이터를 배열에 저장
+
+DECLARE
+
+    -- SALARY 칼럼의 모든 값을 저장할 배열 생성
     
+    -- 배열의 타입 정의
+    TYPE SALARY_TYPE IS TABLE OF EMPLOYEES.SALARY%TYPE INDEX BY BINARY_INTEGER;
     
+    -- 배열의 선언
+    SALARIES SALARY_TYPE;
     
+    -- 인덱스 선언
+    I BINARY_INTEGER;
     
+    -- 행(Row) 변수 선언
+    V_ROW EMPLOYEES%ROWTYPE;
     
+BEGIN
+    
+    I := 0;
+    FOR V_ROW IN(SELECT * FROM EMPLOYEES) LOOP
+        SALARIES(I) := V_ROW.SALARY;
+        I := I + 1;
+    END LOOP;
+    
+    FOR I IN 0..106 LOOP
+        DBMS_OUTPUT.PUT_LINE(SALARIES(I));
+    END LOOP;
+END;
+
+
+-- 12. 예외처리
+/*
+    EXCEPTION
+        WHEN 예외 THEN
+            예외처리
+        WHEN 예외 THEN
+            예외처리   
+        WHEN OTHERS THEN
+            예외처리
+*/
+DECLARE
+    FNAME EMPLOYEES.FIRST_NAME%TYPE;
+BEGIN
+    SELECT FIRST_NAME
+      INTO FNAME
+      FROM EMPLOYEES
+     --WHERE EMPLOYEE_ID = 0;   -- 존재하지 않는 사원 조회
+     WHERE DEPARTMENT_ID = 50;  -- 변수에 저장할 데이터가 너무 많다.
+EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+        DBMS_OUTPUT.PUT_LINE('조회된 데이터가 없음');
+    WHEN OTHERS THEN
+        DBMS_OUTPUT.PUT_LINE('예외코드 ' || SQLCODE);
+        DBMS_OUTPUT.PUT_LINE('예외메시지 ' || SQLERRM);
+END;
