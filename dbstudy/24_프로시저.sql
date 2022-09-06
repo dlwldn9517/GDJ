@@ -216,29 +216,29 @@ CREATE SEQUENCE BUY_SEQ NOCACHE;
 
 CREATE OR REPLACE PROCEDURE BUY_PROC
 (
-    C_NO IN SUSTOMER.CUST_NO%TYPE,
-    P_CODE IN PRODUCT.PROC_CODE%TYPE,
+    C_NO    IN CUSTOMER.CUST_NO%TYPE,
+    P_CODE  IN PRODUCT.PROD_CODE%TYPE,
     BUY_AMT IN BUY.BUY_AMOUNT%TYPE
 )
 IS
 BEGIN
     -- 1) 구매 테이블에 구매 내역을 INSERT 한다.
-    INSERT INTO BUY(BUY_NO, CUST_NO, PROC_CODE, BUY_AMOUNT)
+    INSERT INTO BUY(BUY_NO, CUST_NO, PROD_CODE, BUY_AMOUNT)
     VALUES(BUY_SEQ.NEXTVAL, C_NO, P_CODE, BUY_AMT);
-    -- 2) 고객 테이블의 고객포인트를 UPDATE 한다. (총 구매액의 10% 적립)
+    -- 2) 고객 테이블의 고객포인트를 UPDATE 한다. (총 구매액의 10% 적립, 정수로 올림 처리)
     UPDATE CUSTOMER
-       SET CUST_POINT = CUST_POINT + CEIL((SELECT PROC_PRICE
-                                       FROM PRODUCT
-                                      WHERE PROC_CODE = P_CODE) * BUY_AMT * 0.1)
+       SET CUST_POINT = CUST_POINT + CEIL((SELECT PROD_PRICE
+                                             FROM PRODUCT
+                                            WHERE PROD_CODE = P_CODE) * BUY_AMT * 0.1)
      WHERE CUST_NO = C_NO;
     -- 3) 제품 테이블의 재고를 UPDATE 한다.
     UPDATE PRODUCT
-       SET PROC_STOCK = PROC_STOCK - BUT_AMT
+       SET PROD_STOCK = PROD_STOCK - BUY_AMT
      WHERE PROD_CODE = P_CODE;
-    -- 4) 완료
+    -- 4) 커밋
     COMMIT;
 EXCEPTION
-    -- 예외 처리 (예외 발생 시 아무 일도 없었던 것으로!)
+    -- 예외 처리(예외 발생 시 아무 일도 없었던 것으로!)
     WHEN OTHERS THEN
         DBMS_OUTPUT.PUT_LINE('예외코드 ' || SQLCODE);
         DBMS_OUTPUT.PUT_LINE('예외메시지 ' || SQLERRM);
@@ -248,14 +248,14 @@ END BUY_PROC;
 
 
 -- 구매 프로시저 호출
-EXECUTE BUY_PROC(1, 1000, 10);  -- 고객번호 1, 제품코드 1000, 구매수량 10
+EXECUTE BUY_PROC(1, 1000, 10);  -- 고객번호1, 제품코드1000, 구매수량 10
 
 -- 확인
-SELECT PROC_CODE, PROD_NAME, PROD_PRICE, PROD_STOCK
+SELECT PROD_CODE, PROD_NAME, PROD_PRICE, PROD_STOCK
   FROM PRODUCT;
 SELECT CUST_NO, CUST_NAME, CUST_POINT
   FROM CUSTOMER;
-SELECT BUY_NO, CUST_NO, PROC_CODE, BUY_AMOUNT
+SELECT BUY_NO, CUST_NO, PROD_CODE, BUY_AMOUNT
   FROM BUY;
 
 
