@@ -5,7 +5,7 @@ import java.sql.Date;
 // 게시판 1개의 정보를 담을 수 있는 객체를 생성하는 클래스
 // Bean, VO, DTO 등으로 불린다.
 
-// 테이블의 칼럼 - 1:1로 변수로 매칭 (가급적 칼럼이름 = 변수이름)
+// 테이블의 칼럼을 1:1로 변수로 매칭 (가급적 칼럼이름 = 변수이름)
 // 생성자, Getter/Setter
 
 public class Board {
@@ -66,6 +66,12 @@ public class Board {
 
 	public void setCreate_date(Date create_date) {
 		this.create_date = create_date;
+	}
+
+	@Override
+	public String toString() {
+		return "Board [board_no=" + board_no + ", title=" + title + ", content=" + content + ", hit=" + hit
+				+ ", create_date=" + create_date + "]";
 	}
 	
 }
