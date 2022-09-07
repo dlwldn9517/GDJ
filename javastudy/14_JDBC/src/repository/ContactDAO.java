@@ -9,6 +9,8 @@ import java.util.Properties;
 
 public class ContactDAO {
 	
+	/***************** Singleton *****************/
+	
 	// DAO는 하나의 객체만 생성할 수 있도록
 	// Singleton Pattern으로 생성
 	
@@ -30,7 +32,7 @@ public class ContactDAO {
 	}
 	
 	
-	/************************************ Field ************************************/
+	/***************** Field *****************/
 	
 	// 데이터베이스에 접근할 때 사용하는 공통 요소
 	private Connection con;
@@ -38,7 +40,7 @@ public class ContactDAO {
 	private ResultSet rs;
 	
 	
-	/************************************ Method ************************************/
+	/***************** Method *****************/
 	
 	// 모든 데이터베이스 작업 (CRUD : CREATE / READ / UPDATE / DELETE)의 공통 작업은 2가지
 	// 1. Connection 객체 생성
