@@ -27,10 +27,10 @@ public class SelectOneMain2 {
 			
 			rs = ps.executeQuery();
 			
-			if(rs.next()) {
-				/*
-				 	| 총개수 |
-				 	|    3   |	← rs.next() 호출로 인해 현재 rs 포인터의 위치
+			if(rs.next()) {		// 단일행-상세보기 Board 일때 사용  (while은 다중행-목록보기 List<Board>)
+				/*																	List<Board> boards = new ArrayList<>();
+				 	| 총개수 |														Board board = new Board();
+				 	|    3   |	← rs.next() 호출로 인해 현재 rs 포인터의 위치		boards.add(board);
 				 	
 				 	rs.getInt("총개수")
 				 		또는
