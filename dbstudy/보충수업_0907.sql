@@ -243,7 +243,9 @@ SELECT C.CUSTOMER_NAME AS 고객명
      , B.PRICE AS 책가격
   FROM BOOK B LEFT OUTER JOIN ORDERS O
     ON B.BOOK_ID = O.BOOK_ID LEFT OUTER JOIN CUSTOMER C
-    ON C.CUSTOMER_ID = O.CUSTOMER_ID;
+    ON C.CUSTOMER_ID = O.CUSTOMER_ID
+ WHERE B.PRICE = (SELECT MAX(PRICE)
+                    FROM BOOK);
 
 
 -- 12. 총구매액이 2~3위인 고객의 이름와 총구매액을 조회하시오.
@@ -252,4 +254,16 @@ SELECT C.CUSTOMER_NAME AS 고객명
 -- 추신수  86000
 -- 장미란  62000
 
+SELECT B.고객명
+     , B.총구매액
+  FROM (SELECT ROWNUM AS ROW_NUM
+             , A.고객명
+             , A.총구매액
+          FROM (SELECT C.CUSTOMER_NAME AS 고객명
+                     , SUM(B.PRICE * O.AMOUNT) AS 총구매액
+                  FROM CUSTOMER C INNER JOIN ORDERS O
+                    ON C.CUSTOMER_ID = O.CUSTOMER_ID INNER JOIN BOOK B
+                    ON B.BOOK_ID = O.BOOK_ID
+                 GROUP BY C.CUSTOMER_ID, C.CUSTOMER_NAME) A) B
+ WHERE B.ROW_NUM BETWEEN 2 AND 3;
 
