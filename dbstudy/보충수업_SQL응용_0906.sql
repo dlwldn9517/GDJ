@@ -168,8 +168,6 @@ EXCEPTION
     
 END MY_PROC;
 
-    
-
 -- 2) 호출
 EXECUTE MY_PROC(101);
 
