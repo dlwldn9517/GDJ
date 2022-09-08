@@ -26,13 +26,23 @@ public class ContactServiceImpl implements ContactService {
 
 	@Override
 	public void modifyContact(ContactDTO contact) {
-		// TODO Auto-generated method stub
+		int result = dao.updateContact(contact);
+		if(result > 0) {
+			System.out.println("연락처가 수정되었습니다.");
+		} else {
+			System.out.println("연락처 수정이 실패했습니다.");
+		}
 
 	}
 
 	@Override
 	public void deleteContact(int contact_no) {
-		// TODO Auto-generated method stub
+		int result = dao.deleteContact(contact_no);
+		if(result > 0) {
+			System.out.println("연락처가 삭제되었습니다.");
+		} else {
+			System.out.println("연락처 삭제가 실패했습니다.");
+		}
 
 	}
 
