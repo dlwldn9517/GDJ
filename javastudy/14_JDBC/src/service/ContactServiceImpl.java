@@ -1,5 +1,7 @@
 package service;
 
+import java.util.List;
+
 import domain.ContactDTO;
 import repository.ContactDAO;
 
@@ -48,13 +50,24 @@ public class ContactServiceImpl implements ContactService {
 
 	@Override
 	public void findContactByNo(int contact_no) {
-		// TODO Auto-generated method stub
-
+		ContactDTO contact = dao.selectContactByNo(contact_no);
+		if(contact == null) {
+		   System.out.println("조회된 연락처가 없습니다.");
+		} else {
+		   System.out.println(contact);
+		}
 	}
 
 	@Override
 	public void findAllContacts() {
-		// TODO Auto-generated method stub
+		 List<ContactDTO> contacts = dao.selectAllContacts();
+	      if(contacts.isEmpty()) {
+	         System.out.println("저장된 연락처가 없습니다.");
+	      } else {
+	         for(ContactDTO contact : contacts) {
+	            System.out.println(contact);
+	         }
+	      }
 
 	}
 

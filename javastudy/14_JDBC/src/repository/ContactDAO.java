@@ -35,6 +35,11 @@ public class ContactDAO {
 		return contactDAO;
 	}
 	
+	//static 메소드는 static끼리만 놀 수 있음
+	
+	// 패턴 1,2 에 왜 static 붙는지 알기
+		
+	//패턴2 때문에 객체를 이용한 메소드 호출안됨
 	
 	/***************** Field *****************/
 	
@@ -90,7 +95,7 @@ public class ContactDAO {
 			ps.setString(1, contact.getName());
 			ps.setString(2, contact.getTel());
 			ps.setString(3, contact.getEmail());
-			return ps.executeUpdate();
+			return ps.executeUpdate();     // 실패여부를 0,1로 반환함 
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -109,9 +114,10 @@ public class ContactDAO {
 		
 		try {
 			con = getConnection();
-			sql = "UPDATE CONTACT SET NAME = ?, TEL = ?, EMAIL = ? WHERE CONTACT_NO = ?";
+			sql = "UPDATE CONTACT SET NAME = ?, TEL = ?, EMAIL = ? WHERE CONTACT_NO = ?";   //WHERE없으면 모든 연락처가 바뀜
 			ps = con.prepareStatement(sql);
 			ps.setString(1, contact.getName());
+			// ContactDTO contact 수정할 내용은 여기에 다 들어있어야됨
 			ps.setString(2, contact.getTel());
 			ps.setString(3, contact.getEmail());
 			ps.setInt(4, contact.getContact_no());
@@ -162,6 +168,8 @@ public class ContactDAO {
 			ps = con.prepareStatement(sql);
 			ps.setInt(1, contact_no);
 			rs = ps.executeQuery();
+			
+			//int contact_no는 pk라서 한 번만 조회하면 됨 → if 사용하기
 			if(rs.next()) {		// 조회 결과가 있으면
 				contact = new ContactDTO();
 				contact.setContact_no(rs.getInt(1));
