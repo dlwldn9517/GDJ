@@ -24,7 +24,7 @@ public class ContactDAO {
 	
 	// Singleton 패턴 - 2
 	// 외부에서는 ContactDAO 객체를 못 만들도록 제한한다.
-	// private 생성자
+	// private 생성자를 이용한다.
 	private ContactDAO() {
 		
 	}
@@ -219,22 +219,6 @@ public class ContactDAO {
 		}
 		
 		return contacts;
-	}
-
-	
-	public static void main(String[] args) {
-		
-		try {
-			
-			ContactDAO dao = ContactDAO.getInstance();
-			Connection con = dao.getConnection();
-			
-			System.out.println("접속 성공");
-			
-		} catch (Exception e) {
-			System.out.println("오류");
-		}
-		
 	}
 	
 }
