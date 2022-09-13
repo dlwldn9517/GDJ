@@ -115,5 +115,29 @@
         품종   : 부사<br>
     </p>
 
+    <hr>
+
+<!-- 
+    이미지 맵 
+
+    1. 이미지 일부에 링크를 생성
+    2. <img> 태그와 <map> 태그를 사용
+    3. 사용방법
+        <img src="이미지경로" usemap="#map이름">
+        <map name="맵이름">
+            <area shape="모양" href="링크경로" coords="좌표">
+        </map>
+        1) shape 속성 : rect(사각형 링크), circle(원 링크)
+        2) coords 속성
+            <area shape="rect"   coords="시작x, 시작y, 종료x, 종료y">
+            <area shape="circle" coords="중심x, 중심y, 반지름">
+-->
+
+<img usemap="#domino_event" src="../../images/dominopizza.jpg">
+<map name="domino_event">
+    <area shape="rect" href="https://web.dominos.co.kr/goods/list?dsp_ctgr=C0101" coords="300, 2015, 900, 2170">
+    <area shape="circle" href="http://web.dominos.co.kr/main" coords="820, 640, 80">
+</map>
+
 </body>
 </html>
