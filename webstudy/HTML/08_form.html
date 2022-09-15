@@ -217,5 +217,31 @@
         </fieldset>
     </form>
 
+    <!-- 네이버 검색창 -->
+    <form action="https://search.naver.com/search.naver"
+          method="get">
+        <!-- hidden -->
+        <input type="hidden" name="where" value="nexearch">
+        <input type="hidden" name="sm" value="top_hty">
+        <input type="hidden" name="fbm" value="0">
+        <input type="hidden" name="ie" value="utf8">
+        <!-- 검색창 -->
+        <input type="text" name="query">
+        <button>검색</button>
+    </form>
+
+    <!-- 다음 검색창 -->
+    <form action="https://search.daum.net/search"
+          method="get">
+        <!-- hidden -->
+        <input type="hidden" name="nil_suggest" value="btn">
+        <input type="hidden" name="w" value="tot">
+        <input type="hidden" name="DA" value="SBC">
+        <input type="hidden" name="q" value="날씨">
+        <!-- 검색창 -->
+        <input type="text" name="query">
+        <button>검색</button>
+    </form>
+
 </body>
 </html>
