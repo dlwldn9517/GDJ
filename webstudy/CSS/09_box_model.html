@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <style>
+        .box1 {
+            /* 너비 */ width: 100px;
+            /* 높이 */ height: 100px;
+            /* 배경 */ background-color: lightgreen;
+        }
+        .box2 {
+            /* 인라인 요소 (span, a 등)는 너비/높이 적용 불가 */
+            width: 100px;
+            height: 100px;
+            background-color: pink;
+        }
+    </style>
+    <div class="box1">BOX1</div>
+    <span class="box2">BOX2</span>
+
+    <hr>
+    
+    <style>
+        .wrap {
+            width: 200px;
+            height: 200px;
+        }
+        .wrap > .box3 {
+            /* 자식 : %의 기준은 부모의 크기 */
+            width: 50%;
+            height: 50%;
+            background-color: aquamarine;
+        }
+        .wrap > .box4 {
+            /* 자식 : %의 기준은 부모의 크기 */
+            width: 25%;
+            height: 25%;
+            background-color: rosybrown;
+        }
+    </style>
+    <div class="wrap">
+        <div class="box3">BOX3</div>
+        <div class="box4">BOX4</div>
+    </div>
+
+</body>
+</html>
