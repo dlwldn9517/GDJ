@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" contnt="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <style>
+        div {
+            box-sizing: border-box;
+            border: 1px solid gray;
+        }
+    </style>
+
+    <style>
+        /* 박스크기 = 이미지크기 */
+        .box1 {
+            width: 100px;
+            height: 76px;
+            background-image: url(../../images/attach.png);
+            background-size: 100px 76px;   /* 너비 높이 순 */
+        }
+    </style>
+    <div class="box1"></div>
+
+    <hr>
+
+    <style>
+        /* 박스 > 이미지 */
+        .box2 {
+            width: 200px;
+            height: 152px;
+            background-image: url(../../images/attach.png);
+            background-repeat: repeat;   /* 디폴트 */
+        }
+    </style>
+    <div class="box2"></div>
+
+    <hr>
+
+    <style>
+        /* 박스 > 이미지 */
+        .box3 {
+            width: 200px;
+            height: 152px;
+            background-image: url(../../images/attach.png);
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+    </style>
+    <div class="box3"></div>
+
+    <hr>
+
+    <style>
+        /* 박스 < 이미지 */
+        .box4 {
+            width: 50px;
+            height: 38px;
+            background-image: url(../../images/attach.png);
+        }
+    </style>
+    <div class="box4"></div>
+
+    <hr>
+
+    <style>
+        .box5 {
+            /* 박스 < 이미지 */
+            width: 100px;
+            height: 38px;
+            background-image: url(../../images/attach.png);
+            background-repeat: no-repeat;
+            background-size: contain;   /* 너비/높이 중 작은 값에 맞춘다. */ 
+        }
+    </style>
+    <div class="box5"></div>
+
+    <hr>
+
+    <style>
+        .box6 {
+            /* 박스 < 이미지 */
+            width: 100px;
+            height: 38px;
+            background-image: url(../../images/attach.png);
+            background-repeat: no-repeat;
+            background-size: cover;   /* 너비/높이 중 큰 값에 맞춘다. */ 
+        }
+    </style>
+    <div class="box6"></div>
+
+    <hr>
+
+    <style>
+        .box7 {
+            width: 140px;
+            height: 120px;
+            background-image: url(../../images/logos.png);
+            background-position: left -300px top 0px;     /* -는 위, +는 아래 */
+        }
+    </style>
+    <div class="box7"></div>
+    
+</body>
+</html>
