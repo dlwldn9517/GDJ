@@ -112,7 +112,7 @@
             width: 960px;
             height: 640px;
             background-image: url(../../images/eiffeltower.jpg);
-            background-size: 100% 100%;   /* 박스 크기 기준 */
+            background-size: 100% 100%;   /* 박스 크기를 사진 크기 기준에 맞춰서 보여준다 */
             background-blend-mode: multiply;
             background-color: gray;
         }
@@ -147,28 +147,29 @@
     <hr>
 
     <style>
-        .box10 {
-            width: 960px;
-            height: 640px;
-            background-image: url(../../images/eiffeltower.jpg);
-            background-size: 100% 100%;   /* 박스 크기 기준 */
-            margin: 0 auto 30px auto;
-            background-blend-mode: multiply;
-        }
-        .box11 {
-            width: 960px;
-            height: 70px;
-            background-color: lightblue;
-            border: 5px solid royalblue;
+        .img_box {
+            box-sizing: border-box;
+            width: 640px;
+            height: 480px;
             margin: 0 auto;
+            background-image: url(../../images/eiffeltower.jpg);
+            background-size: 100% 100%;
+        }
+        .img_desc {
+            box-sizing: border-box;
+            width: 640px;
+            margin: 20px auto;
+            padding: 10px 0;  /* height 없이 상하padding을 통해 세로 가운데 정렬 */
+            /* height를 안주면 글자선에 맞춰서 생긴다. */ 
+            border: 5px solid royalblue;
             border-radius: 10px;
+            background-color: lightblue;
             font-size: 25px;
             text-align: center;
-            padding-top: 12px;
         }
     </style>
-    <div class="box10"></div>
-    <div class="box11">에펠탑</div>
+    <div class="img_box"></div>
+    <div class="img_desc">에펠탑</div>
     
 </body>
 </html>
