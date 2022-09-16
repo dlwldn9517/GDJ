@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <style>
+        /* 1. 태그 선택자 */
+        h1 {
+            color: cornflowerblue;
+        }
+    </style> 
+    <h1>Hello CSS</h1>   
+    
+    <hr>
+
+    <style>
+        /* 2. 클래스 선택자 */
+        .box {
+            color: lightpink;
+        }
+    </style>
+    <div class="box">Nice to meet you</div>
+
+    <hr>
+
+    <style>
+        /*  3. 아이디 선택자 */
+        #hello {
+            color: darkcyan;
+        }
+    </style>
+    <div id="hello">How are you?</div>
+
+    <hr>
+
+    <style>
+        /* 4. 자식 선택자 */
+        ul > li {
+            color: orange;
+        }
+        ul > li > a {
+            color: red;
+            text-decoration: none;  /* 밑줄 없애기 */
+        }
+        ul > a {
+            /* 잘못된 접근 */
+            color: black;
+        }
+    </style>
+
+    <!-- <ul>의 자식 <li>, <ul>의 후손 <a> -->
+    <ul>
+        <li>
+            <a href="01_internal.html">01_internal.html</a>
+        </li>
+        <li>
+            <a href="02_external.html">02_external.html</a>
+        </li>
+        <li>
+            <a href="03_inline.html">03_inline.html</a>
+        </li>
+    </ul>
+
+</body>
+</html>
