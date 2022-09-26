@@ -63,9 +63,11 @@
         // 8시간 초과 근무 : 시급 * 1.5
         // 10시간 근무하면 일급 얼마?
 
-        var sal = 9160
-        console.log(sal * 8 + sal * 1.5);
-
+        var payPerHour = 9160;   // const payPerHour = 9160;
+        var workTime = 10;
+        var regular = payPerHour * workTime;  // 기본급여
+        var extra = (workTime <= 8) ? 0 : (workTime - 8) * payPerHour * 0.5;   // 초과급여
+        console.log(regular + extra);
 
     </script>
 </body>
