@@ -22,6 +22,25 @@
     </div>
     <script>
         // 국어, 영어, 수학 점수를 차례대로 입력 받아서 평균, 학점(A ~ F) 출력하기
+        var kor = Number(prompt('국어 점수를 입력하시오.'));
+        var eng = Number(prompt('영어 점수를 입력하시오.'));
+        var mat = Number(prompt('수학 점수를 입력하시오.'));
+        var avg = (kor + eng + mat) / 3;
+        var grade;
+        if(avg >= 90) {
+            grade = 'A';
+        } else if(avg >= 80) {
+            grade = 'B';
+        } else if(avg >= 70) {
+            grade = 'C';
+        } else if(avg >= 60) {
+            grade = 'D';
+        } else {
+            grade = 'F';
+        }
+        document.getElementById('ave').textContent = avg;
+        document.getElementById('grd').textContent = grade;
+
     </script>
     
 </body>
