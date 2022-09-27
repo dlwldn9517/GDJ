@@ -21,11 +21,19 @@
         <div>학점 : <span id="grd"></span></div>
     </div>
     <script>
+
         // 국어, 영어, 수학 점수를 차례대로 입력 받아서 평균, 학점(A ~ F) 출력하기
+
+        // 입력
         var kor = Number(prompt('국어 점수를 입력하시오.'));
         var eng = Number(prompt('영어 점수를 입력하시오.'));
         var mat = Number(prompt('수학 점수를 입력하시오.'));
+
+        // 평균
         var average = (kor + eng + mat) / 3;
+
+        // 학점(if)
+        /*
         var grade;
         if(average >= 90) {
             grade = 'A';
@@ -38,6 +46,31 @@
         } else {
             grade = 'F';
         }
+        */
+
+        // 학점(switch) : 스위치를 사용하는 이유? 가독성이 좋아서
+        /*
+        switch( parseInt(average / 10)) {
+        case 10:
+        case 9: grade = 'A'; break;
+        case 8: grade = 'B'; break;
+        case 7: grade = 'C'; break;
+        case 6: grade = 'D'; break;
+        default: grade = 'F';
+        }
+        */
+
+        // 학점 (switch) : 자바스크립트의 switch는 관계 연산자 사용 가능
+        // switch(true) : switch문을 실행하시오.
+        switch(true) {
+        case average >= 90: grade = 'A'; break;   
+        case average >= 80: grade = 'B'; break;   
+        case average >= 70: grade = 'C'; break;   
+        case average >= 60: grade = 'D'; break;   
+        default: grade = 'F';
+        }
+
+        // 결과 확인
         document.getElementById('ave').textContent = average;
         document.getElementById('grd').textContent = grade;
 

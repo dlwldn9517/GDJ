@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <div id="box1"></div>
+    <script>
+        // 1 2 3 4 5
+        var n = 1;
+        while(n <= 5) {
+            
+            document.getElementById('box1').innerHTML += (n + '<br>');
+            n++;
+        }
+    </script>
+
+    <div id="box2"></div>
+    <script>
+
+        /*
+            <ul>
+                <li>1</li>
+                <li>2</li>
+                <li>3</li>
+                <li>4</li>
+                <li>5</li>
+        */
+        var ul = '<ul>';
+        var n = 1;
+        while(n <= 5) {
+            ul += ('<li>' + n + '</li>');
+            n++;
+        }
+        ul += '</ul>';
+        document.getElementById('box2').innerHTML = ul;
+
+    </script>
+
+    <div id="box3"></div>
+    <script>
+
+        /*
+            <select name="month">
+                <option value="1">1월</option>
+                ...
+                <option value="12">12월</option>
+            </select>
+        */
+        
+        var select = '<select name="month">';
+        for(let m = 1; m <= 12; m++) {                          /* for문에서는 let을 많이 사용한다. */
+            select += ('<option value="' + m + '">' + m + '월</option>');
+        }
+        select += '</select>';
+        document.getElementById('box3').innerHTML = select;
+
+    </script>
+
+    <div id="box4"></div>
+    <script>
+
+        // animal1.jpg ~ animal10.jpg
+        // width=100px 화면에 출력하기
+
+        var images = '';
+        for(let n = 1; n <= 10; n++) {
+            images += '<img src="../../images/animal' + n + '.jpg" width="100px">';
+        }
+        document.getElementById('box4').innerHTML = images;
+
+    </script>
+
+</body>
+</html>
