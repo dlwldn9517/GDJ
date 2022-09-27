@@ -119,14 +119,15 @@
     </script>
 
 
-    <div class="primary" id="area">텍스트영역</div>
+    <div class="primary" id="area">텍스트영역</div>    /* attribute */ 
     <script>
-        // 모든 속성 확인하기
-        /* 속성
-            1. HTML 태그 관점 : attribute
-            2. DOM 관점       : property
-        */ 
-        // 개발자 도구 - Elements - Properties
+        // 1. 속성
+        //     1) HTML 태그 관점 : attribute
+        //     2) DOM 관점       : property - 자바스크립트에 저장하면 property이며, 다른 이름과 다른 값을 사용하는 경우도 있다.
+        // 2. 모든 속성 확인하기
+        //    개발자도구 - Elements - Properties
+        document.getElementById('area').className = 'hahaha';    /* property */ 
+        document.getElementById('area').setAttribute('class', 'hi');
     </script>
 
 </body>
