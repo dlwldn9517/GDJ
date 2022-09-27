@@ -192,6 +192,7 @@
         */
 
         // 1. 콜백 함수 (선언적 함수)
+        /*
         function info(name, age) {
             console.log('이름 ' + name + ' 나이 ' + age + '살');
         }
@@ -199,6 +200,29 @@
             func(name,age);
         }
         introduce('손석구', 40, info);
+        */
+
+        // 2. 콜백 함수 (익명 함수) - 콜백은 익명을 자주 사용
+        function introduce(name, age, func) {
+            func(name, age);
+        }
+        introduce('손석구', 40, function(name, age) {
+            console.log('이름 ' + name + ' 나이 ' + age + '살');
+        });
+
+        // howMany 함수
+        // 첫 번째 인수 : 수행할 횟수
+        // 두 번째 인수 : 수행할 함수
+
+        // 함수 정의
+        function howMany(count, func) {
+            for(let n = 0; n < count; n++) {
+                func();
+            }
+        }
+
+        // 함수 호출
+        howMany(3, function() { console.log('Hello World'); });
 
     </script>
     
