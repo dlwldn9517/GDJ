@@ -116,8 +116,93 @@
             }
         ];
 
-        
+        // 테이블 태그
+        var table = '<table border="1"><thead><tr><td>제목</td><td>저자</td></tr>';
 
+        for(let i = 0; i < books.length; i++) {
+            table += '<tr>';
+            for(let p in books[i]) {
+                table += '<td>' + books[i][p] + '</td>';
+            }
+            table += '</tr>';
+        }
+        table += '</tbody></table>';
+
+        // 화면에 뿌리기
+        document.getElementById('box1').innerHTML = table;
+
+    </script>
+
+    <script>
+
+        /*
+            생성자 함수
+
+            1. 객체를 만드는 함수
+            2. 관례상 첫 글자를 대문자로 지정
+            3. 형식
+                function 함수명(매개변수1, 매개변수2, ...) {
+                    this.속성1 = 매개변수1;
+                    this.속성2 = 매개변수2;
+                    ...
+                }
+        */
+
+        // 생성자 함수 정의
+        function Car(model, maker) {
+            this.model = model;     // this.model이 속성 model이 존재함을 의미
+            this.maker = maker;
+        }
+
+        // 생성자 함수 호출 → 객체 생성을 의미 (new 키워드를 활용)
+        var car1 = new Car('스파크', '쉐보레');
+        var car2 = new Car('레이', '기아');
+
+        // 확인
+        console.log(car1, car2);
+
+    </script>
+
+    <script>
+
+        /*
+            프로토타입(prototype)
+
+            1. 객체들이 공유하는 하나의 메모리 공간
+            2. 공통 값, 함수 등은 프로토타입에 저장해서 메모리 공간을 아낄 수 있다.
+            3. 사용 방법
+                1) 생성자 함수 내부
+                    this.__proto__.속성 = 값
+                    this.__proto__.속성 = function(){}
+                2) 생성자 함수 외부
+                    함수명.prototype.속성 = 값
+                    함수명.prototype.속성 = function(){}
+        */
+
+        // 생성자 함수 정의
+        function Korean(name) {
+            this.name = name;
+            // 내부에서 prototype 추가하는 방법
+            this.__proto__.country = "Korea";
+            this.__proto__.slogan = function(){
+                console.log('8282');
+            }
+        }
+
+        // 외부에서 prototype 추가하는 방법
+        Korean.prototype.country = 'Korea';
+        Korean.prototype.slogan = function(){
+            console.log('8282');
+        }
+
+        // 객체 생성 (생성자 함수 호출)
+        var k1 = new Korean('kim');
+        var k2 = new Korean('Lee');
+
+        // 확인
+        console.log(k1, k2);
+
+        k1.slogan();
 
     </script>
     
