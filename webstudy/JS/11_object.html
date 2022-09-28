@@ -182,18 +182,19 @@
         // 생성자 함수 정의
         function Korean(name) {
             this.name = name;
+
             // 내부에서 prototype 추가하는 방법
             this.__proto__.country = "Korea";
             this.__proto__.slogan = function(){
-                console.log('8282');
+                console.log('2828');
             }
         }
 
-        // 외부에서 prototype 추가하는 방법
-        Korean.prototype.country = 'Korea';
-        Korean.prototype.slogan = function(){
-            console.log('8282');
-        }
+        // 외부에서 prototype 추가하는 방법     - 동일한 속성이면 첫 번째 제외하고 무시된다.
+            Korean.prototype.country = 'Korea';
+            Korean.prototype.slogan = function(){
+                console.log('8282');
+            }
 
         // 객체 생성 (생성자 함수 호출)
         var k1 = new Korean('kim');
