@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <script>
+        /*
+            객체
+
+            1. 여러 값으로 구성된 하나의 데이터
+            2. '속성(property)' - '값(value)'
+            3. 중괄호({})를 이용해 여러 값을 묶어준다.
+        */
+    </script>
+
+    <script>
+
+        // 객체 생성
+        var obj = {
+            'name': '손석구',
+            'age': '40',
+            'friend': {
+                'name': '김철수',
+                'age': '40'
+            },
+            'hobbies': [
+                '여행',
+                '운동',
+                '독서'
+            ],
+            'introduce': function() {
+                console.log('이름 ' + this.name);   // 현재 객체를 의미하는 this
+            }
+        }
+
+        /* 
+            속성(property) 확인
+            1. 마침표(.)  : 객체.속성
+            2. 대괄호([]) : 객체['속성']
+        */
+        console.log(obj.name);
+        console.log(obj.age);
+        console.log(obj.friend.name);
+        console.log(obj.friend.age);
+        console.log(obj.hobbies[0], obj.hobbies[1], obj.hobbies[2]);
+        (obj.introduce)();
+
+    </script>
+
+    <script>
+
+        // 빈 객체 생성
+        var computer = {};
+
+        // 속성 추가
+        // 동적 추가 방식 : 없던 속성을 새로 생성된다.
+        computer.model = 'gram';
+        computer.price = 200;
+        console.log(computer);
+
+        // 속성 수정
+        // 존재하던 속성은 수정된다.
+        computer.model = 'mac';
+        computer.price = 300;
+        console.log(computer);
+
+        // 속성 삭제
+        // delete 키워드 활용
+        delete computer.price;
+        console.log(computer);
+
+    </script>
+
+    <script>
+
+        // 객체의 모든 속성을 for-in문으로 순회
+
+        // 객체 생성
+        var book = {
+            'title': '소나기',
+            'author': '황순원',
+            'publisher': '우리출판사'
+        };
+
+        // 객체의 속성을 for문으로 순회
+        // 객체의 속성은 문자열로 반환된다. ('title', 'author', 'publisher')
+        for(let p in book) {
+            // book.p  : book.'title'  book.'author'  book.'publisher'     :  사용 불가
+            // book[p] : book['title']  book['author']  book['publisher']  :  사용 가능
+            console.log(p + ' : ' + book[p]);
+        }
+
+    </script>
+
+    <div id="box1"></div>
+    <script>
+
+        // 테이블 만들기
+        var books = [
+            {
+                'title': '소나기',
+                'author' : '황순원'
+            },
+            {
+                'title': '어린왕자',
+                'author' : '생텍쥐베리'
+            },
+            {
+                'title': '홍길동전',
+                'author' : '허균'
+            }
+        ];
+
+        
+
+
+    </script>
+    
+</body>
+</html>
