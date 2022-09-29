@@ -21,10 +21,10 @@
 
         // 서브밋 이벤트  (서브밋 이벤트의 대상 : 폼(frm1) / 버튼이 아니다.)
         frm1.onsubmit = function(event) {
-            if(query.value == '') {
+            if(query.value == '') {     // 사용자가 입력한 값이 없으면
                 alert('검색어를 입력하세요.');
                 query.focus();
-                event.preventDefault();     // 기본 이벤트 동작 방지 (서브밋 동작 방지)
+                event.preventDefault();     // 기본 이벤트 동작 방지 (서브밋 동작 방지) - 서브밋을 못하게 막는 이벤트 리스너
                 return;     // 이벤트 리스너 종료
             }
         }
@@ -45,7 +45,7 @@
         btnGoogle.onclick = function(event) {
             if(q.value == '') {
                 alert('검색어를 입력하세요');
-                q.focus();
+                q.focus();  // q(검색창)에 포커스를 맞춤
                 return;
             }
             // 서브밋
