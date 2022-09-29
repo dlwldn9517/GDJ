@@ -187,9 +187,54 @@
             }
         }
 
-
     </script>
 
+    <hr>
+
+    <!-- 4. 체크 이미지 사용하기 -->
+    <div id="box4">
+        <ul>
+            <li>Java</li>
+            <li>Oracle</li>
+            <li>HTML</li>
+            <li>CSS</li>
+            <li>JS</li>
+        </ul>
+    </div>
+    <style>
+        #box4 > ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        #box4 > ul > li {
+            margin: 5px;
+            width: 16px;
+            height: 16px;
+            background-image: url(../../images/uncheck.png);
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+            text-indent: 20px;
+        }
+        #box4 > ul > li:hover {
+            cursor: pointer;
+        }
+        #box4 > ul > li.checked {
+            background-image: url('../../images/check.png');
+        }
+    </style>
+    <script>
+
+        // 문서 객체
+        var list = document.querySelectorAll('#box4 > ul > li');
+
+        // 클릭 이벤트
+        for(let i = 0; i < list.length; i++) {
+            list[i].onclick = function(event) {
+                list[i].classList.toggle('checked');    // 클릭할 때마다 class=checked가 토글된다.
+            }
+        }
+
+    </script>
     
 </body>
 </html>
