@@ -54,6 +54,29 @@
 
     </script>
 
+    <!-- 연습. 이름이 2 ~ 6자 사이가 아니면 경고메시지 띄우고 서브밋 방지 -->
+    <form id="frm3" action="/">
+        <label for="name">
+            이름
+            <input type="text" name="name" id="name">
+        </label>
+        <button>조회</button>
+    </form>
+    <script>
+        // 문서 객체
+        var frm3 = document.getElementById('frm3');
+        var n = document.getElementById('name');
+
+        // 서브밋 이벤트
+        frm3.onsubmit = function(event) {
+            if(n.value == '' || n.value.length < 2 || n.value.length > 6) {
+                alert('이름을 2 ~ 6자 사이로 변경하세요.');
+                event.preventDefault();
+                return;
+            }
+        }
+    </script>
+
 
 </body>
 </html>
