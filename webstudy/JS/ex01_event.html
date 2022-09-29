@@ -57,11 +57,16 @@
         // 배열과 인덱스
         var idx = 0;    // 초기 인덱스 0
         var images = [
-            'flower1.jpg',
-            'flower2.jpg',
-            'flower3.jpg',
-            'flower4.jpg',
-            'flower5.jpg'
+            'animal1.jpg',
+            'animal2.jpg',
+            'animal3.jpg',
+            'animal4.jpg',
+            'animal5.jpg',
+            'animal6.jpg',
+            'animal7.jpg',
+            'animal8.jpg',
+            'animal9.jpg',
+            'animal10.jpg'
         ];
 
         // 초기 이미지
@@ -103,6 +108,89 @@
         btnNext.onclick = function(event) {
             changeImg(1);    // 변경할 인덱스를 전달
         }   
+
+    </script>
+
+    <hr>
+
+    <!-- 3. 썸네일 선택하면 큰 이미지 보여주기 -->
+    <div id="box3">
+        <div id="origin"></div>
+        <ul id="thumbnails"></ul>
+    </div>
+    <style>
+        #box3 {
+            width: 960px;
+        }
+        #origin {
+            width: 960px;
+            height: 640px;
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+        }
+        #thumbnails {
+            list-style-type: none;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+        #thumbnails > li {
+            width: 96px;
+            height: 64px;
+            margin: 10px 10px 0 10px;
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+            border: 3px solid white;
+        }
+    </style>
+    <script>
+
+        // 문서 객체
+        var origin = document.getElementById('origin');
+        var thumbnails = document.getElementById('thumbnails');
+
+        // 배열과 인덱스
+        var idx = 0;
+        var images = [
+        'animal1.jpg',
+            'animal2.jpg',
+            'animal3.jpg',
+            'animal4.jpg',
+            'animal5.jpg',
+            'animal6.jpg',
+            'animal7.jpg',
+            'animal8.jpg',
+            'animal9.jpg',
+            'animal10.jpg'
+        ];
+
+        // 초기 origin
+        origin.style['background-image'] = 'url(../../images/' + images[0] + ')';
+
+        // 썸네일 이미지
+        var li = '';
+        for(let i = 0; i < images.length; i++) {
+            li += '<li></li>';
+        }
+        thumbnails.innerHTML = li;
+
+        // <li> 태그마다 썸네일 이미지 넣기
+        var list = document.querySelectorAll('#thumbnails > li');
+        for(let i = 0; i < list.length; i++) {
+            list[i].style['background-image'] = 'url(../../images/' + images[i] + ')';
+        }
+
+        // 썸네일 이미지를 선택하면 원본이 변경되는 이벤트 처리
+        for(let i = 0; i < list.length; i++) {
+            list[i].onmouseover = function(event) {
+                origin.style['background-image'] = 'url(../../images/' + images[i] + ')';
+                this.style['border'] = '3px solid orange';
+            }
+            list[i].onmouseout = function(event) {
+                this.style['border'] = '3px solid white';
+            }
+        }
+
 
     </script>
 
