@@ -323,5 +323,66 @@
         }
     </script>
 
+    <hr>
+
+    <!-- 7. JSON 읽기 -->
+    <div><button id="btn7">클릭</button></div>
+    <script>
+        document.getElementById('btn7').onclick = function(event) {
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', 'car.json', true);
+            xhr.send();
+            xhr.onreadystatechange = function(event) {
+                if(xhr.readyState == 4 && xhr.status == 200) {
+                    var data = JSON.parse(xhr.responseText);
+                    console.log(data.model);
+                    console.log(data.maker);
+                    console.log(data.price);
+
+                    for(let i = 0; i < data.option.length; i++) {
+                        console.log(data.option[i]);
+                    }
+                    /* 위 for문은 아래 코드를 만듬
+                    console.log(data.option[0]);
+                    console.log(data.option[1]);
+                    console.log(data.option[2]); */
+
+                    for(let prop in data.info) {
+                        console.log(data.info[prop]);
+                    }
+                    /* 위 for문은 아래 코드를 만듬
+                    console.log(data.info.year);
+                    console.log(data.info.discount); */
+                }
+            }
+        }
+    </script>
+
+    <hr>
+
+    <!-- 8. JSON 읽기 연습 - cctv.json -->
+    <!-- 전체 cctv는 몇 대인가? -->
+    <div><button id="btn8">클릭</button></div>
+    <div>
+        마포구 전체 CCTV 개수 : <span id="cctv_count"></span>대
+    </div>
+    <script>
+        document.getElementById('btn8').onclick = function(event) {
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', 'cctv.json', true);
+            xhr.send();
+            xhr.onreadystatechange = function(event) {
+                if(xhr.readyState == 4 && xhr.status == 200) {
+                    var data = JSON.parse(xhr.responseText);
+                    var totalCount = 0;
+                    for(let i = 0; i < data.length; i++) {
+                        totalCount += Number(data[i].카메라대수);
+                    }
+                    document.getElementById('cctv_count').textContent = totalCount;
+                }
+            }
+        }
+    </script>
+
 </body>
 </html>
