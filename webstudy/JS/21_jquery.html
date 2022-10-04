@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <!-- jquery 사용을 위해서 아래 2개 작업 중 반드시 1개 작업을 수행해야 한다. -->
+    
+    <!-- 1. 다운로드 받은 jquery 라이브러리 포함하기 -->
+    <script src="jquery-3.6.1.min.js"></script>
+    
+    <!-- 2. jquery CDN(Content Delivery Network) 포함하기 -->
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+
+</head>
+<body>
+
+    <script>
+        /*
+            jquery wrapper
+
+            1. jquery wrapper로 감싼 대상이 jquery 기능을 사용할 수 있다.
+            2. $() - 이게 jquery wrapper
+            3. $() == jQuery(), 즉 $는 jQuery와 동일
+        */
+    </script>
+
+    <script>
+        /*
+            jquery의 DOM 처리
+
+            1. jquery wrapper와 selector를 사용
+            2. 예시
+                1) document.getElementById('box')           : $('#box')
+                2) document.getElementsByClassName('box')   : $('.box')
+                2) document.getElementsByTagName('div')     : $('div')
+        */
+    </script>
+
+    <script>
+        /*
+            jquery 주요 메소드
+                jquery                          JS
+                ------------------------------------------------------------------------
+            1.  $().text()                      DOM.textContent
+                $().text('안녕')                DOM.textContent = '안녕'
+            2.  $().html()                      DOM.innerHTML
+                $().html('<a href="#"></a>')    DOM.innerHTML = '<a href="#"></a>'
+            3.  $().attr('class')               DOM.getAttribute('class')
+                $().attr('class', 'box')        DOM.setAttribute('class', 'box')
+            4.  $().prop('className')           DOM.className
+                $().prop('className', 'box')    DOM.className = 'box'
+            5.  $().css('width')                DOM.style.width 또는 DOM.style['width']
+                $().css('width', '10px')        DOM.style.width = '10px' 또는 DOM.style['width'] = '10px'
+        */
+    </script>
+
+    <div id="box1">Hello World</div>
+    <script>
+        console.log($('#box1').text());
+        $('#box1').text('안녕 제이쿼리');
+        // 메소드 이름이 동일한데 인자는 서로 다른(전달할수도(세터용) 안할수도(배포용) ==> 메소드오버로딩)
+    </script>
+
+    <div id="box2"><a href="#">클릭</a></div>
+    <script>
+        console.log($('#box2').html());
+        $('#box2').html('<h1>Hello World</h1>');
+    </script>
+
+    <div id="box3">
+        <input type="checkbox">
+        <input type="radio">
+    </div>
+    <script>
+        // attr()
+        console.log($('#box3 input[type=checkbox]').attr('checked'));
+        $('#box3 input[type=checkbox]').attr('checked', 'checked');
+        // prop()
+        console.log($('#box3 input[type=radio').prop('checked'));
+        $('#box3 input[type=radio').prop('checked', true);
+    </script>
+
+    <div id="box4">
+        Hello World
+    </div>
+    <script>
+        $('#box4').css('font-size', '32px').css('color', 'teal');
+    </script>
+
+    <script>
+        /*
+            jquery 반복 메소드 : each()
+
+            $.each(배열, function(인덱스, 요소) {
+
+            })
+        */
+    </script>
+    <div id="box5">
+        <ul>
+            <li>Spring</li>
+            <li>Summer</li>
+            <li>Autumn</li>
+            <li>Winter</li>
+        </ul>
+    </div>
+    <script>
+        $.each($('#box5 ul li'), function(i, elem) {
+            console.log('인덱스 ' + i + ', 요소 ' + elem + ', 요소 텍스트 ' + $(elem).text());
+            console.log('인덱스 ' + i + ', 요소 ' + elem + ', 요소 텍스트 ' + elem.textContent);
+        })
+    </script>
+
+    <div id="box6">
+        <ul>
+            <li id="google"><a href="javascript:void(0)">구글</a></li>
+            <li id="naver"><a href="javascript:void(0)">네이버</a></li>
+            <li id="kakao"><a href="javascript:void(0)">카카오</a></li>
+            <li id="instagram"><a href="javascript:void(0)">인스타그램</a></li>
+            <li id="facebook"><a href="javascript:void(0)">페이스북</a></li>
+        </ul>
+    </div>
+    <script>
+        // ★ 부모 찾기 ★
+        console.log($('#google').parents());            // 모든 부모                [ul, div#box6, body, html]
+        console.log($('#google').parents()[2]);         // 3번째 부모               body
+        console.log($('#google').parent());             // 부모                     [ul]
+        console.log($('#google').parent().parent());    // 부모의 부모              [div#box6]
+        console.log($('#google').closest('div'));       // 부모 중 가장 가까운 div  [div#box6]
+
+        // ★ 자식 찾기 ★
+
+        // ★ 형제 찾기 ★
+
+    </script>
+    
+</body>
+</html>
