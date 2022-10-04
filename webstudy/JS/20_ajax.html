@@ -49,8 +49,8 @@
                 2) 요청서버경로
                     /컨텍스트패스/URLMapping
                 3) 통신방식
-                    (1) 동기 통신   : false
-                    (2) 비동기 통신 : true
+                    (1) 동기 통신   : false - 느림
+                    (2) 비동기 통신 : true  - 빠름
             */
             xhr.open('GET', 'data.txt', true);
         
@@ -211,24 +211,113 @@
             xhr.onreadystatechange = function(event) {
                 if(xhr.readyState == 4 && xhr.status == 200) {
                     var data = xhr.responseXML;
-                    var channel = data.getElementsByTagName('channel')[0];
-                    var item = channel.getElementsByTagName('content');
+                    var item = data.getElementsByTagName('item');
                     var itemList = '';
                     for(let i = 0; i < item.length; i++) {
-                        console.log(content[i]);
                         itemList += '<tr>';
-                        itemList += '<td>' + content[i].getAttribute('title') + '</td>';
-                        itemList += '<td>' + content[i].getAttribute('image') + content[i].getAttribute('link') + '</td>';
-                        itemList += '<td>' + content[i].getAttribute('author') + '</td>';
-                        itemList += '<td>' + content[i].getAttribute('price') + '</td>';
-                        itemList += '<td>' + content[i].getAttribute('discount') + '</td>';
-                        itemList += '<td>' + content[i].getAttribute('publisher') + '</td>';
-                        itemList += '<td>' + content[i].getAttribute('pubdate') + '</td>';
-                        itemList += '<td>' + content[i].getAttribute('isbn') + '</td>';
-                        itemList += '<td>' + content[i].getAttribute('description') + '</td>';
+                        itemList += '<td>' + item[i].getElementsByTagName('title')[0].textContent + '</td>';
+                        itemList += '<td><a href="' + item[i].getElementsByTagName('link')[0].textContent + '"><img src="' + item[i].getElementsByTagName('image')[0].textContent + '" width="80px" height="120px"></td>';
+                        itemList += '<td>' + item[i].getElementsByTagName('author')[0].textContent + '</td>';
+                        itemList += '<td>' + item[i].getElementsByTagName('price')[0].textContent + '</td>';
+                        itemList += '<td>' + item[i].getElementsByTagName('discount')[0].textContent + '</td>';
+                        itemList += '<td>' + item[i].getElementsByTagName('publisher')[0].textContent + '</td>';
+                        itemList += '<td>' + item[i].getElementsByTagName('pubdate')[0].textContent + '</td>';
+                        itemList += '<td>' + item[i].getElementsByTagName('isbn')[0].textContent + '</td>';
+                        itemList += '<td>' + item[i].getElementsByTagName('description')[0].textContent + '</td>';
                         itemList += '</tr>';
                     }
-                    document.querySelector('#box4 .item_list').innerHTML = itemList;
+                    document.getElementById('search_list').innerHTML = itemList;
+                }
+            }
+        }
+    </script>
+
+    <hr>
+
+    <!-- 4. XML 읽기 연습 - sfc_web_map.xml -->
+    <div><button id="btn5">클릭</button></div>
+    <div id="box5">
+        <table border="1">
+            <thead>
+                <tr>
+                    <td>지역명</td>
+                    <td>날씨</td>
+                    <td>온도</td>
+                </tr>
+            </thead>
+            <tbody id="weather"></tbody>
+        </table>
+    </div>
+    <script>
+        document.getElementById('btn5').onclick = function(event) {
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', 'sfc_web_map.xml', true);
+            xhr.send();
+            xhr.onreadystatechange = function(event){
+                if(xhr.readyState == 4 && xhr.status == 200){
+                    var data = xhr.responseXML;
+                    var local = data.getElementsByTagName('local');
+                    var weather = '';
+                    for(let i = 0; i < local.length; i++) {
+                        weather += '<tr>';
+                        weather += '<td>' + local[i].textContent + '</td>';
+                        weather += '<td>' + local[i].getAttribute('desc') + '</td>';
+                        weather += '<td>' + local[i].getAttribute('ta') + '</td>';
+                        weather += '</tr>';
+                    }
+                    document.getElementById('weather').innerHTML = weather;
+                }
+            }
+        }
+    </script>
+
+    <hr>
+
+    <!-- 6. JSON 읽기 -->
+    <div><button id="btn6">클릭</button></div>
+    <div id="box6">
+        <table border="1">
+            <thead>
+                <tr>
+                    <td>제목</td>
+                    <td>저자</td>
+                    <td>가격</td>
+                </tr>
+            </thead>
+            <tbody class="book_list"></tbody>
+        </table>
+    </div>
+    <script>
+        document.getElementById('btn6').onclick = function(event) {
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', 'books.json', true);
+            xhr.send();
+            xhr.onreadystatechange = function(event) {
+                if(xhr.readyState == 4 && xhr.status == 200) {
+                    var data = JSON.parse(xhr.responseText);
+                    var bookList = '';
+                    for(let i = 0; i < data.length; i++) {
+                        /* 
+                            1. 객체 속성
+                                1)data[i].title
+                                2) data[i]['title']
+                            2. 객체 순회
+                                1) 속성의 직접 지정
+                                    data[i].title
+                                    data[i].author
+                                    data[i].price
+                                2) for-in문을 이용한 객체 순회
+                                    for(let prop in data[i]) {
+                                        data[i][prop]
+                                    }
+                        */        
+                        bookList += '<tr>';
+                        bookList += '<td>' + data[i].title + '</td>';
+                        bookList += '<td>' + data[i].author + '</td>';
+                        bookList += '<td>' + data[i].price + '</td>';
+                        bookList += '</tr>';
+                    }
+                    document.querySelector('#box6 .book_list').innerHTML = bookList;
                 }
             }
         }
