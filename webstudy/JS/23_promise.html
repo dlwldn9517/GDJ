@@ -108,8 +108,13 @@
 
         // Promise 사용해보기
         new Promise(function(resolve, reject) {
+
+            // resolve는 비동기 처리가 성공했을 때 호출할 함수
             // resolve('성공');        // resolve는 then 구문에 선언된 익명 함수를 호출
+
+            // reject는 비동기 처리가 실패했을 때 호출할 함수
             reject('실패');            // reject는 catch 구문에 선언된 익명 함수를 호출
+
         }).then(function(msg) {
             console.log('then', msg);
         }).catch(function(errorMsg) {
@@ -117,6 +122,96 @@
         });
         
     </script>
+
+    <script>
+
+        // ajax와 Promise 함께 사용하기
+
+        new Promise(function(resolve, reject) {
+            $.ajax({
+                'type': 'GET',
+                'url': 'data12.txt',
+                'dataType': 'text',
+                'success': function(data) {
+                    resolve(data);
+                },
+                'error': function(jqXHR) {
+                    // reject(jqXHR.status + '(' + jqXHR.statusText + ')');
+                    reject(jqXHR.status, jqXHR.statusText);
+                }
+            }); 
+        }).then(function(data) {
+            console.log('then', data);
+        }).catch(function(err) {
+            console.log('catch', err);
+        });
+
+    </script>
+
+    <script>
+
+        // 연속된 ajax 처리와 Promise ★★★★★
+
+        function fn_check() {
+            return new Promise(function(resolve, reject) {
+                $.ajax({
+                    'success': function(data) {
+                        resolve();
+                    },
+                    'error': function(jqXHR) {
+                        reject();
+                    }
+                });
+            });
+        }
+
+        function fn_varify() {
+            new Promise(function(resolve, reject) {
+                $.ajax({
+                    // 입력된 이메일이 회원 정보에 있는지 체크하는 ajax
+                    'success': function(data) {
+                        resolve();  // 회원이 맞는 경우
+                    },
+                    'error': function(jqXHR) {
+                        reject();   // 회원이 아닌 경우
+                    }
+                })
+            }).then(function() {
+                $.ajax({
+                    // 입력된 이메일로 인증 코드를 보내는 ajax
+                    'success': function() {
+                        // 인증코드 발송 성공
+                    },
+                    'error': function() {
+                        // 인증코드 발송 실패
+                    }
+                })
+            }).catch(function() {
+                // 입력한 이메일이 회원 정보에 없는 경우
+            })
+        }
+
+    </script>
+
+    <script>
+
+        // Promise가 필요한 또 다른 경우 : 타이머 함수 사용할 때
+
+        // 타이머 함수도 ajax와 같은 문제점을 가진다.
+
+        new Promise(function(resolve, reject) {
+            setTimeout(function() {
+                resolve(1);     // 3초 후에 resolve(1) 호출
+            }, 3000);
+        }).then(function(n) {
+            console.log(n);
+            return n + 1;   // 2번째 then으로 반환하는 값
+        }).then(function(n2) {
+            console.log(n2);
+        });
+
+    </script>
+
     
 </body>
 </html>
