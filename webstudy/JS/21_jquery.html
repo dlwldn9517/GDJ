@@ -314,16 +314,25 @@
     <script>
 
         // 정적 요소에 이벤트 등록하기
+
+        // 1) on() 메소드 이용
+        /*
         $('#btn1').on('click', function(event){
             alert('click');
-        })
+        });
+        */
+
+        // 2) 이벤트 타입을 메소드로 이용
+        $('#btn1').click(function(event) {
+            alert('click');
+        });
 
         // 동적 요소 추가하기
-        $('button').text('버튼2').attr('id', 'btn2').appendTo('#box11');
+        $('#box11').append($('<button>').text('버튼2').attr('id', 'btn2'));
         // 동적 요소에 이벤트 등록하기
         $('#box11').on('click', '#btn2', function(event) {
             alert('클릭');
-        })
+        });
 
     </script>
 
