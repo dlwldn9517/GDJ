@@ -239,7 +239,10 @@
                 'url': 'car.json',
                 'dataType': 'json',
                 'success': function(data) {
-                    $.each(data, function(i, option) {
+                    var data = $('JSOM')
+                    console.log()
+
+                        
 
                     });
                 }
@@ -254,6 +257,16 @@
         마포구 전체 CCTV 개수 : <span id="cctv_count"></span>대
     </div>
     <script>
+        $('#btn8').on('click', function(event) {
+            $.ajax({
+                'type': 'GET',
+                'url': 'cctv.json',
+                'dataType': 'json',
+                'success': function(data) {
+                    var data = $('')
+                }
+            });
+        });
 
     </script>
 
