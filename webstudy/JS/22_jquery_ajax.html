@@ -57,12 +57,100 @@
                 'dataType': 'xml',
                 'success': function(data) {     // data ← xhr.responseXML (JS : var data = xhr.responseXML)
                     $.each($(data).find('book'), function(i, book) {    // $.each(배열, function(인덱스, 요소) { });
+                        /*
                         var tr = '<tr>';
                         tr += '<td>' + $(book).find('title').text() + '</td>';     // find() : 태그 전체, .text()까지 붙이면 태그안에 내용
-                        tr += '<td>' + $(book).find('author').text() + '</td>';    
+                        tr += '<td>' + $(book).find('author').text() + '</td>';    // 닫아주는 태그인 '</td>' 생략 가능
                         tr += '<td>' + $(book).find('price').text() + '</td>';
-                        tr += '</tr>';
+                        tr += '</tr>';                                             // 닫아주는 태그인 '</tr>' 생략 가능
                         $('#box2 .book_list').append(tr); // html은 덮어쓰기 때문에 맨 마지막 데이터만 나온다.
+                        */
+
+                        var tr = $('<tr>');
+                        tr.append($('<td>').text($(book).find('title').text()));   
+                        tr.append($('<td>').text($(book).find('author').text()));   
+                        tr.append($('<td>').text($(book).find('price').text()));   
+                        $('#box2 .book_list').append(tr);
+
+                    });
+                }
+            });
+        });
+    </script>
+
+    <!-- 2. XML 읽기 -->
+    <div><button id="btn3">클릭</button></div>
+    <div id="box3">
+        <table border="1">
+            <thead>
+                <tr>
+                    <td>제목</td>
+                    <td>저자</td>
+                    <td>가격</td>
+                </tr>
+            </thead>
+            <tbody class="book_list"></tbody>
+        </table>
+    </div>
+    <script>
+        $('#btn3').on('click', function(event) {
+            $.ajax({
+                'type': 'GET',
+                'url': 'books2.xml',
+                'dataType': 'xml',
+                'success': function(data) {
+                    $.each($(data).find('book'), function(i, book){
+                        var tr = $('<tr>');
+                        tr.append('<td>' + $(book).attr('title') + '</td>');    // 닫아주는 태그인 '</td>'는 생략가능
+                        tr.append('<td>' + $(book).attr('author') + '</td>');
+                        tr.append('<td>' + $(book).attr('price') + '</td>');
+                        $('#box3 .book_list').append(tr);   // 부모 - 자식
+                        // tr.appendTo('#box3 . book_list');   자식 - to(부모)
+                    });
+                }
+            });
+        });
+    </script>
+
+    <!-- 3. XML 읽기 연습 - naver_search.xml -->
+    <div><button id="btn4">클릭</button></div>
+    <div id="box4">
+        <table border="1">
+            <thead>
+                <tr>
+                    <td>제목(title)</td>
+                    <td>썸네일(image+link)</td>
+                    <td>저자(author)</td>
+                    <td>정상가(price)</td>
+                    <td>할인가(discount)</td>
+                    <td>출판사(publisher)</td>
+                    <td>출판일(pubdate)</td>
+                    <td>ISBN(isbn)</td>
+                    <td>개요(description)</td>
+                </tr>
+            </thead>
+            <tbody id="search_list"></tbody>
+        </table>
+    </div>
+    <script>
+        $('#btn4').on('click', function(event) {
+            $.ajax({
+                'type': 'GET',
+                'url': 'naver_search.xml',
+                'dataType': 'xml',
+                'success': function(data) {
+                    $.each($(data).find('item'), function(i, item) {
+                        var tr = $('<tr>');
+                            tr.append($('<td>').html($(item).find('title').text()));
+                            tr.append($('<td>').html($('<a>').attr('href', $(item).find('link').text()).append($('<img>').attr('src', $(item).find('image').text()).attr('width', '80px').attr('height', '120px'))));
+                            tr.append($('<td>').html($(item).find('author').text()));
+                            tr.append($('<td>').html($(item).find('price').text()));
+                            tr.append($('<td>').html($(item).find('discount').text()));
+                            tr.append($('<td>').html($(item).find('publisher').text()));
+                            tr.append($('<td>').html($(item).find('pubdate').text()));
+                            tr.append($('<td>').html($(item).find('isbn').text()));
+                            tr.append($('<td>').html($(item).find('description').text()));
+                            tr.appendTo('#search_list');
                     });
                 }
             });
