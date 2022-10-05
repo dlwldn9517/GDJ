@@ -8,27 +8,66 @@
     <script src="jquery-3.6.1.min.js"></script>
 </head>
 <body>
+
     <!-- ajax 외우기 -->
 
-    <div id="box1"></div>
+    <div id="box1">
+        <button id="btn1">클릭</button>
+    </div>
     <script>
-        $.ajax({
-            'type': 'GET',                  // 요청 메소드(Request Method)
-            'url': 'data.txt',              // 요청 서버 경로
-            'async': true,                  // 통신 방식(true: 비동기 통신, false: 동기 통신, 생략하면 비동기 통신)
-            'dataType': 'text',             // 응답 데이터 타입(text, xml, json 등)
-            'success': function(data) {     // 매개변수 data로 응답 데이터가 전달된다. (responseText, responseXML 등)
-                $('#box1').text(data);
-            },
-            'error': function(jqXHR, textStatus, errorThrown) {
-                console.log('status', jqXHR.status);                // 응답코드(404)
-                console.log('statusText', jqXHR.statusText);        // 응답코드텍스트(Not Found)
-                console.log('responseText', jqXHR.responseText);    // 응답텍스트(서버측에서 전송한 예외메시지)
-                console.log(textStatus);    // error     (중요X)                                              
-                console.log(errorThrown);   // Not Found (중요X)
-            }
+        $('#btn1').on('click', function(event) {
+            $.ajax({
+                'type': 'GET',                  // 요청 메소드(Request Method)
+                'url': 'data.txt',              // 요청 서버 경로
+                'async': true,                  // 통신 방식(true: 비동기 통신, false: 동기 통신, 생략하면 비동기 통신)
+                'dataType': 'text',             // 응답 데이터 타입(text, xml, json 등)
+                'success': function(data) {     // 매개변수 data로 응답 데이터가 전달된다. (responseText, responseXML 등)
+                    $('#box1').append($('<div>').text(data));
+                },
+                'error': function(jqXHR, textStatus, errorThrown) {
+                    console.log('status', jqXHR.status);                // 응답코드(404)
+                    console.log('statusText', jqXHR.statusText);        // 응답코드텍스트(Not Found)
+                    console.log('responseText', jqXHR.responseText);    // 응답텍스트(서버측에서 전송한 예외메시지)
+                    console.log(textStatus);    // error     (중요X)                                              
+                    console.log(errorThrown);   // Not Found (중요X)
+                }
+            });
         });
     </script>
 
-</body>
+    <!-- 1. XML 읽기 -->
+    <div><button id="btn2">클릭</button></div>
+    <div id="box2">
+        <table border="1">
+            <thead>
+                <tr>
+                    <td>제목</td>
+                    <td>저자</td>
+                    <td>가격</td>
+                </tr>
+            </thead>
+            <tbody class="book_list"></tbody>
+        </table>
+    </div>
+    <script>
+        $('#btn2').on('click', function(event) {
+            $.ajax({
+                'type': 'GET',
+                'url': 'books1.xml',
+                'dataType': 'xml',
+                'success': function(data) {     // data ← xhr.responseXML (JS : var data = xhr.responseXML)
+                    $.each($(data).find('book'), function(i, book) {    // $.each(배열, function(인덱스, 요소) { });
+                        var tr = '<tr>';
+                        tr += '<td>' + $(book).find('title').text() + '</td>';     // find() : 태그 전체, .text()까지 붙이면 태그안에 내용
+                        tr += '<td>' + $(book).find('author').text() + '</td>';    
+                        tr += '<td>' + $(book).find('price').text() + '</td>';
+                        tr += '</tr>';
+                        $('#box2 .book_list').append(tr); // html은 덮어쓰기 때문에 맨 마지막 데이터만 나온다.
+                    });
+                }
+            });
+        });
+    </script>
+
+</body>              
 </html>
