@@ -12,7 +12,7 @@
     <!-- ajax 외우기 -->
 
     <div id="box1">
-        <button id="btn1">클릭</button>
+        <button id="btn1">클릭1</button>
     </div>
     <script>
         $('#btn1').on('click', function(event) {
@@ -36,7 +36,7 @@
     </script>
 
     <!-- 1. XML 읽기 -->
-    <div><button id="btn2">클릭</button></div>
+    <div><button id="btn2">클릭2</button></div>
     <div id="box2">
         <table border="1">
             <thead>
@@ -79,7 +79,7 @@
     </script>
 
     <!-- 2. XML 읽기 -->
-    <div><button id="btn3">클릭</button></div>
+    <div><button id="btn3">클릭3</button></div>
     <div id="box3">
         <table border="1">
             <thead>
@@ -113,7 +113,7 @@
     </script>
 
     <!-- 3. XML 읽기 연습 - naver_search.xml -->
-    <div><button id="btn4">클릭</button></div>
+    <div><button id="btn4">클릭4</button></div>
     <div id="box4">
         <table border="1">
             <thead>
@@ -156,6 +156,108 @@
             });
         });
     </script>
+
+    <!-- 4. XML 읽기 연습 - sfc_web_map.xml -->
+    <div><button id="btn5">클릭5</button></div>
+    <div id="box5">
+        <table border="1">
+            <thead>
+                <tr>
+                    <td>지역명</td>
+                    <td>날씨</td>
+                    <td>온도</td>
+                </tr>
+            </thead>
+            <tbody id="weather"></tbody>
+        </table>
+    </div>
+    <script>
+        $('#btn5').on('click', function(event) {
+            $.ajax({
+                'type': 'GET',
+                'url': 'sfc_web_map.xml',
+                'dataType': 'xml',
+                'success': function(data) {
+                    $.each($(data).find('local'), function(i, region) {
+                        var tr = '<tr>';
+                        tr += '<td>' + $(region).text();
+                        tr += '<td>' + $(region).attr('desc');
+                        tr += '<td>' + $(region).attr('ta');
+                        $('#weather').append(tr);
+                    });
+                }
+            });
+        });
+    </script>
+
+    <!-- 5. JSON 읽기 -->
+    <div><button id="btn6">클릭6</button></div>
+    <div id="box6">
+        <table border="1">
+            <thead>
+                <tr>
+                    <td>제목</td>
+                    <td>저자</td>
+                    <td>가격</td>
+                </tr>
+            </thead>
+            <tbody class="book_list"></tbody>
+        </table>
+    </div>
+    <script>
+        $('#btn6').on('click', function(event) {
+            $.ajax({
+                'type': 'GET',
+                'url': 'books.json',
+                'dataType': 'json',
+                'success': function(data) {
+                    $.each(data, function(i, book) {
+                        var tr = $('<tr>');
+                        /*
+                        tr.append($('<td>').text(book.title));
+                        tr.append($('<td>').text(book.author));
+                        tr.append($('<td>').text(book.price));
+                        */
+                        
+                        for(let prop in book) {
+                            tr.append($('<td>').text(book[prop]));
+                        }
+
+                        tr.appendTo('#box6 .book_list');
+                    });
+                }
+            });
+        });
+    </script>
+
+    <!-- 6. JSON 읽기 -->
+    <div><button id="btn7">클릭7</button></div>
+    <script>
+        $('#btn7').on('click', function(event) {
+            $.ajax({
+                'type': 'GET',
+                'url': 'car.json',
+                'dataType': 'json',
+                'success': function(data) {
+                    $.each(data, function(i, option) {
+
+                    });
+                }
+            });
+        });
+    </script>
+
+    <!-- 7. JSON 읽기 연습 - cctv.json -->
+    <!-- 전체 cctv는 몇 대인가? (카메라대수 속성 이용) -->
+    <div><button id="btn8">클릭8</button></div>
+    <div>
+        마포구 전체 CCTV 개수 : <span id="cctv_count"></span>대
+    </div>
+    <script>
+
+    </script>
+
+
 
 </body>              
 </html>
