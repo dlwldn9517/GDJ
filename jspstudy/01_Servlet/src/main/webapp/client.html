@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+	<!-- 1. GET 방식 요청 : <a> 태그 -->
+	<div>
+		<a href="http://localhost:9090/01_Servlet/AnchorServlet">링크1</a>
+	</div>
+	<div>
+		<a href="/01_Servlet/AnchorServlet">링크2</a>	<!-- 사용하기 가장 좋은 방법 -->
+	</div>
+	<div>
+		<a href="/AnchorServlet">링크3</a>
+	</div>
+	<div>
+		<a href="01_Servlet/AnchorServlet">링크4</a>
+		<!-- 슬래시(/)가 있으면 컨텍스트 패스로 인식, 슬래시(/)가 없으면 맵핑으로 인식 -->
+	</div>
+	<div>
+		<a href="AnchorServlet">링크5</a>	<!-- 실행O -->
+	</div>
+	
+
+</body>
+</html>
