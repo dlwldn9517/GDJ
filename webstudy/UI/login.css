@@ -29,7 +29,7 @@ header {
     padding: 0 10px; /* 상하 좌우 */
     margin-bottom: 5px;
     border: 2px solid #3abd45;
-    outline: 0; /* 클릭 했을 때 테두리 색상 그대로 나오게끔 (0 / none) */
+    outline: 0; /* 클릭 했을 때 테두리 색상이 border와 동일하게 나오게끔 (0 / none) */
 }
 .input_area input:focus {
     border: 2px solid #FF8800;

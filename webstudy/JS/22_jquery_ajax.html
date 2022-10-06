@@ -171,6 +171,26 @@
             <tbody id="weather"></tbody>
         </table>
     </div>
+    <!-- 방법1 -->
+    <script>
+        $('#btn5').on('click', function(event){
+            $.ajax({
+                'type': 'GET',
+                'url': 'sfc_web_map.xml',
+                'dataType' : 'xml',
+                'success': function(data) {
+                    $.each($(data).find('local'), function(i, local){
+                        var tr = $('<tr>');
+                        tr.append($('<td>').text($(local).text()));
+                        tr.append($('<td>').text($(local).attr('desc')));
+                        tr.append($('<td>').text($(local).attr('ta')));
+                        tr.appendTo('#weather');
+                    })
+                }
+            })
+        })
+    </script>
+    <!-- 방법2 -->
     <script>
         $('#btn5').on('click', function(event) {
             $.ajax({

@@ -17,15 +17,15 @@ document.getElementById('id').onkeyup = function(event) {    /* onkeyup : 한 �
         id_msg.textContent = ' 정상적인 아이디입니다.';
     }
 }
-document.getElementById('pw').onkeyup = function(event) {    /* onkeyup : 한 글자 쓸 때마다 */
-    var pw= document.getElementById('pw');
-    var password_msg = document.getElementById('password_msg');
-    if(pw.value.length == 0) {
-        password_msg.textContent = '';
-    } else if(pw.value.length < 4) {
-        password_msg.textContent = '비밀번호는 4글자 이상입니다.';
-    } else if(pw.value.length >= 4) {
-        password_msg.textContent = ' 정상적인 비밀번호입니다.';
-    }
-} 
+// document.getElementById('pw').onkeyup = function(event) {    /* onkeyup : 한 글자 쓸 때마다 */
+//     var pw= document.getElementById('pw');
+//     var password_msg = document.getElementById('password_msg');
+//     if(pw.value.length == 0) {
+//         password_msg.textContent = '';
+//     } else if(pw.value.length < 4) {
+//         password_msg.textContent = '비밀번호는 4글자 이상입니다.';
+//     } else if(pw.value.length >= 4) {
+//         password_msg.textContent = ' 정상적인 비밀번호입니다.';
+//     }
+// } 
 
