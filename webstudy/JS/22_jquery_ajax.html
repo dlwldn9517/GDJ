@@ -239,12 +239,14 @@
                 'url': 'car.json',
                 'dataType': 'json',
                 'success': function(data) {
-                    var data = $('JSOM')
-                    console.log()
-
-                        
-
-                    });
+                    console.log('모델명', data.model);
+                    console.log('제조사', data.maker);
+                    console.log('가격', data.price);
+                    $.each(data.option, function(i, item) {
+                        console.log('옵션', (i + 1), item);
+                    })
+                    console.log('연식', data.info.year);
+                    console.log('할인액', data.info.discount);
                 }
             });
         });
@@ -263,7 +265,11 @@
                 'url': 'cctv.json',
                 'dataType': 'json',
                 'success': function(data) {
-                    var data = $('')
+                    var cctvCount = 0;
+                    $.each(data, function(i, location) {
+                        cctvCount += Number(location.카메라대수);
+                    })
+                    $('#cctv_count').text(cctvCount);
                 }
             });
         });
