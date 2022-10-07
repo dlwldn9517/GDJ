@@ -17,18 +17,20 @@ public class Prac03B extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		// 요청
 		request.setCharacterEncoding("UTF-8");
 		
-		String from = request.getParameter("from");
-		String to = request.getParameter("to");
-		String content = request.getParameter("content");
+		String filename = request.getParameter("filename");
 		
+		// 응답
 		response.setContentType("text/html; charset=UTF-8");
 		
 		PrintWriter out = response.getWriter();
-		out.println("<h1>To. " + to + "</h1>");
-		out.println("<h1>" + content + "</h1>");
-		out.println("<h1>From. " + from + "</h1>");
+		out.println("<script>");
+		out.println("alert('" + filename + "파일이 생성되었습니다.')");
+		out.println("history.back()");  // alert()과 history.back() JS 용어이다.
+		out.println("</script>");
 		out.close();
 	}
 

@@ -33,9 +33,9 @@ public class Prac03A extends HttpServlet {
 		String filename = new Date(System.currentTimeMillis()) + "-" + from + ".txt";
 		
 		// 디렉터리 생성
-		File dir = new File("../../webapp/storage");
+		File dir = new File(request.getServletContext().getRealPath("storage"));    // ServletContext : 01_Servlet이라 생각하면 된다.
 		if(dir.exists() == false) {
-			dir.mkdir();
+			dir.mkdirs();
 		}
 		
 		// 파일 객체
@@ -46,11 +46,12 @@ public class Prac03A extends HttpServlet {
 		
 		// 출력
 		bw.write("To. " + to + "\n");
-		bw.write(content);
+		bw.write(content + "\n");
 		bw.write("From. " + from + "\n");
 		bw.close();
 		
-		response.sendRedirect("/01_Servlet/Prac03B?to=" + URLEncoder.encode(to, "UTF-8") + "&content=" + URLEncoder.encode(content, "UTF-8") + "&from=" + URLEncoder.encode(from, "UTF-8"));
+		// 이동
+		response.sendRedirect("/01_Servlet/Prac03B?filename=" + URLEncoder.encode(filename, "UTF-8"));
 	
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
