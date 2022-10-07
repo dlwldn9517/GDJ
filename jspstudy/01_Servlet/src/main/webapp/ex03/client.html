@@ -52,17 +52,61 @@
 			location.href = '/01_Servlet/LocationServlet?param=' + $(this).data('name');
 		});
 	</script>
-
-
-
-
-
-
-
-
-
-
-
+	
+	<!-- 3. GET 방식 요청 : <form> 태그를 이용한 서브밋 -->
+	<div>
+		<form method="GET" action="/01_Servlet/FormServlet">
+			
+			<!-- 변수 보내기 -->
+			<div>
+				<!-- id는 자바스크립트, 제이쿼리에서 사용 / name은 서버 전송용으로 사용 -->
+				<input type="text" id="id" name="id" placeholder="아이디"> <!-- name="id"에 있는 것을 파라미터로 보내준다. -->
+			</div>
+			<div>
+				<input type="password" id="pwd" name="pwd" placeholder="비밀번호">
+			</div>
+			<div>
+				<label for="male"><input type="radio" id="male" name="gender" value="남자">남자</label>
+				<label for="female"><input type="radio" id="female" name="gender" value="여자">여자</label>
+				<label for="none"><input type="radio" id="none" name="gender" value="" checked>선택안함</label>
+			</div>
+			<div>
+				<select name="city">
+					<option value="">도시를 선택하세요.</option>
+					<option value="incheon">인천</option>
+					<option value="seoul">서울</option>
+					<option value="busan">부산</option>
+				</select>
+			</div>
+			
+			<!-- 배열 보내기 -->
+			<div>
+				<input type="text" name="phone" size ="3" maxlength="3">-
+				<input type="text" name="phone" size ="4" maxlength="4">-
+				<input type="text" name="phone" size ="4" maxlength="4">
+			</div>
+			<div>
+				<label for="terms"><input type="checkbox" id="terms" name="agree" value="terms">이용약관 동의</label>
+				<label for="service"><input type="checkbox" id="service" name="agree" value="service">서비스 동의</label>
+				<label for="marketing"><input type="checkbox" id="marketing" name="agree" value="marketing">마케팅 동의</label>
+			</div>
+			
+			<!-- 연습. 이메일 -->
+			<div>
+				<input type="text" name="email_id" placeholder="아이디">
+				@
+				<input rype="text" name="domain" list="domain_list" placeholder="입력 또는 선택">
+				<datalist id="domain_list">
+					<option value="google.com"/>
+					<option value="naver.com"/>
+					<option value="kakao.com"/>
+				</datalist>
+			</div>
+			
+			<button>전송</button>
+			
+		</form>
+	</div>
 
 </body>
 </html>
