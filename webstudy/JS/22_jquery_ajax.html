@@ -200,10 +200,10 @@
                 'success': function(data) {
                     $.each($(data).find('local'), function(i, region) {
                         var tr = '<tr>';
-                        tr += '<td>' + $(region).text();
+                        tr += '<td>' + $(region).text();         // +=는 제이쿼리가 아니라서 var tr = $('<tr>');로 해주면 안된다.
                         tr += '<td>' + $(region).attr('desc');
                         tr += '<td>' + $(region).attr('ta');
-                        $('#weather').append(tr);
+                        $(tr).appendTo('#weather');   // appendTo가 제이쿼리라서 tr에 $를 붙여줘야 한다.
                     });
                 }
             });
