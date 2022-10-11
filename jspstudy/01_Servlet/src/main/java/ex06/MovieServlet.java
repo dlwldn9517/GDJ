@@ -1,4 +1,4 @@
-package ex05;
+package ex06;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -30,9 +30,10 @@ public class MovieServlet extends HttpServlet {
 		String clientId = "r8AzKZxCTRl5CxIreAMx";
 		String clientSecret = "PxjZVSOTBc";
 		
-		// 요청 파라미터(검색어)
+		// 요청 파라미터(검색어, 검색결과수)
 		request.setCharacterEncoding("UTF-8");
 		String query = request.getParameter("query");
+		String display = request.getParameter("display");
 		
 		// 검색어 UTF-8 인코딩
 		try {
@@ -45,7 +46,7 @@ public class MovieServlet extends HttpServlet {
 		}
 		
 		// API 접속
-		String apiURL = "https://openapi.naver.com/v1/search/movie.xml?query=" + query;
+		String apiURL = "https://openapi.naver.com/v1/search/movie.xml?query=" + query + "&display=" + display;
 		URL url = null;
 		HttpURLConnection con = null;
 		try {

@@ -9,6 +9,13 @@
 
 	<div>
 		<input type="text" id="query" placeholder="검색어 입력">
+		<select id="display">
+			<option value="10">10</option>
+			<option value="30">30</option>
+			<option value="50">50</option>
+			<option value="70">70</option>
+			<option value="100">100</option>
+		</select>
 		<input type="button" id="btn1" value="검색">
 	</div>
 	<div>
@@ -29,12 +36,16 @@
 	</div>
 	<script>
 		$('#btn1').on('click', function(event) {
+			// fn_getXML();
+			fn_getJSON();
+		});
+		function fn_getXML(){
 			$.ajax({
 				
 				/* 요청 */
 				type: 'GET',
 				url: '/01_Servlet/MovieServlet',
-				data: 'query=' + $('#query').val(),
+				data: 'query=' + $('#query').val() + '&display=' + $('#display').val(),
 				
 				/* 응답 */
 				dataType: 'xml', 	// xml, json 가능
@@ -56,7 +67,11 @@
 					console.log('responseText : ' + jqXHR.responseText);
 				}
 			});
-		});
+		}
+		function fn_getJSON() {
+			
+		}
+			
 	</script>
 	
 </body>
