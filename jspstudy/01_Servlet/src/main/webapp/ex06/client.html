@@ -15,10 +15,39 @@
 		<table border="1">
 			<thead>
 				<tr>
-					<td></td>
+					<td>영화제목</td>
+					<td>부제</td>
+					<td>이미지</td><!-- 이미지 클릭하면 네이버 영화 링크 열림 -->
+					<td>제작년도</td>
+					<td>감독</td>
+					<td>출연배우</td>
+					<td>평점</td>
 				</tr>
 			</thead>
+			<tbody id="movies"></tbody>
 		</table>
 	</div>
+	<script>
+		$('#btn1').on('click', function(event) {
+			$.ajax({
+				
+				/* 요청 */
+				type: 'GET',
+				url: '/01_Servlet/MoviesServlet',
+				data: 'query=' + $('#query').val(),
+				
+				/* 응답 */
+				dataType: 'xml', 	// xml, json 가능
+				success: function(resData) {
+					
+				},
+				error: function(jqXHR) {
+					console.log('status : ' + jqXHR.status);
+					console.log('responseText : ' + jqXHR.responseText);
+				}
+			});
+		});
+	</script>
+	
 </body>
 </html>
