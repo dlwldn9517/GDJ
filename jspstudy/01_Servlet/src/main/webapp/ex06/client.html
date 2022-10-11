@@ -33,13 +33,23 @@
 				
 				/* 요청 */
 				type: 'GET',
-				url: '/01_Servlet/MoviesServlet',
+				url: '/01_Servlet/MovieServlet',
 				data: 'query=' + $('#query').val(),
 				
 				/* 응답 */
 				dataType: 'xml', 	// xml, json 가능
 				success: function(resData) {
-					
+					$.each($(resData).find('item'), function(i, item) {		// $.each() 메서드는 object 와 배열 모두에서 사용할 수 있는 일반적인 반복 함수
+						var tr = $('<tr>');
+						tr.append($('<td>').html($(item).find('title').text()));
+						tr.append($('<td>').html($(item).find('subtitle').text()));
+						tr.append($('<td>').html($('<a>').attr('href', $(item).find('link').text()).html($('<img>').attr('width', '80px').attr('height', '120px').attr('src', $(item).find('image').text()))));
+						tr.append($('<td>').html($(item).find('pubDate').text()));
+						tr.append($('<td>').html($(item).find('director').text()));
+						tr.append($('<td>').html($(item).find('actor').text()));
+						tr.append($('<td>').html($(item).find('userRating').text()));
+						tr.appendTo('#movies');
+					});
 				},
 				error: function(jqXHR) {
 					console.log('status : ' + jqXHR.status);

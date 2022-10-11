@@ -1,6 +1,8 @@
 package ex05;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
@@ -13,6 +15,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 
 @WebServlet("/MovieServlet")
 
@@ -50,15 +53,15 @@ public class MovieServlet extends HttpServlet {
 			con = (HttpURLConnection)url.openConnection();
 		} catch (MalformedURLException e) {
 			// 잘못된 형태의 URL
-	         response.setContentType("text/plain; charset=UTF-8");
-	         PrintWriter out = response.getWriter();
-	         out.println("API URL이 잘못되었습니다. : "); // responseText로 넘어감
-	         out.close();
+	        response.setContentType("text/plain; charset=UTF-8");
+	        PrintWriter out = response.getWriter();
+	        out.println("API URL이 잘못되었습니다."); // responseText로 넘어감
+	        out.close();
 		} catch (IOException e) {
-			 response.setContentType("text/plain; charset=UTF-8");
-	         PrintWriter out = response.getWriter();
-	         out.println("API 연결이 실패했습니다. : "); // responseText로 넘어감
-	         out.close();
+			response.setContentType("text/plain; charset=UTF-8");
+	        PrintWriter out = response.getWriter();
+	        out.println("API 연결이 실패했습니다."); 
+	        out.close();
 		}
 		
 		// API 요청
@@ -70,29 +73,48 @@ public class MovieServlet extends HttpServlet {
 			con.setRequestProperty("X-Naver-Client-Secret", clientSecret);
 			
 		} catch (IOException e) {
-			 response.setContentType("text/plain; charset=UTF-8");
-	         PrintWriter out = response.getWriter();
-	         out.println("API 요청이 실패했습니다. : "); // responseText로 넘어감
-	         out.close();
+			response.setContentType("text/plain; charset=UTF-8");
+	        PrintWriter out = response.getWriter();
+	        out.println("API 요청이 실패했습니다."); 
+	        out.close();
 		}
 		
 		// 응답 스트림 생성(정상 스트림, 에러 스트림)
+		BufferedReader reader = null;
 		try {
 			int responseCode = con.getResponseCode();	// 응답코드(status)를 의미
 			if(responseCode == HttpURLConnection.HTTP_OK) {
-				
+				reader = new BufferedReader(new InputStreamReader(con.getInputStream()));
+			} else {
+				reader = new BufferedReader(new InputStreamReader(con.getErrorStream()));
 			}
-			
-		} catch (Exception e) {
-			// TODO: handle exception
+		} catch (IOException e) {
+			response.setContentType("text/plain; charset=UTF-8");
+	        PrintWriter out = response.getWriter();
+	        out.println("API 응답 스트림 생성이 실패했습니다."); 
+	        out.close();
 		}
 		
+		// API 응답 데이터 저장하기
+		StringBuilder sb = new StringBuilder();
+		String line = null;
+		try {
+			while((line = reader.readLine()) != null) {
+				sb.append(line);
+			}
+		} catch (IOException e) {
+			response.setContentType("text/plain; charset=UTF-8");
+	        PrintWriter out = response.getWriter();
+	        out.println("API URL 응답이 실패했습니다."); 
+	        out.close();
+		}
 		
+		// client.html로 API 응답 결과 보내기
+		response.setContentType("application/xml; charset=UTF-8");
 		
-		
-		
-		
-		
+		PrintWriter out = response.getWriter();
+		out.println(sb.toString());
+		out.close();
 	
 	}
 
