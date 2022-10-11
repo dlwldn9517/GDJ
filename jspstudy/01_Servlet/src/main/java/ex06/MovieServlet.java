@@ -53,7 +53,6 @@ public class MovieServlet extends HttpServlet {
 			url = new URL(apiURL);
 			con = (HttpURLConnection)url.openConnection();
 		} catch (MalformedURLException e) {
-			// 잘못된 형태의 URL
 	        response.setContentType("text/plain; charset=UTF-8");
 	        PrintWriter out = response.getWriter();
 	        out.println("API URL이 잘못되었습니다."); // responseText로 넘어감
