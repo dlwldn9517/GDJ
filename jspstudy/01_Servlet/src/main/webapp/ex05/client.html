@@ -17,9 +17,9 @@
 				/* 요청 */
 				type: 'GET',						// 요청 메소드  'type'에서 '' 생략 가능
 				url: '/01_Servlet/TextServlet',		// 요청 URL
-				data: 'name=손석구&age=40',			// 요청 파라미터
+				data: 'name=손현우&age=31',			// 요청 파라미터
 				
-				// url: '/01_Servlet/TextServlet?name=손석구&age=40',
+				// url: '/01_Servlet/TextServlet?name=손현우&age=31',
 				
 				/* 응답 */
 				dataType: 'text',					// 응답 데이터 타입(text, xml, json)
@@ -34,6 +34,86 @@
 			});
 		});
 	</script>
+	
+	<hr>
+	
+	<div><button id="btn2">클릭2</button></div>
+	<div id="box2"></div>
+	<script>
+		$('#btn2').on('click', function(event) {
+			var box2 = $('#box2');
+			box2.empty();
+			$.ajax({
+				
+				/* 요청 */
+				type: 'GET',
+				url: '/01_Servlet/JSONServlet',
+				data: 'name=손현우&age=31',
+				
+				/* 응답 */
+				dataType: 'json',
+				success: function(resData){		// resData는 JSON 데이터가 응답되므로 자바스크립트 객체로 처리하면 됨
+					box2.html('<h1>이름 : ' + resData.name + ', 나이 : ' + resData.age + '살<h1>');
+				},
+				error: function(jqXHR){
+					box2.append('status : ' + jqXHR.status + '<br>');
+					box2.append(responseText);
+				}
+			});
+		});
+	</script>
+	
+	<hr>
+	
+	<div><button id="btn3">클릭3</button></div>
+	<div id="box3"></div>
+	<script>
+		$('#btn3').on('click', function(event) {
+			var box3 = $('#box3');
+			box3.empty();
+			$.ajax({
+				
+				/* 요청 */
+				type: 'GET',
+				url: '/01_Servlet/XMLServlet',
+				data: 'name=손현우&age=31',
+				
+				/* 응답 */
+				dataType: 'xml',
+				success: function(resData){		// XML 처리는 이곳이 중요
+					var ul = $('<ul>');
+					ul.append($('<li>').text($(resData).find('name').text()));
+					ul.append($('<li>').text($(resData).find('age').text()));
+					ul.appendTo(box3);
+				},
+				error: function(jqXHR){
+					box3.append('status : ' + jqXHR.status + '<br>');
+					box3.append(responseText);
+				}
+			});
+		});
+	</script>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 </body>
 </html>
