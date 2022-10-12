@@ -30,7 +30,6 @@ public class CookieServlet3 extends HttpServlet {
 		cookie1.setMaxAge(60);	// 기존 10초에서 60초로 수정
 		response.addCookie(cookie1);
 		
-		
 		// 쿠키 삭제하기
 		// 같은 이름의 쿠키를 만들어서 유효시간을 0으로 설정하고 덮어쓰기
 		Cookie cookie2 = new Cookie("name", "");
