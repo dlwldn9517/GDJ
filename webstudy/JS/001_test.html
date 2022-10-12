@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <!-- 1) 고전 이벤트 모델 -->
+    <button id="btn">전송</button>
+    <script>
+        function fn1()  {
+            alert('전송합니다.')
+        }
+        document.getElementById('btn').onclick = fn1;
+    </script>
+    
+    <!-- 2) 표준 이벤트 모델 -->
+    <button id="btn">전송</button>
+    <script>
+        function fn2() {
+            alert('전송합니다.')
+        }
+        document.getElementById('btn').addEventListener('click', fn2);
+    </script>
+    
+    <!-- 3) 인라인 이벤트 모델 -->
+    <button id="btn" onclick="fn3()">전송</button>
+    <script>
+        function fn3() {
+            alert('전송합니다.')
+        }
+    </script>
+
+    <!-- 3. 구글로 이동하는 이벤트 -->
+    
+    <div>
+        <a id="google">
+            <button id="to_site">이동</button>
+        </a>
+    </div>
+    <script>
+        var a = document.getElementById('google');
+        a.href = 'https://www.google.com';
+    </script>
+
+    <!-- 4. 네이버 검색엔진 -->
+
+    <form id="frm" action="https://search.naver.com/search.naver">
+        <input type="text" name="query" id="query">
+        <input type="submit" value="네이버검색" id="btn">
+    </form>
+    <script>
+        document.getElementById('btn').onclick = function(event) {
+            alert('검색어는 ' + document.getElementById('query').value + '입니다.');
+        }
+    </script>
+
+</body>
+</html>

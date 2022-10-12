@@ -1,7 +1,7 @@
 * {
+    box-sizing: border-box;
     padding: 0;     /* 초기화 시킴 - 모든 속성에는 padding/margin 값이 있다. */
     margin: 0;      /* padding/margin 값을 0으로 하기 위해서 */
-    box-sizing: border-box;
 }
 
 a{
