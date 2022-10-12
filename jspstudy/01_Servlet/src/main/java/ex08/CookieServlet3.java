@@ -39,7 +39,7 @@ public class CookieServlet3 extends HttpServlet {
 		
 		// location 이동은 리다이렉트와 같다.
 		out.println("<script>");
-		out.println("location.href='01_Servlet/CookieServlet2'");
+		out.println("location.href='/01_Servlet/CookieServlet2'");
 		out.println("</script>");
 		out.close();
 	}

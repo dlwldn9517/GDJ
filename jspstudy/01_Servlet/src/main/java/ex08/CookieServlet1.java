@@ -37,8 +37,8 @@ public class CookieServlet1 extends HttpServlet {
 		Cookie cookie2 = new Cookie("address", URLEncoder.encode("서울시 금천구 가산동", "UTF-8"));
 		
 		// 쿠키 유효시간 설정
-		cookie1.setMaxAge(60*60*24*15); // 15일 짜리 쿠키
-		cookie2.setMaxAge(10);
+		cookie1.setMaxAge(60*60*24*15); // 15일
+		cookie2.setMaxAge(10);	// 10초
 		
 		// 클라이언트 PC에 쿠키 저장하기
 		response.addCookie(cookie1);
