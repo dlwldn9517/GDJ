@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="login.css">    <!-- css속성 가지고 올때는 stylesheet 사용 -->
+    <link rel="stylesheet" href="login.css">    
 </head>
 <body>
     <div class="container">
@@ -15,13 +15,13 @@
             </a>
         </header>
         <section>
-            <form method="POST" action="/">
+            <form method="POST" submit="/">
                 <div class="gubun">
                     <span class="gubun_desc">※ 회원구분을 위해 체크해 주세요</span>
-                    <label for="student"> <!-- id="student"을 말함 -->
+                    <label for="student"> 
                         <input type="radio" name="gubun" value="student" id="student">수강생
                     </label>
-                    <label for="member"> <!-- name이 같아야 중복 선택X -->
+                    <label for="member"> 
                         <input type="radio" name="gubun" value="member" id="member">일반회원
                     </label>
                 </div>
