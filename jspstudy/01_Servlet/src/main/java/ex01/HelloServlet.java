@@ -86,7 +86,6 @@ public class HelloServlet extends HttpServlet {	  // Servlet은 HttpServlet을 �
 		
 		// response : 사용자에게 전달할 때 사용
 		response.getWriter().append("Served at: ").append(request.getContextPath());	//getContextPath : /01_Servlet
-		
 	}
 
 	/*
@@ -104,7 +103,6 @@ public class HelloServlet extends HttpServlet {	  // Servlet은 HttpServlet을 �
 		// 요청과 응답 정보를 doGet() 메소드로 넘겨 버림
 		
 		doGet(request, response);	// doGet() 메소드 호출 - Post한테 넘겨도 어차피 처리는 Get이 한다.
-		
 	}
 
 }
