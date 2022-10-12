@@ -4,12 +4,9 @@ document.getElementById('btn_signin').onclick = function(event) {
         alert('비밀번호를 입력하세요.');
         event.preventDefault();  
         return;  
-    } else if(pw.value.length < 4) {
-        alert('비밀번호가 4글자 이하입니다.');
-        event.preventDefault();
-        return;  
-    }
+    } 
 }
+
 
 document.getElementById('id').onkeyup = function(event) {   
     var id = document.getElementById('id');
@@ -17,9 +14,11 @@ document.getElementById('id').onkeyup = function(event) {
     if(id.value.length == 0) {
         id_msg.textContent = '';
     } else if(id.value.length < 4) {
-        id_msg.textContent = '아이디는 4글자 이상입니다.';
+        id_msg.textContent = '아이디는 4자 이상입니다.';
         id_msg.style.color = '#FF0000';
         id_msg.style.fontSize = '14px';
+        event.preventDefault();
+        return;
     } else if(id.value.length >= 4) {
         id_msg.textContent = ' 정상적인 아이디입니다.';
         id_msg.style.color = '#0000FF';
