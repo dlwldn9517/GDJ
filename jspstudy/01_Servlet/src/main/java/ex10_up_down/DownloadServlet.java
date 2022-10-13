@@ -5,6 +5,8 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.net.URLEncoder;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -35,7 +37,7 @@ public class DownloadServlet extends HttpServlet {
 		BufferedInputStream in = new BufferedInputStream(new FileInputStream(file));
 		
 		// 다운로드 응답 헤더
-		response.setHeader("Content-Disposition", "attachment; filename=" + filename);
+		response.setHeader("Content-Disposition", "attachment; filename=" + URLEncoder.encode(filename, "UTF-8"));
 		response.setHeader("Content-Length", file.length() + ""); 
 		// file.length()의 파일 바이트수가 long 타입이라서, ""을 더해주면 문자열(String)로 변한다.
 		
