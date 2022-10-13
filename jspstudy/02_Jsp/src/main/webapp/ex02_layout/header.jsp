@@ -1,10 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
+<%
+	request.setCharacterEncoding("UTF-8");
+	String title = request.getParameter("title");
+	if(title == null) {
+		title = "환영합니다.";
+	}
+%>   
+    
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title><%=title%></title>
 </head>
 <body>
 
