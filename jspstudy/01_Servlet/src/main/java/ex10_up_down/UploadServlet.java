@@ -1,4 +1,4 @@
-package ex09;
+package ex10_up_down;
 
 import java.io.File;
 import java.io.IOException;
@@ -46,7 +46,7 @@ public class UploadServlet extends HttpServlet {
 		//	1) 실제 서버 경로 사용(물론 일반 드라이브 경로로 바꿀 수 있다.)
 		//	2) ServletContext의 realPath() 메소드를 이용
 		//	3) 실무에서는 한 곳에 모이지 않도록 첨부 파일의 경로를 매번 바꿔 줄 필요가 있다.
-		String realPath = getServletContext().getRealPath("storage");	// src/main/webapp(web root) 아래 upload 디렉터리
+		String realPath = getServletContext().getRealPath("upload");	// src/main/webapp(web root) 아래 upload 디렉터리
 	
 		// 3. 업로드 할 디렉터리 생성
 		File dir = new File(realPath);
@@ -82,6 +82,7 @@ public class UploadServlet extends HttpServlet {
 		out.println("<h3>저장 파일명 : " + filesystemName + "</h3>");
 		out.println("<h3>파일 크기 : " + strSize + "</h3>");
 		out.println("<h3>최종 수정일 : " + strLastModified + "</h3>");
+		out.println("<a href=\"/01_Servlet/FileListServlet\">파일목록</a>");
 		out.close();
 	
 	}
