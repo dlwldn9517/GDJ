@@ -36,7 +36,57 @@
 	<% for(int n = 1; n <= 10; n++) { %>
 		<div><%=n%></div>	
 	<% } %>
-	 
+	
+	<!-- 
+		연습. select 태그 만들기
+		<select name="month">
+			<option value="">월 선택</option>
+			<option value="1">1월</option>
+			...
+			<option value="12">12월</option>
+		</select>
+	-->
+	
+	<select name="month">
+		<option value="">월 선택</option>
+		<% for(int m = 1; m <= 12; m++) { %>
+		<option value="<%=m%>"><%=m%>월</option>
+		<% } %>
+	</select>
+	
+	<!-- 
+		연습. 테이블 만들기
+		순번	이름	나이
+		1		정숙	25
+		2		영희	26
+		3		영숙	27
+	-->
+	
+	<%
+		String[] names = {"정숙", "영희", "영숙"};
+		int[] ages = {25, 26, 27};
+	%>
+	<div>
+		<table border="1">
+			<thead>
+				<tr>
+					<td>순번</td>
+					<td>이름</td>
+					<td>나이</td>
+				</tr>	
+			</thead>
+			<tbody>
+				<% for(int i = 0; i < names.length; i++) { %>
+					<tr>
+						<td><%=i+1%></td>
+						<td><%=names[i]%></td>
+						<td><%=ages[i]%></td>
+					</tr>
+				<% } %>
+			</tbody>
+		</table>
+	</div>
+	
 	
 
 </body>
