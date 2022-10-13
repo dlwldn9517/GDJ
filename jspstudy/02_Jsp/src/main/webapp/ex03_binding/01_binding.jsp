@@ -45,7 +45,6 @@
 				(3) sessionScope
 				(4) applicationScope
 	--%>
-
 	<%
 		application.setAttribute("movie", "기생충");	// 우선 순위 낮다.
 		session.setAttribute("movie", "터미네이터");
@@ -56,32 +55,6 @@
 	<div>session's movie : ${sessionScope.movie}</div>
 	<div>request's movie : ${requestScope.movie}</div>
 	<div>pageContext's movie : ${movie}</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 </body>
 </html>
