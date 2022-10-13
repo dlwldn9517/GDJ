@@ -28,7 +28,7 @@
 	%>
 
 	<div>
-		<form method="POST" action="/02_Jsp/ex03_binding/03_qna2.jsp">
+		<form method="POST" action="<%=request.getContextPath()%>/ex03_binding/03_qna2.jsp">
 			<label for="created_date">
 				<span>작성일</span>
 				<input type="text" name="created_date" id="created_date" value="${today}">
