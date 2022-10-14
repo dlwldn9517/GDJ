@@ -1,3 +1,4 @@
+<%@page import="java.util.ArrayList"%>
 <%@page import="java.sql.Array"%>
 <%@page import="domain.Board"%>
 <%@page import="java.util.HashMap"%>
@@ -95,11 +96,11 @@
 		문제. 임의의 Board 객체를 3개 저장한 리스트
 	--%>
 	<%
-      List<Board> boards = Arrays.asList();
-      boards.add(new Board(100, "질문입니다", 2));
-      boards.add(new Board(100, "질문입니다", 2));
-      boards.add(new Board(100, "질문입니다", 2));
-      pageContext.setAttribute("boards", boards);
+		List<Board> boards = new ArrayList<>();
+		boards.add(new Board(100, "질문입니다", 2));
+		boards.add(new Board(200, "  [Re] 저도 궁금해요", 1));
+		boards.add(new Board(300, "답변입니다", 5));
+		pageContext.setAttribute("boards", boards);
    %>
 	<table border="1">
 		<thead>
@@ -121,18 +122,6 @@
 			</c:forEach>
 		</tbody>
 	</table>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 </body>
 </html>
