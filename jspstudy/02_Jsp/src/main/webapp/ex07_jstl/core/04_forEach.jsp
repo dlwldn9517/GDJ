@@ -1,3 +1,4 @@
+<%@page import="java.sql.Array"%>
 <%@page import="domain.Board"%>
 <%@page import="java.util.HashMap"%>
 <%@page import="java.util.Map"%>
@@ -88,8 +89,38 @@
 		${board.title}은 ${board.getTitle()}을 자동으로 호출한다.
 	--%>
 	
+	<hr>
 	
-	
+	<%--
+		문제. 임의의 Board 객체를 3개 저장한 리스트
+	--%>
+	<%
+      List<Board> boards = Arrays.asList();
+      boards.add(new Board(100, "질문입니다", 2));
+      boards.add(new Board(100, "질문입니다", 2));
+      boards.add(new Board(100, "질문입니다", 2));
+      pageContext.setAttribute("boards", boards);
+   %>
+	<table border="1">
+		<thead>
+			<tr>
+				<td>순번</td>
+				<td>게시글번호</td>
+				<td>제목</td>
+				<td>조회수</td>
+			</tr>
+		</thead>
+		<tbody>
+			<c:forEach var="board" items="${boards}" varStatus="vs">
+				<tr>
+					<td>${vs.count}</td>
+					<td>${board.boardNo}</td>
+					<td>${board.title}</td>
+					<td>${board.hit}</td>
+				</tr>
+			</c:forEach>
+		</tbody>
+	</table>
 	
 	
 	
