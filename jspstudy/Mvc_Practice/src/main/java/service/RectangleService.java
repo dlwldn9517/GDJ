@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import common.ActionForward;
 
-public class RectangleService implements MyService {
+public class RectangleService implements ShapeService {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -23,11 +23,11 @@ public class RectangleService implements MyService {
 		request.setAttribute("shape", "rectangle");
 		
 		// 어디로 어떻게?
-		ActionForward af = new ActionForward();
-		af.setView("views/output.jsp");
-		af.setRedirect(false);
+		ActionForward actionForward = new ActionForward();
+		actionForward.setView("views/output.jsp");
+		actionForward.setRedirect(false);
 		
-		return af;
+		return actionForward;
 	}
 
 	

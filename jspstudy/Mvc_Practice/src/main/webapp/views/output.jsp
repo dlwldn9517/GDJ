@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<c:set var="contextPath" value="${pageContext.request.contextPath}" />    
+    
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,10 +32,6 @@
 		</c:when>
 	</c:choose>
 	
-	<%-- <h3>너비 ${width}, 높이 ${height}인 사각형의 넓이는 ${recArea}입니다.</h3>
-	<h3>너비 ${width}, 높이 ${height}인 삼각형의 넓이는 ${triArea}입니다.</h3>
-	<h3>반지름 ${radius}인 원의 넓이는 ${area}입니다.</h3> --%>
-
 	<div>
 		<a href="${contextPath}/input.do">입력 폼으로 가기</a>
 	</div>

@@ -5,7 +5,6 @@ public class ActionForward {
 	private String view;
 	private boolean isRedirect;
 	
-	
 	public String getView() {
 		return view;
 	}

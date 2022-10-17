@@ -7,14 +7,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import common.ActionForward;
 
-public class CircleService implements MyService {
+public class CircleService implements ShapeService {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
 		// 요청 파라미터
-		int radius = Integer.parseInt(request.getParameter("radius"));
-		double area = radius * radius * 3.14;
+		double radius = Double.parseDouble(request.getParameter("radius"));
 		
 		// 포워드 할 데이터
 		request.setAttribute("radius", radius);

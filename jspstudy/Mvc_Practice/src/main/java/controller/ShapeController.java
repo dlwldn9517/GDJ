@@ -10,28 +10,32 @@ import javax.servlet.http.HttpServletResponse;
 
 import common.ActionForward;
 import service.CircleService;
-import service.MyService;
+import service.ShapeService;
 import service.RectangleService;
 import service.TriangleService;
 
 @WebServlet("*.do")
 
 
-public class MyController extends HttpServlet {
+public class ShapeController extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+		// 요청 & 응답 인코딩
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
 		
+		// 요청 확인
 		String requestURI = request.getRequestURI();
 		String contextPath = request.getContextPath();
 		String command = requestURI.substring(contextPath.length() + 1);
 	
-		MyService myService = null;
+		// ShapeService 선언
+		ShapeService service = null;
 		
+		// ActionForward 선언
 		ActionForward actionForward = null;
 		
 		// 요청에 따른 Model의 선택
@@ -39,25 +43,26 @@ public class MyController extends HttpServlet {
 		
 		// 비즈니스 로직이 필요한 경우
 		case "rectangle.do":
-			myService = new RectangleService();
+			service = new RectangleService();
 			break;
 		case "triangle.do":
-			myService = new TriangleService();
+			service = new TriangleService();
 			break;	
 		case "circle.do":
-			myService = new CircleService();
+			service = new CircleService();
 			break;
 		
 		// 비즈니스 로직이 필요 없는 단순 이동의 경우
 		case "input.do":
 			actionForward = new ActionForward();
 			actionForward.setView("views/input.jsp");
+			actionForward.setRedirect(false);
 			break;
 		}
 		
 		// 선택한 Model의 실행
-		if(myService != null) {
-			actionForward = myService.execute(request, response);
+		if(service != null) {
+			actionForward = service.execute(request, response);
 		}
 		
 		// 이동(리다이렉트, 포워드)
