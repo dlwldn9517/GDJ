@@ -4,8 +4,9 @@ import java.util.Date;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class TodayService {
+public class TodayService implements MyService {
 
+	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) {
 		
 		Date date = new Date();

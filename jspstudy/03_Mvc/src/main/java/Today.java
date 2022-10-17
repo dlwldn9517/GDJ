@@ -25,17 +25,21 @@ public class Today extends HttpServlet {
 		String contextPath = request.getContextPath();							// contextPath : /03_Mvc
 		String command = requestURI.substring(contextPath.length() + 1 );		// command     : today.do 또는 now.do
 		
+		// MyService 선언 (모든 Model은 MyService 타입!)
+		MyService myService = null;
+		
 		// 요청에 따른 Model의 선택
 		switch(command) {
 		case "today.do":
-			TodayService todayService = new TodayService();
-			todayService.execute(request, response);
+			myService = new TodayService();
 			break;
 		case "now.do":
-			NowService nowService = new NowService();
-			nowService.execute(request, response);
+			myService = new NowService();
 			break;
 		}
+		
+		// 선택한 Model의 실행
+		myService.execute(request, response);
 		
 		request.getRequestDispatcher("result.jsp").forward(request, response);
 	
