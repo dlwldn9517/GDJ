@@ -12,6 +12,7 @@ import service.BoardAddService;
 import service.BoardDetailService;
 import service.BoardEditService;
 import service.BoardListService;
+import service.BoardModifyService;
 import service.BoardService;
 
 @WebServlet("*.do")
@@ -53,6 +54,9 @@ public class BoardController extends HttpServlet {
 			break;
 		case "board/edit.do":
 			service = new BoardEditService();
+			break;
+		case "board/modify.do":
+			service = new BoardModifyService();
 			break;
 			
 		// 비즈니스 로직이 없는 경우 (단순 이동)
