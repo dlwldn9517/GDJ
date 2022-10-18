@@ -112,10 +112,50 @@ public class BoardDao {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			close(con, ps, rs);
+			close(con, ps, rs);		// rs는 SELECT문에서만 사용
 		}
 		return board;
 	}
+	
+	// 4. 게시글 삽입
+	public int insertBoard(Board board) {
+		int result = 0;
+		
+		try {
+			con = dataSource.getConnection();
+			sql = "INSERT INTO BOARD VALUES(BOARD_SEQ.NEXTVAL, ?, ?, SYSDATE)";
+			ps = con.prepareStatement(sql);
+			ps.setString(1, board.getTitle());
+			ps.setString(2, board.getContent());
+			result = ps.executeUpdate();	// INSERT문은 executeUpdate() 메소드 사용
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(con, ps, null);
+		}
+		
+		return result;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 }
