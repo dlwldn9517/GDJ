@@ -20,7 +20,7 @@ public class AnchorServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		// 요청
+		// 요청 - client에 있는 문제
 		request.setCharacterEncoding("UTF-8");
 		
 		// 요청 파라미터 a, b
@@ -34,7 +34,7 @@ public class AnchorServlet extends HttpServlet {
 			b = Integer.parseInt(strB);
 		}
 		
-		// 응답
+		// 응답 - client에 있는 문제
 		response.setContentType("text/html; charset=UTF-8");
 		PrintWriter out = response.getWriter();
 		out.println("<h1>Hello World</h1>");

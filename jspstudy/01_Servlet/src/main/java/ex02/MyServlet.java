@@ -40,6 +40,7 @@ public class MyServlet extends HttpServlet {
 			age = Integer.parseInt(strAge);
 		}
 		
+		
 		// 2. 응답
 		//    1) 서버 → 클라이언트로 보내는 응답
 		//    2) HttpServletResponse response 객체가 처리 (Tomcat이 있어야 사용 가능)
