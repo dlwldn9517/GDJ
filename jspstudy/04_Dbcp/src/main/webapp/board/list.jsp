@@ -7,11 +7,17 @@
 <head>
 <meta charset="UTF-8">
 <title>게시글 전체 목록</title>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/fontawesome-iconpicker/3.2.0/js/fontawesome-iconpicker.min.js" integrity="sha512-7dlzSK4Ulfm85ypS8/ya0xLf3NpXiML3s6HTLu4qDq7WiJWtLLyrXb9putdP3/1umwTmzIvhuu9EW7gHYSVtCQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<script src="../assets/js/jquery-3.6.1.min.js"></script>
+</head>
 </head>
 <body>
 
-	<h1>게시글 목록 보기</h1>	
+	<h1>게시글 목록 보기</h1>
+	<div>
+		<input type="button" value="새 게시글 작성하러 가기" id="btn_write">
+	</div>
+	<hr>
 	<div>
 		<table border="1">
 			<thead>
