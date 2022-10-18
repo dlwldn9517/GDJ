@@ -32,7 +32,7 @@
 				<c:forEach items="${boards}" var="board">
 					<tr>
 						<td>${board.board_no}</td>
-						<td>${board.title}</td>
+						<td><a href="${contextPath}/board/detail.do?board_no=${board.board_no}">${board.title}</a></td>
 						<td>${board.create_date}</td>
 						<td>
 							<a href=""><i class="fa-solid fa-x"></i></a>

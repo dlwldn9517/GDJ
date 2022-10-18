@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import common.ActionForward;
+import service.BoardDetailService;
 import service.BoardListService;
 import service.BoardService;
 
@@ -39,6 +40,9 @@ public class BoardController extends HttpServlet {
 		switch(urlMapping) {
 		case "board/list.do":
 			service = new BoardListService();
+			break;
+		case "board/detail.do":
+			service = new BoardDetailService();
 			break;
 		}
 		

@@ -92,5 +92,30 @@ public class BoardDao {
 		return boards;
 	}
 	
+	// 3. 상세보기
+	public Board seleBoardByNo(int board_no) {
+		Board board = null;
+		try {
+			con = dataSource.getConnection();
+			sql = "SELECT BOARD_NO, TITLE, CONTENT, CREATE_DATE FROM BOARD WHERE BOARD_NO = ?";   // JDBC 쿼리문 변수는 ? 처리한다.
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, board_no);		// 1번째 물음표(?)에 board_no 전달하기
+			rs = ps.executeQuery();		// SELECT문은 executeQuery() 사용
+			if(rs.next()) {				// 상세보기는 if문
+				board = new Board();
+				board.setBoard_no(rs.getInt(1));		// rs.getInt("BOARD_NO")
+				board.setTitle(rs.getString(2));		// rs.getString("TITLE")
+				board.setContent(rs.getString(3));		// rs.getString("CONTENT")
+				board.setCreate_date(rs.getDate(4));	// rs.getDate("CREATE_DATE")
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(con, ps, rs);
+		}
+		return board;
+	}
+	
 	
 }
