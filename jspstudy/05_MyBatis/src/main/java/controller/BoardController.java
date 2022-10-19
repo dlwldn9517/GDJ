@@ -12,6 +12,7 @@ import common.ActionForward;
 import service.BoardAddService;
 import service.BoardDetailService;
 import service.BoardListService;
+import service.BoardRemoveService;
 import service.BoardService;
 
 @WebServlet("*.do")
@@ -51,6 +52,9 @@ public class BoardController extends HttpServlet {
 			break;
 		case "/board/add.do":
 			service = new BoardAddService();
+			break;
+		case "/board/remove.do":
+			service = new BoardRemoveService();
 			break;
 			
 		// 단순 이동 (포워딩)

@@ -69,7 +69,16 @@ public class BoardDao {
 		return result;
 	}
 	
-	
+	// 4. 게시글 삭제
+	public int deleteBoard(int boardNo) {
+		SqlSession ss = factory.openSession(false);
+		int result = ss.delete("mybatis.mapper.board.deleteBoard", boardNo);
+		if(result > 0) {
+			ss.commit();
+		}
+		ss.close();
+		return result;
+	}
 	
 	
 	

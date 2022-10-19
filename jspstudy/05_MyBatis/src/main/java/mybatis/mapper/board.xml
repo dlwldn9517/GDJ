@@ -50,9 +50,17 @@
 	</insert>
 	
 	
+	<!--  
+		4. 게시글 삭제
+			1) parameterType : int boardNo
+			2) resultType	 : 작성하면 안 됩니다! 자동으로 int로 처리된다.
+	-->
 	
-	
-	
+	<delete id="deleteBoard" parameterType="int">
+		DELETE
+		  FROM BOARD
+		 WHERE BOARD_NO = #{boardNo}
+	</delete>
 	
 	
 	
