@@ -27,7 +27,7 @@ public class BoardEditService implements BoardService {
 		// 어디로 / 어떻게
 		ActionForward af = new ActionForward();
 		af.setView("/board/edit.jsp");	// webapp/board/edit.jsp를 의미
-		af.setRedirect(false);	// 포워드
+		af.setRedirect(false);			// 포워드
 		return af;
 	}
 

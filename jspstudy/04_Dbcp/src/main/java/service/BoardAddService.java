@@ -30,7 +30,7 @@ public class BoardAddService implements BoardService {
 		// 어디로 / 어떻게
 		ActionForward af = new ActionForward();
 		af.setView(request.getContextPath() + "/board/list.do");	// Redirect할 때는 대부분 매핑으로 요청한다.
-		af.setRedirect(true);			// INSERT,UPDATE,DELETE 이후에는 Redirect
+		af.setRedirect(true);										// INSERT,UPDATE,DELETE 이후에는 Redirect
 		return af;
 	}
 

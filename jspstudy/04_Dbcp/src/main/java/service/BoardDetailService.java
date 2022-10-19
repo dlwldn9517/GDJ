@@ -28,7 +28,7 @@ public class BoardDetailService implements BoardService {
 		// 어디로 / 어떻게
 		ActionForward af = new ActionForward();
 		af.setView("/board/detail.jsp");	// webapp/board/detail.jsp를 의미
-		af.setRedirect(false);	// 포워드
+		af.setRedirect(false);				// 포워드
 		return af;
 		
 	}
