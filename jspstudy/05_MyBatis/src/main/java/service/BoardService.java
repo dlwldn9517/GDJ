@@ -7,5 +7,5 @@ import common.ActionForward;
 
 public interface BoardService {
 
-	public ActionForward execute(HttpServletRequest request, HttpServletResponse response);
+	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception;
 }

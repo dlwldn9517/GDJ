@@ -12,14 +12,16 @@ import domain.Board;
 
 public class BoardDao {
 	
-	// SqlSessionFactory 빌드
+	// field - SqlSessionFactory
 	private SqlSessionFactory factory;
 	
 	
-	// singleton - pattern
+	// singleton pattern
 	private static BoardDao dao = new BoardDao();
 	private BoardDao() {
 		try {
+			
+			// SqlSessionFactory 빌드
 			String resource = "mybatis/config/mybatis-config.xml";
 			InputStream in = Resources.getResourceAsStream(resource);
 			factory = new SqlSessionFactoryBuilder().build(in);
