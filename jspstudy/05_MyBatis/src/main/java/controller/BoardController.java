@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import common.ActionForward;
+import service.BoardDetailService;
 import service.BoardListService;
 import service.BoardService;
 
@@ -43,7 +44,9 @@ public class BoardController extends HttpServlet {
 		case "/board/list.do":		// contextPath.length()에 +1이 없기 때문에 /로 시작
 			service = new BoardListService();
 			break;
-		
+		case "/board/detail.do":
+			service = new BoardDetailService();
+			break;
 		}
 		
 		// 선택된 Service 실행

@@ -50,7 +50,13 @@ public class BoardDao {
 		
 	}
 	
-	
+	// 2. 게시글 상세 보기
+	public Board selectBoardByNo(int boardNo) {
+		SqlSession ss = factory.openSession();
+		Board board = ss.selectOne("mybatis.mapper.board.selectBoardByNo", boardNo); // boardNo를 파라미터로 전달
+		ss.close();
+		return board;
+	}
 	
 	
 	

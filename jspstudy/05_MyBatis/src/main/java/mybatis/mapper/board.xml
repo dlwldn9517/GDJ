@@ -20,7 +20,7 @@
 			1) parameterType : 없음
 			2) resultType	 : 목록보기, 상세보기 모두 domain 패키지의 Board를 반환
 	--> 
-	<select id="selectAllBoards" resultType="domain.Board">
+	<select id="selectAllBoards" resultType="Board">
 		SELECT BOARD_NO, TITLE, CONTENT, CREATE_DATE
 		  FROM BOARD
 		 ORDER BY BOARD_NO DESC
@@ -31,8 +31,10 @@
 		1) parameterType : int boardNo
 		2) resultType	 : 목록보기, 상세보기 모두 domain 패키지의 Board를 반환
 	-->
-	<select id="selectBoardByNo" parameterType="int" resultType="domain.Board">
-	
+	<select id="selectBoardByNo" parameterType="int" resultType="Board">
+		SELECT BOARD_NO, TITLE, CONTENT, CREATE_DATE
+		  FROM BOARD
+		 WHERE BOARD_NO = #{boardNo}
 	</select>
 	
 	
