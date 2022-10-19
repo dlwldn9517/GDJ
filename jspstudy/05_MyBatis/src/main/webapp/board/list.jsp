@@ -14,6 +14,9 @@
 		margin: 0;
 		color: #333;
 	}
+	a {
+		text-decoration: none;
+	}
 	h1 {
 		text-align: center;
 	}
@@ -34,6 +37,15 @@
 		border: 1px solid gray;
 		border-radius: 5px;
 	}
+	ul > li > a {
+		display: block;
+		width: 100%;
+		height: 100%;
+	}
+	ul > li:hover {
+		background-color: orange;
+	}
+	
 </style>
 </head>
 <body>
@@ -42,8 +54,10 @@
 	<ul>
 		<c:forEach items="${boards}" var="b">
 			<li>
-				<div>${b.title}</div>
-				<div>${b.createDate}</div>
+				<a href="${contextPath}/board/detail.do?boardNo=${b.boardNo}">
+					<div>${b.title}</div>
+					<div>${b.createDate}</div>
+				</a>
 			</li>
 		</c:forEach>
 	</ul>
