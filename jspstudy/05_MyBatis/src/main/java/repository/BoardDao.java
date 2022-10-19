@@ -53,13 +53,21 @@ public class BoardDao {
 	// 2. 게시글 상세 보기
 	public Board selectBoardByNo(int boardNo) {
 		SqlSession ss = factory.openSession();
-		Board board = ss.selectOne("mybatis.mapper.board.selectBoardByNo", boardNo); // boardNo를 파라미터로 전달
+		Board board = ss.selectOne("mybatis.mapper.board.selectBoardByNo", boardNo); // (실행할 주소값, boardNo를 파라미터로 전달)
 		ss.close();
 		return board;
 	}
 	
-	
-	
+	// 3. 게시글 삽입
+	public int insertBoard(Board board) {
+		SqlSession ss = factory.openSession(false);	  // INSERT (커밋이 필요한 경우)
+		int result = ss.insert("mybatis.mapper.board.insertBoard", board);	// (실행할 주소값, board를 파라미터로 전달)
+		if(result > 0) {
+			ss.commit();
+		}
+		ss.close();
+		return result;
+	}
 	
 	
 	

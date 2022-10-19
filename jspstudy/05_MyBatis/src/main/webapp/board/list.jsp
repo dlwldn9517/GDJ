@@ -45,12 +45,24 @@
 	ul > li:hover {
 		background-color: orange;
 	}
-	
 </style>
+<script src="../assets/js/jquery-3.6.1.min.js"></script>
+<script>
+
+	$(document).ready(function() {
+		
+		$('#btn_write').click(function(event) {
+			location.href = '${contextPath}/board/write.do';
+		});
+		
+	});
+	
+</script>
 </head>
 <body>
 
 	<h1>게시글 목록 보기</h1>
+	<div id="btn_write">추가</div>
 	<ul>
 		<c:forEach items="${boards}" var="b">
 			<li>

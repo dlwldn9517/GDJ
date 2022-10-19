@@ -7,6 +7,18 @@
 <head>
 <meta charset="UTF-8">
 <title>${board.boardNo}번 게시글</title>
+<script src="../assets/js/jquery-3.6.1.min.js"></script>
+<script>
+
+	$(document).ready(function() {
+		
+		$('#btn_list').click(function(event) {
+			location.href = '${contextPath}/board/list.do';
+		});
+		
+	});
+
+</script>
 </head>
 <body>
 
