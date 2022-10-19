@@ -7,7 +7,23 @@
 <!-- namespace="mapper의 패키지 경로" -->
   
 <mapper namespace="mybatis.mapper.board">
- 
- 
+
+	<!--  
+		mapper
+		1. 쿼리문 작성하는 곳
+		2. 모든 쿼리문에 세미콜론(;) 금지
+		3. <select>, <insert>, <update>, <delete> 태그 사용
+	-->
+
+	<!-- 
+		1. 게시글 목록 
+			1) parameterType : 없음
+			2) resultType	 : 목록보기, 상세보기 모두 domain 패키지의 Board를 반환
+	--> 
+	<select id="selectAllBoards" resultType="domain.Board">
+		SELECT BOARD_NO, TITLE, CONTENT, CREATE_DATE
+		  FROM BOARD
+		 ORDER BY BOARD_NO DESC
+	</select>
  
 </mapper>

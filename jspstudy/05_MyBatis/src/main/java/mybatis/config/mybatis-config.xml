@@ -8,6 +8,13 @@
 
 	<!-- db.properties 파일 경로 설정 -->
 	<properties resource="mybatis/config/db.properties"></properties>
+	
+	<!-- snake_case(DB) to camelCase(Java) -->
+	<settings>
+		<setting name="mapUnderscoreToCamelCase" value="true"/>
+	</settings>
+	
+	
 
 	<environments default="development">
 		<environment id="development">
