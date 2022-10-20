@@ -5,7 +5,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import common.ActionForward;
 
-public interface BoardService {
+public interface StudentService {
 
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception;
 }

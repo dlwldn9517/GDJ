@@ -10,7 +10,7 @@
 </head>
 <body>
 	<%
-		request.setCharacterEncoding("UTF-8");
+	request.setCharacterEncoding("UTF-8");
 		
 		Board board = new Board();
 		board.setTitle(request.getParameter("title"));

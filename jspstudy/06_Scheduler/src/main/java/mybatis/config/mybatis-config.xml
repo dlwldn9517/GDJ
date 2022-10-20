@@ -14,9 +14,9 @@
 		<setting name="mapUnderscoreToCamelCase" value="true"/>
 	</settings>
 	
-	<!-- domain.Board(type) to Board(alias) -->
+	<!-- domain.Student(type) to Student(alias) -->
 	<typeAliases>
-		<typeAlias type="domain.Board" alias="Board"/>	
+		<typeAlias type="domain.Student" alias="Student"/>	
 	</typeAliases>
 	
 
@@ -33,7 +33,7 @@
 	</environments>
 	
 	<mappers>
-		<mapper resource="mybatis/mapper/board.xml"/>
+		<mapper resource="mybatis/mapper/student.xml"/>
 	</mappers>
   
 </configuration>

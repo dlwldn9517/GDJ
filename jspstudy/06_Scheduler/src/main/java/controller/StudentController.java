@@ -9,18 +9,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import common.ActionForward;
-import service.BoardAddService;
-import service.BoardDetailService;
-import service.BoardEditService;
-import service.BoardListService;
-import service.BoardModifyService;
-import service.BoardRemoveService;
-import service.BoardService;
+import service.StudentService;
 
 @WebServlet("*.do")
 
 
-public class BoardController extends HttpServlet {
+public class StudentController extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
        
@@ -36,8 +30,8 @@ public class BoardController extends HttpServlet {
 		String contextPath = request.getContextPath();
 		String urlMapping = requestURI.substring(contextPath.length());
 		
-		// BoardService 객체
-		BoardService service = null;
+		// StudentService 객체
+		StudentService service = null;
 		
 		// ActionForward 객체
 		ActionForward af = null;
@@ -46,31 +40,8 @@ public class BoardController extends HttpServlet {
 		switch(urlMapping) {
 		
 		// 비즈니스 로직
-		case "/board/list.do":		// contextPath.length()에 +1이 없기 때문에 /로 시작
-			service = new BoardListService();
-			break;
-		case "/board/detail.do":
-			service = new BoardDetailService();
-			break;
-		case "/board/add.do":
-			service = new BoardAddService();
-			break;
-		case "/board/remove.do":
-			service = new BoardRemoveService();
-			break;
-		case "/board/edit.do":
-			service = new BoardEditService();
-			break;
-		case "/board/modify.do":
-			service = new BoardModifyService();
-			break;
 			
 		// 단순 이동 (포워딩)
-		case "/board/write.do":
-			af = new ActionForward();
-			af.setView("/board/write.jsp");
-			af.setRedirect(false);	// 생략 가능 (why? 기본값이 false, boolean 디폴트값이 false라서)
-			break;
 		}
 		
 		// 선택된 Service 실행

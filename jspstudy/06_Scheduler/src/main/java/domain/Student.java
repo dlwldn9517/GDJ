@@ -1,7 +1,5 @@
 package domain;
 
-import java.sql.Date;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -15,11 +13,12 @@ import lombok.ToString;
 @AllArgsConstructor
 @Builder
 @ToString
-public class Board {
+public class Student {
 	
-	private int boardNo;
-	private String title;
-	private String content;
-	private Date createDate;
+	private int stuNo;
+	private String name;
+	private int kor, eng, math;
+	private double ave;
+	private String grade;
 
 }
