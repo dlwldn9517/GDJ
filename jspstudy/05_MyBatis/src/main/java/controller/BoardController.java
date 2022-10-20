@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import common.ActionForward;
 import service.BoardAddService;
 import service.BoardDetailService;
+import service.BoardEditService;
 import service.BoardListService;
 import service.BoardRemoveService;
 import service.BoardService;
@@ -55,6 +56,9 @@ public class BoardController extends HttpServlet {
 			break;
 		case "/board/remove.do":
 			service = new BoardRemoveService();
+			break;
+		case "/board/edit.do":
+			service = new BoardEditService();
 			break;
 			
 		// 단순 이동 (포워딩)

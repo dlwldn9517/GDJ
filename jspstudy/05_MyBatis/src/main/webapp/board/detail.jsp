@@ -10,30 +10,26 @@
 <script src="../assets/js/jquery-3.6.1.min.js"></script>
 <script>
 
-	$(document).ready(function() {
+	$(document).ready(function(){
 		
-		$('#btn_list').click(function(event) {
+		$('#btn_edit').click(function(event){
+			location.href = '${contextPath}/board/edit.do?boardNo=${board.boardNo}';
+		});
+		
+		$('#btn_remove').click(function(event){
+			if(confirm('게시글을 삭제할까요?')){
+				location.href = '${contextPath}/board/remove.do?boardNo=${board.boardNo}';
+			} else {
+				alert('취소되었습니다.');
+			}
+		});
+		
+		$('#btn_list').click(function(event){
 			location.href = '${contextPath}/board/list.do';
 		});
 		
 	});
 	
-	$(document).ready(function(){
-	    
-	    $('#btn_remove').click(function(){
-	       if(confirm('게시글을 삭제할까요?')){
-	          location.href = '${contextPath}/board/remove.do?boardNo=${board.boardNo}';
-	       } else{
-	          alert('취소되었습니다.');
-	       }
-	    });
-	    
-	    $('#btn_list').click(function(event){
-	       location.href='${contextPath}/board/list.do';
-	    });
-	    
-	 });
-
 </script>
 </head>
 <body>
