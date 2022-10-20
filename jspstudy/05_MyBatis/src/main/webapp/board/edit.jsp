@@ -13,11 +13,6 @@
 	$(document).ready(function() {
 	    
 	    $('#frm_edit').submit(function(event) {
-	       if('${board.title}' == $('#title').val() && '${board.content}' == $('#content').val()) {
-	          alert('변경된 내용이 없습니다.');
-	          event.preventDefault();
-	          return;
-	       }
 	       if($('#title').val() == '') { 
 	          alert('제목은 필수입니다.');
 	          $('#title').focus();

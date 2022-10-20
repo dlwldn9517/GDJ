@@ -13,6 +13,7 @@ import service.BoardAddService;
 import service.BoardDetailService;
 import service.BoardEditService;
 import service.BoardListService;
+import service.BoardModifyService;
 import service.BoardRemoveService;
 import service.BoardService;
 
@@ -59,6 +60,9 @@ public class BoardController extends HttpServlet {
 			break;
 		case "/board/edit.do":
 			service = new BoardEditService();
+			break;
+		case "board/modify.do":
+			service = new BoardModifyService();
 			break;
 			
 		// 단순 이동 (포워딩)
