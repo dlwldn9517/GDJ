@@ -2,6 +2,7 @@ package repository;
 
 import java.io.InputStream;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
@@ -76,8 +77,29 @@ public class StudentDao {
 		return result;
 	}
 	
+	// 5. 평균 범위 조회
+	public List<Student> selectStudentsByAve(Map<String, Double> map) {
+		SqlSession ss = factory.openSession();
+		List<Student> students = ss.selectList(mapper + "selectStudentsByAve", map);
+		ss.close();
+		return students;
+	}
 	
+	// 6. 평균 범위 조회 : 개수
+	public int selectStudentsByAveCount(Map<String, Double> map) {
+		SqlSession ss = factory.openSession();
+		int count = ss.selectOne(mapper + "selectStudentsByAveCount", map);
+		ss.close();
+		return count;
+	}
 	
+	// 7. 평균 범위 조회 : 평균
+	public double selectStudentsByAveAverage(Map<String, Double> map) {
+		SqlSession ss = factory.openSession();
+		double average = ss.selectOne(mapper + "selectStudentsByAveAverage", map);
+		ss.close();
+		return average;
+	}
 	
 }
 

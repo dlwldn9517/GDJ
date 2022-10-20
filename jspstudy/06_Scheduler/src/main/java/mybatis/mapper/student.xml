@@ -36,5 +36,24 @@
  	</insert>
  	
  	<!-- 5. 평균 범위 조회 -->
- 
+ 	<select id="selectStudentsByAve" parameterType="Map" resultType="Student">
+ 		SELECT STU_NO, NAME, KOR, ENG, MATH, AVE, GRADE
+ 		  FROM STUDENT
+ 		 WHERE AVE >= #{begin} AND AVE <![CDATA[<]]>= #{end}
+ 	</select>
+ 	
+ 	<!-- 6. 평균 범위 조회 : 개수 -->
+ 	<select id="selectStudentsByAveCount" parameterType="Map" resultType="int">
+ 		SELECT COUNT(*)
+ 		  FROM STUDENT
+ 		 WHERE AVE >= #{begin} AND AVE <![CDATA[<]]>= #{end}
+ 	</select>
+ 	
+ 	<!-- 7. 평균 범위 조회 : 평균 -->
+ 	<select id="selectStudentsByAveAverage" parameterType="Map" resultType="double">
+ 		SELECT NVL(AVG(AVE), 0)
+ 		  FROM STUDENT
+ 		 WHERE AVE >= #{begin} AND AVE <![CDATA[<]]>= #{end}
+ 	</select>
+ 	
 </mapper>

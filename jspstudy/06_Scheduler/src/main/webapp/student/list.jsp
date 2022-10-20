@@ -12,8 +12,23 @@
 <script>
 
 	$(document).ready(function() {
+		
 		$('#btn_add').click(function(event) {
 			location.href = '${contextPath}/student/write.do';
+		});
+		
+		$('#btn_find').click(function(event) {
+			var begin = $('#begin');
+			var end = $('#end');
+			if(begin == '' || isNaN(begin) || begin < 0 || begin > 100) {
+				alert('begin값을 확인하세요.');
+				return;
+			}
+			else if(end == '' || isNaN(end) || end < 0 || end > 100) {
+				alert('end값을 확인하세요.');
+				return;
+				
+			location.href = '${contextPath}/student/find.do?begin=' + begin + '&end=' + end;
 		});
 		
 	});
