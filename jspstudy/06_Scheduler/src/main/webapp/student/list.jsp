@@ -29,6 +29,7 @@
 			<input type="button" value="신규학생등록" class="btn_primary btn_add" id="btn_add">
 		</div>
 		<div class="find_area">
+			<span>평균</span>
 			<input type="text" name="begin" id="begin" size="4" placeholder="begin">
 			~
 			<input type="text" name="end" id="end" size="4" placeholder="end">

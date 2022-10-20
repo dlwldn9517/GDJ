@@ -50,7 +50,7 @@ public class StudentAddService implements StudentService {
 		if(result > 0) {
 			out.println("<script>");
 			out.println("alert('신규 학생이 등록 되었습니다.')");
-			out.println("location href='" + request.getContextPath() + "/student/list.do'");
+			out.println("location.href='" + request.getContextPath() + "/student/list.do'");
 			out.println("</script>");
 		} else {
 			out.println("<script>");

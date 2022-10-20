@@ -34,5 +34,7 @@
  		VALUES
  			(STUDENT_SEQ.NEXTVAL, #{name}, #{kor}, #{eng}, #{math}, #{ave}, #{grade})
  	</insert>
+ 	
+ 	<!-- 5. 평균 범위 조회 -->
  
 </mapper>
