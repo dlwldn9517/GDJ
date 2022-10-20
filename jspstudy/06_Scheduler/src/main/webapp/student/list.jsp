@@ -18,8 +18,8 @@
 		});
 		
 		$('#btn_find').click(function(event) {
-			var begin = $('#begin');
-			var end = $('#end');
+			var begin = $('#begin').val();
+			var end = $('#end').val();
 			if(begin == '' || isNaN(begin) || begin < 0 || begin > 100) {
 				alert('begin값을 확인하세요.');
 				return;
@@ -27,8 +27,12 @@
 			else if(end == '' || isNaN(end) || end < 0 || end > 100) {
 				alert('end값을 확인하세요.');
 				return;
-				
+			}
 			location.href = '${contextPath}/student/find.do?begin=' + begin + '&end=' + end;
+		});
+		
+		$('#btn_list').click(function(event) {
+			location.href = '${contextPath}/student/list.do';
 		});
 		
 	});
@@ -49,6 +53,7 @@
 			~
 			<input type="text" name="end" id="end" size="4" placeholder="end">
 			<input type="button" value="조회" class="btn_primary" id="btn_find">
+			<input type="button" value="전체조회" class="btn_primary" id="btn_list">
 		</div>
 		<div class="main_area">
 			<table>
@@ -83,7 +88,14 @@
 								<td>${s.grade}</td>
 								<td>
 									<input type="button" value="상세" class="btn_primary" id="btn_detail">
-									<input type="button" value="삭제" class="btn_primary" id="btn_remove">
+									<input type="button" value="삭제" class="btn_primary btn_remove" onclick="fn_remove(${s.stuNo})">
+									<script>
+										function fn_remove(stuNo) {
+											if(confirm('학생 정보를 삭제할까요?')) {
+												location.href = '${contextPath}/student/remove.do?stuNo=' + stuNo;
+											}
+										}
+									</script>
 								</td>
 							</tr>
 						</c:forEach>

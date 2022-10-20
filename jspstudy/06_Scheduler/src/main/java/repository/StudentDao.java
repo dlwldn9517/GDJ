@@ -101,5 +101,16 @@ public class StudentDao {
 		return average;
 	}
 	
+	// 8. 학생 삭제
+	public int deleteStudent(int stuNo) {
+		SqlSession ss = factory.openSession(false);
+		int result = ss.delete(mapper + "deleteStudent", stuNo);
+		if(result > 0) {
+			ss.commit();
+		}
+		ss.close();
+		return result;
+	}
+	
 }
 
