@@ -41,7 +41,7 @@ public class StudentDao {
 	
 	String mapper = "mybatis.mapper.student.";
 	
-	// 1. 학생목록
+	// 1. 학생 목록
 	public List<Student> selectAllStudents() {
 		SqlSession ss = factory.openSession();
 		List<Student> students = ss.selectList(mapper + "selectAllStudents");
@@ -65,5 +65,19 @@ public class StudentDao {
 		return average;
 	}
 	
-
+	// 4. 학생 등록
+	public int insertStudent(Student student) {
+		SqlSession ss = factory.openSession(false);
+		int result = ss.insert(mapper + "insertStudent", student);
+		if(result > 0) {
+			ss.commit();
+		}
+		ss.close();
+		return result;
+	}
+	
+	
+	
+	
 }
+

@@ -8,7 +8,7 @@
   
 <mapper namespace="mybatis.mapper.student">
 
-	<!-- 1. 학생목록 -->
+	<!-- 1. 학생 목록 -->
 	<select id="selectAllStudents" resultType="Student">
 		SELECT STU_NO, NAME, KOR, ENG, MATH, AVE, GRADE
 		  FROM STUDENT
@@ -26,5 +26,13 @@
 		SELECT NVL(AVG(AVE), 0)
 		  FROM STUDENT
 	</select>
+	
+	<!-- 4. 학생 등록 -->
+ 	<insert id="insertStudent" parameterType="Student">
+ 		INSERT INTO STUDENT
+ 			(STU_NO, NAME, KOR, ENG, MATH, AVE, GRADE)
+ 		VALUES
+ 			(STUDENT_SEQ.NEXTVAL, #{name}, #{kor}, #{eng}, #{math}, #{ave}, #{grade})
+ 	</insert>
  
 </mapper>

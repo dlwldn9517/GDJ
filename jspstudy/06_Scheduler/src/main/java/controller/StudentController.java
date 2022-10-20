@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import common.ActionForward;
+import service.StudentAddService;
 import service.StudentListService;
 import service.StudentService;
 
@@ -44,9 +45,15 @@ public class StudentController extends HttpServlet {
 		case "/student/list.do":
 			service = new StudentListService();
 			break;
-		
+		case "/student/add.do":
+			service = new StudentAddService();
+			break;
+			
 			
 		// 단순 이동 (포워딩)
+		case "/student/write.do":
+			af = new ActionForward("/student/write.jsp", false);
+			break;
 		}
 		
 		// 선택된 Service 실행
