@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import common.ActionForward;
+import service.StudentListService;
 import service.StudentService;
 
 @WebServlet("*.do")
@@ -40,6 +41,10 @@ public class StudentController extends HttpServlet {
 		switch(urlMapping) {
 		
 		// 비즈니스 로직
+		case "/student/list.do":
+			service = new StudentListService();
+			break;
+		
 			
 		// 단순 이동 (포워딩)
 		}

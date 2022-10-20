@@ -74,14 +74,5 @@
 		   SET TITLE = #{title}, CONTENT = #{content}
 		 WHERE BOARD_NO = #{boardNo}
 	</update>
-	
-	
-	
-	
-	
-	
-	
-	
-	
  
 </mapper>
