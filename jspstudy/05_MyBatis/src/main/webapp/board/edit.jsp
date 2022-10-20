@@ -33,7 +33,7 @@
 
 	<h1>게시글 편집 화면</h1>
 	<div>
-		<form id="frm_edit" method="post" action="${contextPath}/borad/modify.do">
+		<form id="frm_edit" method="post" action="${contextPath}/board/modify.do">
 			<div>
 				<label for="title">제목</label>
 				<input type="text" id="title" name="title" value="${board.title}">

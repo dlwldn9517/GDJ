@@ -61,7 +61,7 @@ public class BoardController extends HttpServlet {
 		case "/board/edit.do":
 			service = new BoardEditService();
 			break;
-		case "board/modify.do":
+		case "/board/modify.do":
 			service = new BoardModifyService();
 			break;
 			

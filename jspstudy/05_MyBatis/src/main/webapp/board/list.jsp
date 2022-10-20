@@ -18,7 +18,21 @@
 		text-decoration: none;
 	}
 	h1 {
+		margin-top: 30px;
 		text-align: center;
+	}
+	.btn_write {
+		width: 100px;
+		height: 40px;
+		text-align: center;
+		line-height: 40px;
+		margin: 40px auto 20px;
+		background-color: teal;
+		color: #fff;
+		cursor: pointer;
+	}
+	.btn_write:hover {
+		background-color: orange;
 	}
 	ul {
 		list-style: none;
@@ -48,21 +62,19 @@
 </style>
 <script src="../assets/js/jquery-3.6.1.min.js"></script>
 <script>
-
-	$(document).ready(function() {
+	$(document).ready(function(){
 		
-		$('#btn_write').click(function(event) {
+		$('#btn_write').click(function(event){
 			location.href = '${contextPath}/board/write.do';
 		});
 		
 	});
-	
 </script>
 </head>
 <body>
 
 	<h1>게시글 목록 보기</h1>
-	<div id="btn_write">추가</div>
+	<div class="btn_write" id="btn_write">추가</div>
 	<ul>
 		<c:forEach items="${boards}" var="b">
 			<li>
