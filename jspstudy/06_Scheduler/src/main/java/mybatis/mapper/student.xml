@@ -39,21 +39,21 @@
  	<select id="selectStudentsByAve" parameterType="Map" resultType="Student">
  		SELECT STU_NO, NAME, KOR, ENG, MATH, AVE, GRADE
  		  FROM STUDENT
- 		 WHERE AVE >= #{begin} AND AVE <![CDATA[<]]>= #{end}
+ 		 WHERE AVE >= #{begin} AND AVE <![CDATA[<=]]> #{end}
  	</select>
  	
  	<!-- 6. 평균 범위 조회 : 개수 -->
  	<select id="selectStudentsByAveCount" parameterType="Map" resultType="int">
  		SELECT COUNT(*)
  		  FROM STUDENT
- 		 WHERE AVE >= #{begin} AND AVE <![CDATA[<]]>= #{end}
+ 		 WHERE AVE >= #{begin} AND AVE <![CDATA[<=]]> #{end}
  	</select>
  	
  	<!-- 7. 평균 범위 조회 : 평균 -->
  	<select id="selectStudentsByAveAverage" parameterType="Map" resultType="double">
  		SELECT NVL(AVG(AVE), 0)
  		  FROM STUDENT
- 		 WHERE AVE >= #{begin} AND AVE <![CDATA[<]]>= #{end}
+ 		 WHERE AVE >= #{begin} AND AVE <![CDATA[<=]]> #{end}
  	</select>
  	
  	<!-- 8. 학생 삭제 -->
@@ -76,5 +76,20 @@
  		   SET NAME = #{name}, KOR = #{kor}, ENG = #{eng}, MATH = #{math}, AVE = #{ave}, GRADE = #{grade}
  		 WHERE STU_NO = #{stuNo}
  	</update>
+ 	
+ 	<!-- 11. 평균 기준 상위 3명 -->
+ 	<select id="selectStudentsTop3" resultType="Student">
+ 		SELECT A.RANK, A.STU_NO, A.NAME, A.KOR, A.ENG, A.MATH, A.AVE, A.GRADE
+ 		  FROM (SELECT RANK() OVER (ORDER BY AVE DESC) AS RANK, STU_NO, NAME, KOR, ENG, MATH, AVE, GRADE
+ 		  		  FROM STUDENT) A
+ 		 WHERE A.RANK <![CDATA[<=]]> 3
+ 	</select>
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	
  	
 </mapper>
