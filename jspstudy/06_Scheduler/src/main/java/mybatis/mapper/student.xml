@@ -70,5 +70,11 @@
  		 WHERE STU_NO = #{stuNo} 
  	</select>
  	
+ 	<!-- 10. 학생 수정 -->
+ 	<update id="updateStudent" parameterType="Student">
+ 		UPDATE STUDENT
+ 		   SET NAME = #{name}, KOR = #{kor}, ENG = #{eng}, MATH = #{math}, AVE = #{ave}, GRADE = #{grade}
+ 		 WHERE STU_NO = #{stuNo}
+ 	</update>
  	
 </mapper>
