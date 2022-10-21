@@ -112,5 +112,13 @@ public class StudentDao {
 		return result;
 	}
 	
+	// 9. 학생 상세보기
+	public Student selectStudentByNo(int stuNo) {
+		SqlSession ss = factory.openSession();
+		Student student = ss.selectOne(mapper + "selectStudentByNo", stuNo);
+		ss.close();
+		return student;
+	}
+	
 }
 

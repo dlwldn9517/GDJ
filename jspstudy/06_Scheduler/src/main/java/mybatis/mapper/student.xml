@@ -63,4 +63,12 @@
  		 WHERE STU_NO = #{stuNo}
  	</delete>
  	
+ 	<!-- 9. 학생 상세보기 -->
+ 	<select id="selectStudentByNo" parameterType="int" resultType="Student">
+ 		SELECT STU_NO, NAME, KOR, ENG, MATH, AVE, GRADE
+ 		  FROM STUDENT
+ 		 WHERE STU_NO = #{stuNo} 
+ 	</select>
+ 	
+ 	
 </mapper>
