@@ -131,5 +131,13 @@ public class StudentDao {
 		return result;
 	}
 	
+	// 11. 평균 기준 상위 3명
+	public List<Student> selectStudentsTop3() {
+		SqlSession ss = factory.openSession();
+		List<Student> top3 = ss.selectList(mapper + "selectStudentsTop3");
+		ss.close();
+		return top3;
+	}
+	
 }
 

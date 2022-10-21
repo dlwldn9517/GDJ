@@ -85,11 +85,4 @@
  		 WHERE A.RANK <![CDATA[<=]]> 3
  	</select>
  	
- 	
- 	
- 	
- 	
- 	
- 	
- 	
 </mapper>
