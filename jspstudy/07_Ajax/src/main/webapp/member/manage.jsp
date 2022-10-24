@@ -93,6 +93,8 @@
 				
 				/* 응답 */
 				dataType: 'json',
+				
+				// 정상 응답
 				success: function(resData) {	// resData : {"isSuccess" : true}
 					if(resData.isSuccess) {
 						alert('신규 회원이 등록되었습니다.');
@@ -100,7 +102,11 @@
 					} else {
 						alert('신규 회원 등록이 실패했습니다.');
 					}
-					
+				},
+				
+				// 예외 응답
+				error: function(jqXHR) {   // 예외 처리 응답 데이터(일반 텍스트)는 jqXHR 객체의 responseText 속성에 저장됨
+					alert(jqXHR.responseText);
 				}
 				
 			});	// ajax
