@@ -17,6 +17,7 @@
 	$(document).ready(function() {
 		fn_getAllMembers();
 		fn_getMember();
+		fn_registration();
 	})
 	function fn_getAllMembers() {
 		$.ajax({
@@ -69,7 +70,7 @@
 						alert('회원 정보가 조회되었습니다.')
 						$('#id').val(resData.member.id).prop('readonly', true);
 						$('#name').val(resData.member.name);
-						$(':radio[name=gender][value=M]').prop('checked', true);
+						$(':radio[name=gender][value=' + resData.member.gender + ']').prop('checked', true);
 						$('#grade').val(resData.member.grade);
 						$('#address').val(resData.member.address);
 					} else {
@@ -79,6 +80,13 @@
 			});
 		});
 	}
+	
+	function fn_registration() {
+		
+		
+		
+	} // function
+	
 	
 </script>
 </head>

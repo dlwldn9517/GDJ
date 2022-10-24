@@ -65,6 +65,16 @@ public class MemberDao {
 		return member;
 	}
 	
+	// 4. 회원 등록
+	public int insertMember(Member member) {
+		SqlSession ss = factory.openSession(false);
+		int result = ss.insert(mapper + "insertMember", member);
+		if(result > 0) {
+			ss.commit();
+		}
+		ss.close();
+		return result;
+	}
 	
 	
 	

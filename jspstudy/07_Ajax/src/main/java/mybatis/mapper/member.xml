@@ -28,7 +28,13 @@
 		 WHERE MEMBER_NO = #{memberNo}
 	</select>
 	
-	
+	<!-- 4. 회원 등록 -->
+	<insert id="insertMember" parameterType="Member">
+		INSERT INTO MEMBER
+			(MEMBER_NO, ID, NAME, GENDER, GRADE, ADDRESS)
+		VALUES
+			(MEMBER_SEQ.NEXTVAL, #{id}, #{name}, #{gender}, #{grade}, #{address})
+	</insert>
 	
 	
  	
