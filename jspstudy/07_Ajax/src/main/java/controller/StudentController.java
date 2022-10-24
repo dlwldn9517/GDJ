@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import common.ActionForward;
+import service.MemberAddService;
 import service.MemberDetailService;
 import service.MemberListService;
 import service.MemberService;
@@ -50,7 +51,9 @@ public class StudentController extends HttpServlet {
 		case "/member/detail.do":
 			service = new MemberDetailService();
 			break;
-		
+		case "/member/add.do":
+			service = new MemberAddService();
+			break;
 		}
 		
 		// 선택된 Service 실행

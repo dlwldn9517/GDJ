@@ -83,7 +83,29 @@
 	
 	function fn_registration() {
 		
-		
+		$('#btn_add').click(function() {
+			
+			$.ajax({
+				
+				type: 'post',
+				url: '${contextPath}/member/add.do',
+				data: $('#frm_member').serialize(),	 // serialize() : 폼의 모든 입력 요소를 파라미터로 변환
+				
+				/* 응답 */
+				dataType: 'json',
+				success: function(resData) {	// resData : {"isSuccess" : true}
+					if(resData.isSuccess) {
+						alert('신규 회원이 등록되었습니다.');
+						fn_getAllMembers();	 // 목록을 새로 가져와서 갱신
+					} else {
+						alert('신규 회원 등록이 실패했습니다.');
+					}
+					
+				}
+				
+			});	// ajax
+			
+		});	// click
 		
 	} // function
 	
