@@ -15,3 +15,5 @@ CREATE TABLE MEMBER (
 INSERT INTO MEMBER VALUES(MEMBER_SEQ.NEXTVAL, 'user1', '회원1', 'F', 'gold', 'jeju');
 INSERT INTO MEMBER VALUES(MEMBER_SEQ.NEXTVAL, 'user2', '회원2', 'M', 'silver', 'seoul');
 INSERT INTO MEMBER VALUES(MEMBER_SEQ.NEXTVAL, 'user3', '회원3', 'F', 'bronze', 'yeosu');
+
+COMMIT;

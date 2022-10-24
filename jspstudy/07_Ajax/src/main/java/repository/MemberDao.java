@@ -1,10 +1,14 @@
 package repository;
 
 import java.io.InputStream;
+import java.util.List;
 
 import org.apache.ibatis.io.Resources;
+import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+
+import domain.Member;
 
 public class MemberDao {
 	
@@ -37,7 +41,23 @@ public class MemberDao {
 	
 	String mapper = "mybatis.mapper.member.";
 	
-
+	// 1. 회원 목록
+	public List<Member> selectAllMembers() {
+		SqlSession ss = factory.openSession();
+		List<Member> members = ss.selectList(mapper + "selectAllMembers");
+		ss.close();
+		return members;
+	}
+	
+	// 2. 회원수
+	public int selectAllMembersCount() {
+		SqlSession ss = factory.openSession();
+		int count = ss.selectOne(mapper + "selectAllMembersCount");
+		ss.close();
+		return count;
+	}
+	
+	// 3. 
 	
 	
 	

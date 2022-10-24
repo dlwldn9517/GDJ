@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import common.ActionForward;
+import service.MemberListService;
 import service.MemberService;
 
 @WebServlet("*.do")
@@ -43,7 +44,9 @@ public class StudentController extends HttpServlet {
 		case "/member/manage.do":
 			af = new ActionForward("/member/manage.jsp", false);
 			break;
-		
+		case "/member/list.do":
+			service = new MemberListService();
+			break;
 		
 			
 		// 단순 이동 (포워딩)
