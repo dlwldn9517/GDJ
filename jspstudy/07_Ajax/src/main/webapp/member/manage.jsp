@@ -16,6 +16,7 @@
 	/* ajax는 요청과 응답을 json으로 통일한다. */
 	$(document).ready(function() {
 		fn_getAllMembers();
+		fn_getMember();
 	})
 	function fn_getAllMembers() {
 		$.ajax({
@@ -43,11 +44,39 @@
 					tr += '<td>' + (member.gender == 'M' ? '남자' : '여자') + '</td>';
 					tr += '<td>' + member.grade + '</td>';
 					tr += '<td>' + member.address + '</td>';
-					tr += '<td><input type="button" value="조회" id="btn_detail"></td>';
+					tr += '<td><input type="hidden" value="'+ member.memberNo +'"><input type="button" value="조회" class="btn_detail"></td>';
 					tr += '</tr>';
 					$('#member_list').append(tr);
 				 });
 			}
+		});
+	}
+	function fn_getMember() {
+		// '조회' 버튼은 동적 요소이기 때문에 다음 이벤트 방식을 사용해야 한다.
+		// $(부모요소).on(이벤트타입, 이벤트대상, 이벤트리스너)
+		
+		$('body').on('click', '.btn_detail', function(){   
+			$.ajax({
+				/* 요청 */
+				type: 'get',
+				url: '${contextPath}/member/detail.do',
+				data: 'memberNo=' + $(this).prev().val(),  // next(): 다음, prev(): 이전  | <input type="hidden" value="'+ member.memberNo +'">이 다음/이전에 있는지
+				
+				/* 응답 */
+				dataType: 'json',
+				success: function(resData) {	// resData : {"exists" : true, "member": {"id": "user3", ...}}
+					if(resData.exists) {
+						alert('회원 정보가 조회되었습니다.')
+						$('#id').val(resData.member.id).prop('readonly', true);
+						$('#name').val(resData.member.name);
+						$(':radio[name=gender][value=M]').prop('checked', true);
+						$('#grade').val(resData.member.grade);
+						$('#address').val(resData.member.address);
+					} else {
+						alert('조회된 회원 정보가 없습니다.')
+					}
+				}
+			});
 		});
 	}
 	
