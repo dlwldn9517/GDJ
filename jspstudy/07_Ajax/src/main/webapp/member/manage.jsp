@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<% 
+	String contextPath = request.getContextPath();
+	pageContext.setAttribute("contextPath", contextPath);
+%>
+<%-- <c:set var="contextPath" value="<%=request....%> 대신에 자바코드(pageContext.setAttribute("contextPath", contextPath);) 사용가능 --%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,10 +12,44 @@
 <title>Insert title here</title>
 <script src="../assets/js/jquery-3.6.1.min.js"></script>
 <script>
+
 	/* ajax는 요청과 응답을 json으로 통일한다. */
 	$(document).ready(function() {
-		
-	});
+		fn_getAllMembers();
+	})
+	function fn_getAllMembers() {
+		$.ajax({
+			/* 요청 */
+			type: 'get',
+         	url: '<%=request.getContextPath()%>/member/list.do',
+         	
+         	/* 응답 */
+         	dataType: 'json',
+         	success: function(resData) {  // resData : {"count" : 3, "members" : [{}, {}, {}]}
+         	
+				 // 1. resData.count, resData['count']
+				 $('#count').text(resData.count);
+				 
+				 // 2. member_list 영역 초기화
+				 $('#member_list').empty();
+				 
+				 // 3. resData.members : [{}, {}, {}]
+				 //	   $.each(배열, function(인덱스, 배열요소){})
+				 $.each(resData.members, function(i, member) {
+					var tr = '<tr>';
+					tr += '<td>' + member.memberNo + '</td>';
+					tr += '<td>' + member.id + '</td>';
+					tr += '<td>' + member.name + '</td>';
+					tr += '<td>' + (member.gender == 'M' ? '남자' : '여자') + '</td>';
+					tr += '<td>' + member.grade + '</td>';
+					tr += '<td>' + member.address + '</td>';
+					tr += '<td><input type="button" value="조회" id="btn_detail"></td>';
+					tr += '</tr>';
+					$('#member_list').append(tr);
+				 });
+			}
+		});
+	}
 	
 </script>
 </head>

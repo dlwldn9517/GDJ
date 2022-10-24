@@ -21,8 +21,12 @@
 		  FROM MEMBER
 	</select>
 	
-	
-	
+	<!-- 3. 회원 상세 -->
+	<select id="selectMemberByNo" parameterType="int" resultType="Member">
+		SELECT MEMBER_NO, ID, NAME, GENDER, GRADE, ADDRESS
+		  FROM MEMBER
+		 WHERE MEMBER_NO = #{memberNo}
+	</select>
 	
 	
 	
