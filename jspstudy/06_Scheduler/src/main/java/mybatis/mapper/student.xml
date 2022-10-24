@@ -6,7 +6,7 @@
   
 <!-- namespace="mapper의 패키지 경로" -->
   
-<mapper namespace="mybatis.mapper.member">
+<mapper namespace="mybatis.mapper.student">
 
 	<!-- 1. 학생 목록 -->
 	<select id="selectAllStudents" resultType="Student">
