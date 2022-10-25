@@ -5,7 +5,7 @@ import javax.servlet.http.HttpServletResponse;
 
 public interface NaverCaptchaService {
 
-	public String getCaptchaKey(HttpServletRequest request, HttpServletResponse response);
+	public String getCaptchaKey();
 	public void getCaptchaImage(HttpServletRequest request, String key);
 	public boolean validateUserInput(HttpServletRequest request);
 	

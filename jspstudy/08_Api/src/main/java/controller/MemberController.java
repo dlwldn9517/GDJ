@@ -14,7 +14,7 @@ import service.NaverCaptchaServiceimpl;
 
 @WebServlet("*.do")
 
-public class LoginController extends HttpServlet {
+public class MemberController extends HttpServlet {
 
    private static final long serialVersionUID = 1L;
        
@@ -39,8 +39,12 @@ public class LoginController extends HttpServlet {
       switch(urlMapping) {
       case "/member/loginPage.do":
     	  // 캡챠키 발급 요청
-    	  String key = service.getCaptchaKey(request, response);
-    	  System.out.println(key);
+    	  String key = service.getCaptchaKey();
+    	  // 캡챠이미지 발급 요청
+    	  service.getCaptchaImage(request, key);
+    	  // ActionForward 생성
+    	  af = new ActionForward("/member/login.jsp", false);
+    	  break;
       }
       
       // 어디로 어떻게 이동하는가?
