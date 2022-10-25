@@ -46,23 +46,12 @@
 		 WHERE ID = #{id}
 	</update>
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	<!-- 6. 회원 삭제 -->
+	<delete id="deleteMember" parameterType="int">
+		 DELETE
+		   FROM MEMBER
+		  WHERE MEMBER_NO = #{memberNo}
+	</delete>
 	
  	
 </mapper>
