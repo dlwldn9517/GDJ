@@ -10,6 +10,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="../assets/css/member.css">
 <script src="../assets/js/jquery-3.6.1.min.js"></script>
 <script>
 
@@ -19,6 +20,7 @@
 		fn_getAllMembers();
 		fn_getMember();
 		fn_registration();
+		fn_modify();
 	});
 	
 	function fn_init() {
@@ -125,6 +127,41 @@
 		});	// click
 		
 	} // function
+	
+	
+	function fn_modify() {
+		
+		$('#btn_modify').click(function() {
+			
+			$.ajax({
+				
+				/* 요청 */
+				type: 'post',
+				url: '${contextPath}/member/modify.do',
+				data: $('#frm_member').serialize(),
+				
+				/* 응답 */
+				dataType: 'json',
+				success: function(resData) {	 // resData : {"isSuccess": true}
+				
+					if(resData.isSuccess) {
+						alert('회원 정보가 수정되었습니다.');
+						fn_getAllMembers();	 // 수정된 내용이 반영되도록 회원 목록을 새로 고침
+						fn_init();
+						
+					} else {
+						alert('회원 정보 수정이 실패했습니다.');
+					}
+				},
+				error: function(jqXHR) {
+					alert(jqXHR.responseText);
+				}
+				
+			});	// ajax
+			
+		});	 // click
+		
+	}	// function
 	
 	
 </script>
