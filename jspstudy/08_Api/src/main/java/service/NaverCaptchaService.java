@@ -3,10 +3,10 @@ package service;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public interface NaverChaptchaService {
+public interface NaverCaptchaService {
 
-	public String getChaptchaKey(HttpServletRequest request, HttpServletResponse response);
-	public void getChaptchaImage(HttpServletRequest request, String key);
+	public String getCaptchaKey(HttpServletRequest request, HttpServletResponse response);
+	public void getCaptchaImage(HttpServletRequest request, String key);
 	public boolean validateUserInput(HttpServletRequest request);
 	
 }
