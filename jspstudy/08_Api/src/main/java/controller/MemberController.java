@@ -41,16 +41,16 @@ public class MemberController extends HttpServlet {
       
       case "/member/loginPage.do":
     	  
-    	  // 캡챠키 발급 요청
+    	  // 캡챠 키 발급 요청
     	  String key = service.getCaptchaKey();
     	  
-    	  // 캡챠이미지 발급 요청
+    	  // 캡챠 이미지 발급 요청
     	  Map<String, String> map = service.getCaptchaImage(request, key);
     	  request.setAttribute("dirname", map.get("dirname"));
 		  request.setAttribute("filename", map.get("filename"));
 		  
     	  // ActionForward 생성
-    	  af = new ActionForward("/member/login.jsp", false);
+    	  af = new ActionForward("/member/login.jsp", false);	// ActionForward 페이지 변동 
     	  break;
     	  
       case "/member/refreshCaptcha.do":

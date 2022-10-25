@@ -12,7 +12,7 @@
 <script>
 
 	$(document).ready(function() {
-		$('btn_refresh').click(function() {
+		$('#btn_refresh').click(function() {
 		
 			$.ajax({
 				
