@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="addr1" class="com.gdu.app01.xml03.Address">
+		<property name="jibun" value="지번1" />
+		<property name="road" value="한국로" />
+		<property name="zipCode" value="111"></property>
+	</bean>
+	
+	<bean id="select" class="com.gdu.app01.xml03.Person">
+		<property name="name" value="손현우" />
+		<property name="age" value="31" />
+		<property name="addr" ref="addr1" />
+	</bean>
+
+</beans>
