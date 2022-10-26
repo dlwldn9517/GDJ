@@ -17,6 +17,7 @@ public class SpringMain {
 		System.out.println(dao2 == dao3);
 		System.out.println(dao1 == dao3);
 
+		ctx.close();
 	}
 
 }
