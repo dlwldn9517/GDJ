@@ -67,7 +67,7 @@ public class MemberController extends HttpServlet {
     		  PrintWriter out = response.getWriter();
     		  out.println("<script>");
     		  out.println("alert('자동입력 방지문자를 확인하세요');");
-    		  out.println("location.href='" + request.getContextPath() + "/member/refreshCaptcha.do");
+    		  out.println("location.href='" + request.getContextPath() + "/member/loginPage.do';");
     		  out.println("</script>");
     		  out.close();
     	  }

@@ -59,7 +59,7 @@
 			</div>
 			<div>
 				<input type="text" name="value" placeholder="자동입력 방지문자">
-				<input type="text" name="key" id="key" value="${key}">
+				<input type="hidden" name="key" id="key" value="${key}">
 			</div>
 			<div>
 				<button>로그인</button>

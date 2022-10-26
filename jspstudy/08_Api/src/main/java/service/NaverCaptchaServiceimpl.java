@@ -203,7 +203,7 @@ public class NaverCaptchaServiceimpl implements NaverCaptchaService {
 		boolean result = false;
 		
 		// apiURL
-		String apiURL = "https://openapi.naver.com/v1/captcha/nkey?code=1&key=" + key + "&value" + value;
+		String apiURL = "https://openapi.naver.com/v1/captcha/nkey?code=1&key=" + key + "&value=" + value;
 		
 		try {
 			
