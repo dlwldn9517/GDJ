@@ -7,7 +7,7 @@ public class Car {
 	private String maker;
 	private Engine engine;
 	
-	// method (getter/setter)
+	// method(getter/setter)
 	public String getModel() {
 		return model;
 	}

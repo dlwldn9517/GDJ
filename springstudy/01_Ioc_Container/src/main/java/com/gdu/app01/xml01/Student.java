@@ -1,7 +1,7 @@
 package com.gdu.app01.xml01;
 
 public class Student {
-	
+
 	// field
 	private String name;
 	private String school;
@@ -26,5 +26,5 @@ public class Student {
 	public void setCalculator(Calculator calculator) {
 		this.calculator = calculator;
 	}
-
+	
 }

@@ -16,5 +16,5 @@
 		<constructor-arg value="user" />
 		<constructor-arg ref="contact" />	<!-- bean id="contact"을 참조한다. -->
 	</bean>
-	
+
 </beans>

@@ -1,7 +1,7 @@
 package com.gdu.app01.xml07;
 
 public class User {
-	
+
 	// field
 	private String id;
 	private Contact contact;
@@ -15,8 +15,8 @@ public class User {
 	
 	// method
 	public void info() {
-		System.out.println("¾ÆÀÌµğ : " + id);
+		System.out.println("ì•„ì´ë””: " + id);
 		contact.info();
 	}
-
+	
 }

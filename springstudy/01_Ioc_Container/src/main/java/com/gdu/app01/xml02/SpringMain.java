@@ -16,8 +16,9 @@ public class SpringMain {
 		System.out.println(engine.getFuel());
 		System.out.println(engine.getEfficency());
 		System.out.println(engine.getCc());
-
+		
 		ctx.close();
+
 	}
 
 }

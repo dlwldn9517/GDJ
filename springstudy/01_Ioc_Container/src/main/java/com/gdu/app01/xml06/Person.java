@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-// Collection Framework(List, Set, Map)¿¡ ÁÖÀÔ
+// Collection Framework(List, Set, Map)ì— ì£¼ì…
 
 public class Person {
 
@@ -13,7 +13,7 @@ public class Person {
 	private Set<String> contacts;
 	private Map<String, String> friends;
 	
-	
+	// method(getter/setter)
 	public List<String> getHobbies() {
 		return hobbies;
 	}
@@ -33,21 +33,19 @@ public class Person {
 		this.friends = friends;
 	}
 	
-	// info() ¸Ş¼Òµå
+	// info() ë©”ì†Œë“œ
 	public void info() {
-		
 		// List
-		for(int i = 0; i <hobbies.size(); i++) {
-			System.out.println((i + 1) + "¹øÂ° Ãë¹Ì : " + hobbies.get(i));
+		for(int i = 0; i < hobbies.size(); i++) {
+			System.out.println((i + 1) + "ë²ˆì§¸ ì·¨ë¯¸ : " + hobbies.get(i));
 		}
-		
-		// Set (ÀÎµ¦½º X)
+		// Set (ì¸ë±ìŠ¤ X)
 		for(String contact : contacts) {
 			System.out.println(contact);
 		}
-		// Map (Key + Value == Entry)
+		// Map (Key + Value ==> Entry)
 		for(Map.Entry<String, String> entry : friends.entrySet()) {
-			System.out.println(entry.getKey() + " : " + entry.getValue());
+			System.out.println(entry.getKey() + ":" + entry.getValue());
 		}
 	}
 	

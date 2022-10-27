@@ -8,16 +8,16 @@ public class SpringMain {
 	public static void main(String[] args) {
 		
 		AbstractApplicationContext ctx = new ClassPathXmlApplicationContext("xml03/appCtx.xml");
-		Person person = ctx.getBean("select", Person.class);
+		Person person = ctx.getBean("human", Person.class);
 		
 		System.out.println(person.getName());
 		System.out.println(person.getAge());
-		Address address = person.getAddr();
-		System.out.println(address.getJibun());
-		System.out.println(address.getRoad());
-		System.out.println(address.getZipCode());
+		System.out.println(person.getAddr().getJibun());
+		System.out.println(person.getAddr().getRoad());
+		System.out.println(person.getAddr().getZipCode());
 		
 		ctx.close();
+
 	}
 
 }

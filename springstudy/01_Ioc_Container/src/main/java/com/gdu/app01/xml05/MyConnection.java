@@ -4,14 +4,14 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 
 public class MyConnection {
-	
+
 	// field
 	private String driverClassName;
 	private String url;
-	private String username;
+	private String user;
 	private String password;
 	
-	// method (getter + setter)
+	// method(getter/setter)
 	public String getDriverClassName() {
 		return driverClassName;
 	}
@@ -24,11 +24,11 @@ public class MyConnection {
 	public void setUrl(String url) {
 		this.url = url;
 	}
-	public String getUsername() {
-		return username;
+	public String getUser() {
+		return user;
 	}
-	public void setUsername(String username) {
-		this.username = username;
+	public void setUser(String user) {
+		this.user = user;
 	}
 	public String getPassword() {
 		return password;
@@ -37,14 +37,13 @@ public class MyConnection {
 		this.password = password;
 	}
 	
-	// Connection ¹İÈ¯ ¸Ş¼Òµå
+	// Connection ë°˜í™˜ ë©”ì†Œë“œ
 	public Connection getConnection() {
 		Connection con = null;
 		try {
-			con = DriverManager.getConnection(url, username, password);
-			System.out.println("Connection »ı¼º ¿Ï·á");
-			
-		} catch (Exception e) {
+			con = DriverManager.getConnection(url, user, password);
+			System.out.println("Connection ìƒì„± ì™„ë£Œ");
+		} catch(Exception e) {
 			e.printStackTrace();
 		}
 		return con;

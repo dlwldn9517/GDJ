@@ -1,13 +1,13 @@
 package com.gdu.app01.xml03;
 
 public class Person {
-	
+
 	// field
 	private String name;
 	private int age;
 	private Address addr;
 	
-	// method (getter/setter)
+	// method(getter/setter)
 	public String getName() {
 		return name;
 	}
@@ -26,5 +26,5 @@ public class Person {
 	public void setAddr(Address addr) {
 		this.addr = addr;
 	}
-
+	
 }

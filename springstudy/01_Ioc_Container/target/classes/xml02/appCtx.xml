@@ -3,7 +3,6 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-
 	<bean id="crdi" class="com.gdu.app01.xml02.Engine">
 		<property name="fuel" value="가솔린" />
 		<property name="efficency" value="12.5" />
@@ -13,7 +12,7 @@
 	<bean id="dreamCar" class="com.gdu.app01.xml02.Car">
 		<property name="model" value="소나타" />
 		<property name="maker" value="현대" />
-		<property name="engine" ref="crdi"></property>	<!-- bean id="crdi"을 ref에 넣는다. -->
+		<property name="engine" ref="crdi" />   <!-- bean id="crdi"을 ref에 넣는다. -->
 	</bean>
 
 </beans>

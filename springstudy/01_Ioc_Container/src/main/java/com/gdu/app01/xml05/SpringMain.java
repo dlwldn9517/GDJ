@@ -9,7 +9,7 @@ public class SpringMain {
 
 	public static void main(String[] args) throws Exception {
 		
-		// ÇÁ·ÎÁ§Æ®ÀÇ Build Path¿¡ ojdbc6.jar µî·ÏÇÏ°í ½ÇÇàÇÕ´Ï´Ù.
+		// í”„ë¡œì íŠ¸ì˜ Build Pathì— ojdbc6.jar ë“±ë¡í•˜ê³  ì‹¤í–‰í•©ë‹ˆë‹¤.
 		
 		AbstractApplicationContext ctx = new GenericXmlApplicationContext("xml05/appCtx.xml");
 		MyConnection myCon = ctx.getBean("conn", MyConnection.class);
@@ -17,10 +17,11 @@ public class SpringMain {
 		
 		if(con != null) {
 			con.close();
-			System.out.println("Connection ÇØÁ¦ ¿Ï·á");
+			System.out.println("Connection í•´ì œ ì™„ë£Œ");
 		}
 		
 		ctx.close();
+
 	}
 
 }

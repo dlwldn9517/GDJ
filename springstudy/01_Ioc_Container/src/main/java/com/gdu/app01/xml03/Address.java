@@ -1,13 +1,13 @@
 package com.gdu.app01.xml03;
 
 public class Address {
-	
+
 	// field
 	private String jibun;
 	private String road;
 	private String zipCode;
 	
-	// method (getter/setter)
+	// method(getter/setter)
 	public String getJibun() {
 		return jibun;
 	}
