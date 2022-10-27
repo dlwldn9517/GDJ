@@ -14,7 +14,7 @@ import org.springframework.context.annotation.Configuration;
 public class SpringBeanConfig {
 	
 	@Bean
-	public Student stud( ) {
+	public Student stud( ) {	// <bean id="stud" class="Student"> : 메소드이름이 bean
 		
 		// List
 		List<Integer> scores = new ArrayList<Integer>();
