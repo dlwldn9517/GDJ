@@ -14,7 +14,7 @@
 	<img src="resources/images/animal1.jpg" width="200px">
 	
 	<h1>강아지</h1>
-	<img src="assets/images/animal2.jsp" width="200px">
+	<img src="assets/images/animal10.jsp" width="200px">
 	
 </body>
 </html>
