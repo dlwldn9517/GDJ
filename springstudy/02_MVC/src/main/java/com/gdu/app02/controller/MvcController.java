@@ -1,5 +1,7 @@
 package com.gdu.app02.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -43,6 +45,7 @@ public class MvcController {
 		3. 매개변수 : 선택 (요청이 있으면 request, 응답을 만들면 response 등)
 	*/
 	
+	
 	public String welcome() {
 		return "index";		// DispatcherServlet의 ViewResolver에 의해서 해석된다.
 							// prefix="/WEB-INF/views/"
@@ -64,5 +67,50 @@ public class MvcController {
 		// /WEB-INF/views/ + gallery/animal + .jsp
 		return "gallery/animal";
 	}
+	
+	
+	// @RequestMapping(value="/animal", method=RequestMethod.GET)
+	// @RequestMapping(value="animal", method=RequestMethod.GET)	슬래시가 없어도 된다.
+	// @RequestMapping(value="/animal")								GET은 생략가능, POST 생략X
+	// @RequestMapping("/animal")									value로 인식
+	// @RequestMapping("animal")									최종버전
+	
+	
+	// <a href="${contextParh}/flower">
+	@RequestMapping("flower")
+	public String 꽃보러가기() {
+		
+		// return "/gallery/flower"		슬래시(/)가 있어도 된다.
+		
+		return "gallery/flower";	 // 슬래시(/)가 없어도 된다.
+	}
+	
+	
+	// <a href="${contextParh}/animal/flower">
+	@RequestMapping("animal/flower")
+	public String 동물보고꽃보고() {
+		// redirect : 다음에는 항상 다른 URL Mapping을 적어준다.
+		return "redirect:/flower";	// @RequestMapping("flower")로 넘어가서 return "gallery/flower";한다.
+	}
+	
+	
+	// <a href="${contextPath}/want/animal?filename=animal10.jsp">
+	@RequestMapping("want/animal")
+	public String 동물10보기(HttpServletRequest request) {
+		
+		System.out.println(request.getParameter("filename"));
+		
+		return "gallery/animal10"; 	// 포워드
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 }

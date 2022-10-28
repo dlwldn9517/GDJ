@@ -11,10 +11,10 @@
 <body>
 
 	<h1>고양이 냥이</h1>
-	<img src="resources/images/animal1.jpg" width="200px">
+	<img src="${contextPath}/resources/images/animal1.jpg" width="200px">
 	
 	<h1>강아지</h1>
-	<img src="assets/images/animal10.jsp" width="200px">
+	<img src="${contextPath}/assets/images/animal2.jpg" width="200px">
 	
 </body>
 </html>

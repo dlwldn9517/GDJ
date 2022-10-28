@@ -10,19 +10,8 @@
 </head>
 <body>
 
-	<a href="${contextPath}/animal">동물보러가기</a>
+	<h1>보고 싶은 동물 ${param.filename}</h1>
+	<img src="${contextPath}/resources/images/${param.filename}" width="200px">
 	
-	<hr>
-	
-	<a href="${contextPath}/flower">꽃보러가기</a>
-	
-	<hr>
-   
-	<a href="${contextPath}/animal/flower">동물보러갔다가 꽃 보러가기</a>
-	
-	<hr>
-	
-	<a href="${contextPath}/want/animal?filename=animal10.jpg">animal10 보러가기</a>
-
 </body>
 </html>
