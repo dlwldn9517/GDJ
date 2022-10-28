@@ -44,6 +44,25 @@ public class MvcController {
 	*/
 	
 	public String welcome() {
-		return "index";
+		return "index";		// DispatcherServlet의 ViewResolver에 의해서 해석된다.
+							// prefix="/WEB-INF/views/"
+							// suffix=".jsp"
+							// prefix와 suffix에 의해서 "/WEB-INF/views/index.jsp"와 같이 해석되고 처리된다.
+		
+		// index.jsp로 forward 했을까? redirect 했을까?
+		// 정답 : forward 했다.
+		// redirect 할때는 return "redirect:경로"; 처럼 반환한다.
+		
 	}
+	
+	
+	// <a href="${contextPath}/animal">
+	@RequestMapping(value="/animal", method=RequestMethod.GET)
+	
+	public String 동물보러가기() {
+		
+		// /WEB-INF/views/ + gallery/animal + .jsp
+		return "gallery/animal";
+	}
+	
 }
