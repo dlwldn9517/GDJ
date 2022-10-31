@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.gdu.app03.domain.Board;
+import com.gdu.app03.domain.Notice;
 
 @Controller
 public class MyController {
@@ -63,7 +64,7 @@ public class MyController {
 	
 	// 1. 필드로 생성된 Bean 가져오기
 	// @Autowired
-	// private Board board;	// 객체 변수명은 아무 역할을 하지 않고, Autowired는 type만 확인 함
+	// private Board board;	// 객체 변수명은 아무 역할을 하지 않고, @Autowired는 type만 확인 함
 	
 	/*
 		@Autowired는 타입(class)이 일치하는 Bean을 Container에서 가져온다.
@@ -161,6 +162,26 @@ public class MyController {
 		@Qualifier(value="board2")
 		private Board b2;
 	*/
+	
+	
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
+	
+	@Autowired
+	private Notice notice1;
+	
+	@Autowired
+	private Notice notice2;
+	
+	
+	
+	@GetMapping("notice/detail")
+	public void noticeDetail() {
+		System.out.println(notice1.getNoticeNo());
+		System.out.println(notice1.getTitle());
+		System.out.println(notice2.getNoticeNo());
+		System.out.println(notice2.getTitle());
+	}
 	
 	
 }

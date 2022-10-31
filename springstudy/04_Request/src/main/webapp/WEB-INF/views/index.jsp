@@ -8,5 +8,10 @@
 </head>
 <body>
 
+	welcome
+	
+	<img src="../../images/hooray.jpg" width="200px">
+	
+
 </body>
 </html>
