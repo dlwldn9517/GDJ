@@ -33,7 +33,7 @@
 		});
 	</script>
 	
-	<form action="${contextPath}/member/detail4" method="get">
+	<form action="${contextPath}/member/detail4" method="post">
 		<div>
 			<input  type="text" name="id" placeholder="아이디">
 		</div>
@@ -42,6 +42,13 @@
 		</div>
 		<button>전송</button>
 	</form>
+	
+	<hr>
+	
+	<div>
+		<a href="${contextPath}/board/detail1?title=공지사항&hit=10">전송</a>
+	</div>
+	
 
 </body>
 </html>

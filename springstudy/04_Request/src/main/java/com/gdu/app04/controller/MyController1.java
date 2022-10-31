@@ -5,6 +5,8 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -79,5 +81,13 @@ public class MyController1 {
 		
 	}
 	
+	
+	// 5. <form action="${contextPath}/member/detail4" method="post">
+	@PostMapping("detail4")		// 요청 : URLMapping + 요청메소드
+	public String postDetail4(@ModelAttribute(value="member") Member member) {	// 파라미터 id, pw를 이용해 Member member를 만들고, Model에 member라는 이름의 속성으로 저장하시오.
+		
+		return "member/detail";
+		
+	}
 	
 }
