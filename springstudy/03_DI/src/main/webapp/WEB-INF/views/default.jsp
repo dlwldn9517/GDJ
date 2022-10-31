@@ -12,5 +12,9 @@
 	
 	<a href="${contextPath}/board/detail">게시판</a>
 	
+	<hr>
+	
+	<a href="${contextPath}/notice/detail">공지사항</a>
+	
 </body>
 </html>

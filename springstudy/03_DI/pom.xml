@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.gdu</groupId>
 	<artifactId>app03</artifactId>
-	<name>03_DI</name>
+	<name>03_DII</name>
 	<packaging>war</packaging>
 	<version>1.0.0-BUILD-SNAPSHOT</version>
 	<properties>

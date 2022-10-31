@@ -30,9 +30,18 @@ public class MyController {
 	/*
 		Container에 등록된 Bean을 가져오는 방법
 		
-		@Inject    : 타입(class)이 일치하는 Bean을 가져오는 애너테이션
-		@Resource  : 이름(id)이    일치하는 Bean을 가져오는 애너테이션
-		@Autowired : 타입(class)이 일치하는 Bean을 가져오는 애너테이션(실무에서 주로 사용)
+		1. @Inject
+			1) 타입(class)이 일치하는 Bean을 가져오는 애너테이션
+			2) 동일 타입이 여러 개 있는 경우 @Qualifier를 이용해서 Bean을 식별 (@Qualifier가 없으면 최종 오류)
+			
+		2. @Resource
+			1) 이름(id)이 일치하는 Bean을 가져오는 애너테이션
+				   
+		3. @Autowired
+			1) 타입(class)이 일치하는 Bean을 가져오는 애너테이션
+			2) 동일 타입이 여러 개 있는 경우 자동으로 @Qualifier를 등록해서 Bean을 식별
+			3) 실무에서 주로 사용
+			
 	*/
 	
 	/*
@@ -56,7 +65,6 @@ public class MyController {
 	// @Autowired
 	// private Board board;	// 객체 변수명은 아무 역할을 하지 않고, Autowired는 type만 확인 함
 	
-	
 	/*
 		@Autowired는 타입(class)이 일치하는 Bean을 Container에서 가져온다.
 		
@@ -70,6 +78,7 @@ public class MyController {
 	
 	
 	// 2. 생성자를 이용해 Bean 가져오기
+	
 	/*
 		private Board board;
 		
@@ -83,20 +92,75 @@ public class MyController {
 	
 	// 3. 메소드를 이용해 Bean 가져오기
 	
-	private Board board;
+	/*
+		private Board board;
+		
+		@Autowired	// 일반 메소드는 @Autowired를 반드시 작성해야 한다.
+		public void setBoard(Board board) {	 // 매개변수 Board board로 Board 타입의 Bean을 Container에서 가져오거라.
+			this.board = board;
+		}
+	*/
+
 	
-	@Autowired	// 일반 메소드는 @Autowired를 반드시 작성해야 한다.
-	public void setBoard(Board board) {	 // 매개변수 Board board로 Board 타입의 Bean을 Container에서 가져오거라.
-		this.board = board;
+	/* 
+		4. 동일한 타입의 Bean이 여러 개 등록된 경우
+			1) 변수명을 자동으로 식별자(@Qualifier)로 인식한다.
+			2) 식별자는(@Qualifier)는 Bean의 이름(id)이 일치하는 Bean을 가져온다.
+	*/
+	
+	
+	// 4-1. 필드로 생성된 Bean 가져오기
+	/*
+		@Autowired
+		private Board board1;	// root-context.xml의 Bean id랑 동일해야 한다.
+		
+		@Autowired
+		private Board board2;
+	*/
+	
+	
+	// 4-2. 생성자를 이용해 Bean 가져오기
+	/*
+		private Board b1;
+		private Board b2;
+		public MyController(Board board1, Board board2) {	// 매개변수명이 Bean의 이름(id)과 일치하므로 자동으로 주입된다.
+			b1 = board1;
+			b2 = board2;
+		}
+	*/
+	
+	
+	// 4-3. 메소드를 이용해 Bean 가져오기
+	private Board b1;
+	private Board b2;
+	
+	@Autowired
+	public void setB1(Board board1, Board board2) {
+		this.b1 = board1;
+		this.b2 = board2;
 	}
 
 
 	@GetMapping("board/detail") // @GetMapping("/board/detail")
 	public void boardDetail() {
-		System.out.println(board.getBoardNo());
-		System.out.println(board.getTitle());
-		System.out.println(board.getCreateDate());
+		System.out.println(b1.getBoardNo());
+		System.out.println(b1.getTitle());
+		System.out.println(b1.getCreateDate());
+		System.out.println(b2.getBoardNo());
+		System.out.println(b2.getTitle());
+		System.out.println(b2.getCreateDate());
 	}
+	
+	// @Autowired를 사용하는 이유 : @Inject + @Qualifier
+	/*
+		@Inject
+		@Qualifier(value="board1")
+		private Board b1;
+		
+		@Inject
+		@Qualifier(value="board2")
+		private Board b2;
+	*/
 	
 	
 }
