@@ -26,13 +26,21 @@
 	</div>
 		<script>
 		$('#btn').click(function() {
-			location.href='${contextPath}/member/detail2?id=admin&pw=1234';	<%-- GET 방식이다. --%>
+			// location.href='${contextPath}/member/detail2?id=admin&pw=1234';  // GET 방식이다.
+			// location.href='${contextPath}/member/detail2?id=admin&pw=1234';
+			location.href='${contextPath}/member/detail3';
+			
 		});
 	</script>
 	
-	<form action="" method="">
-	
-		<button></button>
+	<form action="${contextPath}/member/detail4" method="get">
+		<div>
+			<input  type="text" name="id" placeholder="아이디">
+		</div>
+		<div>
+			<input  type="text" name="pw" placeholder="패스워드">
+		</div>
+		<button>전송</button>
 	</form>
 
 </body>
