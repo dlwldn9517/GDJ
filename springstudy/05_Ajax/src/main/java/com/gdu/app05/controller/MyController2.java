@@ -7,6 +7,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.gdu.app05.domain.Board;
@@ -34,5 +35,23 @@ public class MyController2 {
 	public ResponseEntity<Board> detail1(HttpServletRequest request) {
 		return boardService.execute1(request);
 	}
+	
+	
+	@ResponseBody
+	@GetMapping("board/detail2")	// produces가 없음을 주의! 반환값 ResponseEntity에 관련 코드를 작성했음
+	public ResponseEntity<Board> detail2(@RequestParam(value="title") String title, @RequestParam(value="content") String content) {
+		return boardService.execute2(title, content);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 }
