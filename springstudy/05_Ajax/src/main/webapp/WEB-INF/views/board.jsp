@@ -68,7 +68,7 @@
 				
 				/* 요청 */
 				type: 'get',
-				url:'${contextPath}/board/detail2',
+				url: '${contextPath}/board/detail2',
 				data: $('#frm_board').serialize(),
 				
 				/* 응답 */
@@ -101,10 +101,23 @@
 			$.ajax({
 				
 				/* 요청 */
-				
+				type:'get',
+				url: '${contextPath}/board/detail3',
+				data: $('#frm_board').serialize(),
 				
 				/* 응답 */
-				
+				dataType: 'json',
+				success: function(resData) {
+					$('<ul>')
+					.append( $('<li>').text(resData.title) )
+					.append( $('<li>').text(resData.content) )
+					.appendTo('#result');
+				},
+				error: function(jqXHR) {
+					if(jqXHR.status == 500) {
+						alert('제목은 필수입니다.');
+					}
+				}
 				
 			});	// ajax
 			

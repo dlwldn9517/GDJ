@@ -44,7 +44,11 @@ public class MyController2 {
 	}
 	
 	
-	
+	@ResponseBody
+	@GetMapping("board/detail3")
+	public ResponseEntity<Board> detail3(Board board) {
+		return boardService.execute3(board);
+	}
 	
 	
 	
