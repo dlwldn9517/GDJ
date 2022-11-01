@@ -24,6 +24,4 @@ public class MyController3 {
 		return movieService.getBoxOffice(targetDt);
 	}
 	
-	
-	
 }
