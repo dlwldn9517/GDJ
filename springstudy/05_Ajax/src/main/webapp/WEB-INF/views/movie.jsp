@@ -26,7 +26,7 @@
 				/* 요청 */
 				type: 'get',
 				url: '${contextPath}/movie/boxOfficeList',
-				data: 'targetDt=' + ${'#targetDt'}.val(),
+				data: 'targetDt=' + $('#targetDt').val(),
 				
 				/* 응답 */
 				dataType: 'json',
@@ -52,7 +52,7 @@
 			
 		}); // click
 		
-	}	// function
+	});	// function
 	
 </script>
 </head>

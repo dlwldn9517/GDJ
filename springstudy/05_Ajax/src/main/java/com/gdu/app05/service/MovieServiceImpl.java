@@ -17,7 +17,7 @@ public class MovieServiceImpl implements MovieService {
 		String apiURL = "http://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?key=" + key + "&targetDt=" + targetDt;
 		
 		// API 주소 (주소 + 요청 파라미터)
-		StringBuilder urlBuilder = new StringBuilder();
+		StringBuilder sb = null;
 		
 		try {
 			
@@ -25,22 +25,26 @@ public class MovieServiceImpl implements MovieService {
 			HttpURLConnection con = (HttpURLConnection) url.openConnection();
 			
 			BufferedReader br = null;
-			StringBuilder sb = new StringBuilder();
-			
 			if(con.getResponseCode() == HttpURLConnection.HTTP_OK) {
 				br = new BufferedReader(new InputStreamReader(con.getInputStream()));
 			} else {
 				br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
 			}
+			sb = new StringBuilder();
+			String line;
+			while((line = br.readLine()) != null) {
+				sb.append(line);
+			}
 			
-			String line = null;
+			br.close();
+			con.disconnect();
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	
-	
-	
+		
+		System.out.println(sb.toString());
+		return sb.toString();
 	}
 	
 }

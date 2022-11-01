@@ -5,6 +5,7 @@
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	
-	<bean id="memberservice" class="com.gdu.app05.service.MemberServiceImpl"></bean>
+	<bean id="memberService" class="com.gdu.app05.service.MemberServiceImpl"></bean>
+	<bean id="movieService" class="com.gdu.app05.service.MovieServiceImpl"></bean>
 	
 </beans>
