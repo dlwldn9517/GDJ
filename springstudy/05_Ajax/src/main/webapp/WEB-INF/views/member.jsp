@@ -7,7 +7,81 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+	#frm_member {
+		width: 480px;
+		margin: 0 auto;
+	}
+	label {
+		display: inline-block;
+		width: 80px;
+	}
+</style>
 <script src="${contextPath}/resources/js/jquery-3.6.1.min.js"></script>
+<script>
+
+	$(document).ready(function() {
+		$('#btn1').click(function() { fn_ajax1(); });
+		$('#btn2').click(function() { fn_ajax2(); });
+		$('#btn3').click(function() { fn_ajax3(); });
+	});
+	
+	function fn_ajax1() {
+		
+		$('#result').empty();
+		
+		$.ajax({
+			
+			/* 요청 */
+			type: 'get',
+			url: '${contextPath}/member/detail1',
+			data: 'id=' + $('#id').val() + '&pw=' + $('#pw').val(),
+			
+			/* 응답 */
+			dataType: 'text',
+			success: function(resData) {
+				$('#result').text(resData);
+			},
+			error: function(jqXHR) {
+				$('#result').text(jqXHR.responseText);
+			}
+		});	// ajax
+		
+	}	// function
+	
+	function fn_ajax2() {
+		
+		$('#result').empty();
+		
+		$.ajax({
+			
+			/* 요청 */
+			type: 'get',
+			url: '${contextPath}/member/detail2',
+			data: $('#frm_member').serialize(),		// .serialize() : form의 입력요소를 만들어준다.
+			
+			/* 응답 */
+			dataType: 'json',
+			success: function(resData) {
+				var ul = '<ul>';
+				ul += '<li>' + resData.id + '</li>';
+				ul += '<li>' + resData.pw + '</li>';
+				ul += '</ul>';
+				$('#result').html(ul);	// ul 태그 들어간다
+			},
+			error: function(jqXHR) {
+				$('#result').text(jqXHR.responseText);
+			}
+			
+		});	// ajax
+		
+	}	// function
+	
+	function fn_ajax3() {
+		
+	}	// function
+	
+</script>
 </head>
 <body>
 
