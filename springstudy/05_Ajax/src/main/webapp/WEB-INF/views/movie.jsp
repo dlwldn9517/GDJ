@@ -31,6 +31,7 @@
 				/* 응답 */
 				dataType: 'json',
 				success: function(resData) {
+					
 					// 기존 목록 초기화
 					$('#boxOfficeList').empty();
 					

@@ -1,8 +1,10 @@
 package com.gdu.app05.service;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 
 
@@ -11,39 +13,44 @@ public class MovieServiceImpl implements MovieService {
 	@Override
 	public String getBoxOffice(String targetDt) {
 
-		// API 요청 및 응답
-		
+		// ApiURL
 		String key = "2226b7bc92047543a3afd798f6033fa3";
 		String apiURL = "http://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?key=" + key + "&targetDt=" + targetDt;
 		
-		// API 주소 (주소 + 요청 파라미터)
-		StringBuilder sb = null;
+		// API 요청 
+		URL url = null;
+		HttpURLConnection con = null;
 		
 		try {
 			
-			URL url = new URL(apiURL);
-			HttpURLConnection con = (HttpURLConnection) url.openConnection();
+			url = new URL(apiURL);	// MalformedURLException
+			con = (HttpURLConnection) url.openConnection();	// IOException
+			con.setRequestMethod("GET");	// "GET"을 대문자로 지정
 			
-			BufferedReader br = null;
-			if(con.getResponseCode() == HttpURLConnection.HTTP_OK) {
-				br = new BufferedReader(new InputStreamReader(con.getInputStream()));
-			} else {
-				br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
-			}
-			sb = new StringBuilder();
-			String line;
-			while((line = br.readLine()) != null) {
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		// API 응답
+		StringBuilder sb = new StringBuilder();
+		
+		try (BufferedReader reader = new BufferedReader(new InputStreamReader(con.getInputStream()))) {	// try-catch-resources 문은 자원의 close를 생략할 수 있다.
+			
+			String line = null;
+			while((line = reader.readLine()) != null) {
 				sb.append(line);
 			}
-			
-			br.close();
-			con.disconnect();
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
-		System.out.println(sb.toString());
+		// con 닫기
+		con.disconnect();
+		
+		// 반환 (API로부터 가져온 모든 텍스트 정보)
 		return sb.toString();
 	}
 	
