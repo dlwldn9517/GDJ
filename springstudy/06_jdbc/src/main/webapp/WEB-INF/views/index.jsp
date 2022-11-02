@@ -10,7 +10,7 @@
 </head>
 <body>
 
-	<a href="${contextPaht}/board/detail">얍</a>
+	<a href="${contextPaht}/brd/list">게시판</a>
 
 </body>
 </html>

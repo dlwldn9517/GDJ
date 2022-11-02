@@ -12,7 +12,16 @@ import org.springframework.stereotype.Repository;
 import com.gdu.app06.domain.BoardDTO;
 
 
-@Repository		// DAO가 사용하는 @Component == @configuration, @bean
+/*
+	@Repository (== @configuration + @bean)
+	안녕. 난 DAO에 추가하는 @Component야.
+	servlet-context.xml에 등록된 <context:component-scan> 태그에 의해서 bean으로 검색되지.
+	root-context.xml이나 @Configuration에 @Bean으로 등록하지 않아도 컨테이너에 만들어 져.
+*/
+
+@Repository		// DAO가 사용하는 @Component로 트랜잭션 기능이 추가되어 있어.
+
+
 public class BoardDAO {
 	
 	private Connection con;
@@ -20,6 +29,8 @@ public class BoardDAO {
 	private ResultSet rs;
 	private String sql;
 	
+	// private 메소드
+	// 이 메소드는 BoardDAO에서만 사용.
 	private Connection getConnection() {
 		Connection con = null;
 		try {
@@ -31,6 +42,8 @@ public class BoardDAO {
 		return con;
 	}
 	
+	// private 메소드
+	// 이 메소드는 BoardDAO에서만 사용.
 	private void close() {
 		try {
 			if(rs != null) { rs.close(); }
@@ -45,7 +58,21 @@ public class BoardDAO {
 	   
 	public List<BoardDTO> selectAllBoards() {
 		List<BoardDTO> boards = new ArrayList<BoardDTO>();
-	      
+	    try {
+	    	con = getConnection();	// 접속
+	    	sql = "SELECT BOARD_NO, TITLE, CONTENT, WRITER, CREATE_DATE, MODIFY_DATE FROM BOARD ORDER BY BOARD_NO DESC";
+	    	ps = con.prepareStatement(sql);
+	    	rs = ps.executeQuery();
+	    	while(rs.next()) {
+	    		BoardDTO board = new BoardDTO(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6));
+	    		boards.add(board);
+	    	}
+	    	
+	    } catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
 		return boards;
 	}
 	   
