@@ -1,14 +1,10 @@
 package service;
 
-import java.util.List;
-import java.util.Map;
+import javax.servlet.http.HttpServletRequest;
 
-import domain.Notice;
+import common.ActionForward;
 
 public interface NoticeService {
 	
-	public int getAllNoticesCnt();
-	public List<Notice> findAllNotices(Map<String, Object> map);
-	
-
+	public ActionForward findAllNotices(HttpServletRequest request);
 }

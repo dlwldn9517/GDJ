@@ -20,7 +20,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			<c:forEach items="notices" var="notice">
+			<c:forEach items="${notices}" var="notice">
 				<tr>
 					<td>${notice.noticeNo}</td>
 					<td>${notice.title}</td>

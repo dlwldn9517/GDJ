@@ -17,6 +17,7 @@
 	<!-- domain.Member to Member -->
 	<typeAliases>
 		<typeAlias type="domain.Member" alias="Member" />
+		<typeAlias type="domain.Notice" alias="Notice" />
 	</typeAliases>
 
 	<environments default="development">
