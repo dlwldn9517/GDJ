@@ -78,7 +78,21 @@ public class BoardDAO {
 	   
 	public BoardDTO selectBoardByNo(int board_no) {
 		BoardDTO board = null;
-	      
+		try {
+			con = getConnection();
+			sql = "SELECT BOARD_NO, TITLE, CONTENT, WRITER, CREATE_DATE, MODIFY_DATE FROM BOARD WHERE BOARD_NO = ?";
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, board_no);
+			rs = ps.executeQuery();
+			if(rs.next()) {
+				board = new BoardDTO(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6));
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
 		return board;
 	}
 	   
