@@ -84,6 +84,21 @@ public class BoardDAO {
 	   
 	public int insertBoard(BoardDTO board) {
 		int result = 0;
+		try {
+			con = getConnection();
+			sql = "INSERT INTO BOARD (BOARD_NO, TITLE, CONTENT, WRITER, CREATE_DATE, MODIFY_DATE) "
+						   + "VALUES (BOARD_SEQ.NEXTVAL, ?, ?, ?, TO_CHAR(SYSDATE, 'YYYY-MM-DD'), TO_CHAR(SYSDATE, 'YYYY-MM-DD'))";
+			ps = con.prepareStatement(sql);
+			ps.setNString(1, board.getTitle());		// 첫번째 ? 값을 받아온다.
+			ps.setNString(2, board.getContent());	// 두번째 ?
+			ps.setNString(3, board.getWriter());	// 세번째 ?
+			result = ps.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
       
 		return result;
 	}
@@ -99,5 +114,23 @@ public class BoardDAO {
       
 		return result;
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 }

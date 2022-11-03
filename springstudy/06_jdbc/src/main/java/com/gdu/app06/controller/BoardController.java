@@ -4,7 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
+import com.gdu.app06.domain.BoardDTO;
 import com.gdu.app06.service.BoardService;
 
 @Controller
@@ -27,7 +29,16 @@ public class BoardController {
 		return "board/list";	// board 폴더의 list.jsp로 forward
 	}
 	
+	@GetMapping("brd/write")
+	public String write() {
+		return "board/write";	// board 폴더의 write.jsp로 forward
+	}
 	
+	@PostMapping("brd/add")
+	public String add(BoardDTO board) {
+		boardService.saveBoard(board);	// saveBoard()로부터 0/1이 반환되지만 처리하지 않았다.
+		return "redirect:/brd/list";
+	}
 	
 	
 	@GetMapping("board/detail")
