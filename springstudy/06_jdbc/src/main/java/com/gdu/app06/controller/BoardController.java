@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.gdu.app06.domain.BoardDTO;
 import com.gdu.app06.service.BoardService;
@@ -40,10 +41,29 @@ public class BoardController {
 		return "redirect:/brd/list";
 	}
 	
-	
-	@GetMapping("board/detail")
-	public String detail() {
+	@GetMapping("brd/detail")	// 상세보기는 GET으로 함
+	public String detail(@RequestParam(value="board_no", required=false, defaultValue="0") int board_no
+					   , Model model) {
+		model.addAttribute("board", boardService.findBoardByNo(board_no));
 		return "board/detail";
 	}
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
