@@ -39,6 +39,4 @@ public class BoardServiceImpl implements BoardService {
 		return dao.deleteBoard(board_no);
 	}
 
-	
-
 }

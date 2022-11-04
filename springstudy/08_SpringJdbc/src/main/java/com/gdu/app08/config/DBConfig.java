@@ -26,8 +26,4 @@ public class DBConfig {
 		return new JdbcTemplate(dataSource());	// dataSource() 의존 관계 처리
 	}
 	
-	
-	
-	
-	
 }
