@@ -11,11 +11,12 @@ import com.gdu.app08.service.BoardService;
 
 import lombok.AllArgsConstructor;
 
-@Controller
 
 // 필드를 이용한 생성자를 만들어두면, 생성자의 매개변수로 컨테이너의 Bean이 자동 주입(@Autowired)되므로
 // 필드에 @Autowired 처리할 필요가 없다.
-@AllArgsConstructor		// 생성자 떄문에 @Autowired가 없어도 정상작동 됨
+@AllArgsConstructor		// 생성자 때문에 @Autowired가 없어도 정상작동 됨
+
+@Controller
 public class BoardController {
 	
 	
@@ -84,5 +85,12 @@ public class BoardController {
 		return "redirect:/brd/list";
 	}
 	
+	
+	// 트랜잭션 확인을 위해서 testTransaction() 메소드를 호출하는 매핑 작성
+	@GetMapping("brd/transaction")
+	public String transaction() {
+		boardService.testTransaction();
+		return "redirect:/brd/list";
+	}
 	
 }
