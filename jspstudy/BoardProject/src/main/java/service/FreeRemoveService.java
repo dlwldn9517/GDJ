@@ -15,7 +15,7 @@ public class FreeRemoveService implements FreeService {
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 		Optional<String> opt = Optional.ofNullable(request.getParameter("freeNo"));
-		int freeNo = Integer.parseInt(opt.orElse("0"));
+		long freeNo = Long.parseLong(opt.orElse("0"));
 		
 		int result = FreeDAO.getInstance().deleteFree(freeNo);
 		

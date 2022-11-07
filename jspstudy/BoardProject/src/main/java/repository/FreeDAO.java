@@ -49,7 +49,7 @@ public class FreeDAO {
 		return result;
 	}
 	
-	public int deleteFree(int freeNo) {
+	public int deleteFree(long freeNo) {
 		SqlSession ss = factory.openSession(false);
 		int result = ss.delete(mapper + "deleteFree", freeNo);
 		if(result > 0) {
@@ -59,7 +59,7 @@ public class FreeDAO {
 		return result;
 	}
 	
-	public Free selectFreeByNo(int freeNo) {
+	public Free selectFreeByNo(long freeNo) {
 		SqlSession ss = factory.openSession();
 		Free free = ss.selectOne(mapper + "selectFreeByNo", freeNo);
 		ss.close();

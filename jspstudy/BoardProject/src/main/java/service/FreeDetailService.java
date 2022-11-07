@@ -15,20 +15,12 @@ public class FreeDetailService implements FreeService {
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 		Optional<String> opt = Optional.ofNullable(request.getParameter("freeNo"));
-		int freeNo = Integer.parseInt(opt.orElse("0"));
+		long freeNo = Long.parseLong(opt.orElse("0"));
 		
-		Free free = FreeDAO.getInstance().selectFreeByNo(freeNo);
+		request.setAttribute("free", FreeDAO.getInstance().selectFreeByNo(freeNo));
 		
-		if(free != null) {
-			request.setAttribute("free", free);
-			
-			ActionForward af = new ActionForward();
-			af.setView("/free/detail.jsp");
-			af.setRedirect(false);
-			return af;
-		}
+		return new ActionForward("/free/detail.jsp", false);
 		
-		return null;
 	}
 
 }

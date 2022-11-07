@@ -17,11 +17,13 @@ public class FreeAddService implements FreeService {
 		String writer = request.getParameter("writer");
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
+		String ip = request.getRemoteAddr();
 		
 		Free free = new Free();
 		free.setWriter(writer);
 		free.setTitle(title);
 		free.setContent(content);
+		free.setIp(ip);
 		
 		int result = FreeDAO.getInstance().insertFree(free);
 		
@@ -29,7 +31,7 @@ public class FreeAddService implements FreeService {
 		if(result > 0) {
 			out.println("<script>");
 			out.println("alert('게시글이 등록되었습니다.')");
-			out.println("location.href='" + request.getContextPath() + "/free/list.do'");
+			out.println("location.href='" + request.getContextPath() + "/list.do'");
 			out.println("</script>");
 		}
 		out.close();

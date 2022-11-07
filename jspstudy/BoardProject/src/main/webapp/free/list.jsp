@@ -27,13 +27,15 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr>
-					<td>${free.freeNo}</td>
-					<td><a href="${contextPath}/free/detail.do?freeNo=${freeNo}">${free.title}</a></td>
-					<td>${free.writer}</td>
-					<td>${free.hit}</td>
-					<td><a href="${contextPath}/free/remove.do">X</a></td>
-				</tr>
+				<c:forEach items="${frees}" var="f">
+		            <tr>
+		               <td>${f.freeNo}</td>
+		               <td><a href="${contextPath}/free/detail.do?freeNo=${f.freeNo}">${f.title}</a></td>
+		               <td>${f.writer}</td>         
+		               <td>${f.hit}</td>
+		               <td><a href="${contextPath}/free/remove.do?freeNo=${f.freeNo}">X</a></td>               
+		            </tr>
+         	</c:forEach>
 			</tbody>
 		</table>
 	</div>
