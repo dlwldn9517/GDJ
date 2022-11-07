@@ -12,18 +12,12 @@
 
 	$(document).ready(function() {
 		
-		$('#btn_list').click(function(event) {
-			location.href = '${contextPath}/free/list.do';
+		$('#btn_detail').click(function(event) {
+			location.href = '${contextPath}/free/detail.do?freeNo=' + freeNo;
 		});
-	
-		
-		$('#btn_add').click(function(event) {
-			location.href = '${contextPath}/free/insert.do';
-		});
-		
 		
 		$('#btn_remove').click(function(event) {
-			location.href = '${contextPath}/free/remove.do';
+			location.href = '${contextPath}/free/remove.do?freeNo=' + freeNo;
 		});
 		
 	});
@@ -32,6 +26,10 @@
 </head>
 <body>
 
+	<a href="${contextPath}/free/insert.do">작성하러 가기</a>
+	
+	<hr>
+	
 	<div>
 		<table border="1">
 			<thead>
@@ -46,11 +44,13 @@
 			<tbody>
 				<tr>
 					<td>${free.freeNo}</td>
-					<td>${free.title}</td>
+					<td>
+						<input type="text" value="${free.title}" class="btn_detail">
+					</td>
 					<td>${free.writer}</td>
 					<td>${free.hit}</td>
 					<td>
-						<input type="button" value="X" class="btn_remove">
+						<input type="text" value="X" class="btn_remove">
 					</td>
 				</tr>
 			</tbody>

@@ -38,7 +38,7 @@ public class FreeController extends HttpServlet {
 		
 		switch(urlMapping) {
 		
-		case "/free/list.do":
+		case "/list.do":
 			service = new FreeListService();
 			break;
 		case "/free/insert.do":
