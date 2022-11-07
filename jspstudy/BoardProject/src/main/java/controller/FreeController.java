@@ -53,6 +53,10 @@ public class FreeController extends HttpServlet {
 		case "/free/modify.do":
 			service = new FreeModifyService();
 			break;
+			
+		case "/free/insertpage.do":
+			af = new ActionForward("/free/insert.jsp", false);
+			break;
 		}
 		
 		

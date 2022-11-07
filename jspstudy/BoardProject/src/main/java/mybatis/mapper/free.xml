@@ -16,7 +16,7 @@
  		INSERT INTO FREE
  			(FREENO, WRITER, TITLE, CONTENT, IP, HIT)
  		VALUES
- 			(FREE_SEQ.NEXTVAL, #{writer}, #{title}, #{content}, #{ip}, #{hit})
+ 			(FREE_SEQ.NEXTVAL, #{writer}, #{title}, #{content})
  	</insert>
  	
  	<delete id="deleteFree" parameterType="int">
