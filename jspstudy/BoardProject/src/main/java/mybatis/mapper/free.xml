@@ -12,12 +12,12 @@
 		 ORDER BY FREENO
 	</select>
 	
- 	<insert id="insertFree" parameterType="Free">
- 		INSERT INTO FREE
- 			(FREENO, WRITER, TITLE, CONTENT, IP, HIT)
- 		VALUES
- 			(FREE_SEQ.NEXTVAL, #{writer}, #{title}, #{content})
- 	</insert>
+ 	 <insert id="insertFree" parameterType="Free">
+       INSERT INTO FREE
+          (FREENO, WRITER, TITLE, CONTENT, IP, HIT)
+       VALUES
+          (FREE_SEQ.NEXTVAL, #{writer}, #{title}, #{content}, '127.0.0.0', 2)   
+    </insert>
  	
  	<delete id="deleteFree" parameterType="int">
  		DELETE

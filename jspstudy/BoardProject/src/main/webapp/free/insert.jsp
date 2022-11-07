@@ -12,19 +12,17 @@
 	
 	<h1>자유게시판 게시글 작성화면</h1>
 	<div>
-		<form method="post" action="${contextPath}/free/insert.do">
+		<form id="frm_write" method="post" action="${contextPath}/free/insert.do">
 			<div>
-				<label for="writer"></label>
 				<input type="text" id="writer" name="writer" placeholder="작성자">
 			</div>
 			<div>
-				<label for="title"></label>
 				<input type="text" id="title" name="title" placeholder="제목">
 			</div>
 			<div>
-				<label for="content"></label>
 				<textarea id="content" name="content" rows="2" cols="20" placeholder="내용"></textarea>
 			</div>
+			
 			<div>
 				<button>작성완료</button>
 				<input type="reset" value="다시작성">
