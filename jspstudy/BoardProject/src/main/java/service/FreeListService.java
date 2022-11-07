@@ -11,11 +11,12 @@ public class FreeListService implements FreeService {
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-		FreeDAO dao = FreeDAO.getInstance();
+		request.setAttribute("frees", FreeDAO.getInstance().selectAllFrees());
 		
-		request.setAttribute("frees", dao.selectAllFrees());
-		
-		return new ActionForward("/free/list.jsp", false);
+		ActionForward af = new ActionForward();
+		af.setView("/free/list.jsp");
+		af.setRedirect(false);
+		return af;
 	}
 
 }

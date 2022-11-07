@@ -44,14 +44,10 @@
 			<tbody>
 				<tr>
 					<td>${free.freeNo}</td>
-					<td>
-						<input type="text" value="${free.title}" class="btn_detail">
-					</td>
+					<td><a href="${contextPath}/free/detail">${free.title}</a></td>
 					<td>${free.writer}</td>
 					<td>${free.hit}</td>
-					<td>
-						<input type="text" value="X" class="btn_remove">
-					</td>
+					<td><a href="${contextPath}/free/remove">X</a></td>
 				</tr>
 			</tbody>
 		</table>
