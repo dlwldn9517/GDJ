@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="mybatis.mapper.free">
+
+	<select id="selectAllFrees" resultType="Free">
+		SELECT FREENO, WRITER, TITLE, CONTENT, IP, HIT
+		  FROM FREE
+		 ORDER BY FREENO
+	</select>
+	
+ 	<insert id="insertFree" parameterType="Free">
+ 		INSERT INTO FREE
+ 			(FREENO, WRITER, TITLE, CONTENT, IP, HIT)
+ 		VALUES
+ 			(FREE_SEQ.NEXTVAL, #{writer}, #{title}, #{content}, #{ip}, #{hit})
+ 	</insert>
+ 	
+ 	<delete id="deleteFree" parameterType="int">
+ 		DELETE
+ 		  FROM FREE
+ 		 WHERE FREENO = #{freeNo}
+ 	</delete>
+ 	
+ 	
+ 	<!-- 9. 학생 상세보기 -->
+ 	<select id="selectStudentByNo" parameterType="int" resultType="Student">
+ 		SELECT STU_NO, NAME, KOR, ENG, MATH, AVE, GRADE
+ 		  FROM STUDENT
+ 		 WHERE STU_NO = #{stuNo} 
+ 	</select>
+ 	
+ 	<!-- 10. 학생 수정 -->
+ 	<update id="updateStudent" parameterType="Student">
+ 		UPDATE STUDENT
+ 		   SET NAME = #{name}, KOR = #{kor}, ENG = #{eng}, MATH = #{math}, AVE = #{ave}, GRADE = #{grade}
+ 		 WHERE STU_NO = #{stuNo}
+ 	</update>
+ 	
+ 	<!-- 11. 평균 기준 상위 3명 -->
+ 	<select id="selectStudentsTop3" resultType="Student">
+ 		SELECT A.RANK, A.STU_NO, A.NAME, A.KOR, A.ENG, A.MATH, A.AVE, A.GRADE
+ 		  FROM (SELECT RANK() OVER (ORDER BY AVE DESC) AS RANK, STU_NO, NAME, KOR, ENG, MATH, AVE, GRADE
+ 		  		  FROM STUDENT) A
+ 		 WHERE A.RANK <![CDATA[<=]]> 3
+ 	</select>
+ 	
+</mapper>

@@ -1,4 +1,4 @@
-package common;
+package domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,9 +9,11 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ActionForward {
-
-	private String view;
-	private boolean isRedirect;
-	
+public class Free {
+	private Long freeNo;
+	private String writer;
+	private String title;
+	private String content;
+	private String ip;
+	private Long hit;
 }
