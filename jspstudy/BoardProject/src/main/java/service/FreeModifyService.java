@@ -16,7 +16,7 @@ public class FreeModifyService implements FreeService {
 
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
-		long freeNo = Long.parseLong(request.getParameter("freeNo"));
+		long freeNo = Integer.parseInt(request.getParameter("freeNo"));
 		
 		Free free = new Free();
 		free.setTitle(title);

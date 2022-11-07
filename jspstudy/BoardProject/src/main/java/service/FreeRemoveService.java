@@ -15,7 +15,8 @@ public class FreeRemoveService implements FreeService {
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 		Optional<String> opt = Optional.ofNullable(request.getParameter("freeNo"));
-		long freeNo = Long.parseLong(opt.orElse("0"));
+
+		int freeNo = Integer.parseInt(opt.orElse("0"));
 		
 		int result = FreeDAO.getInstance().deleteFree(freeNo);
 		
@@ -23,7 +24,7 @@ public class FreeRemoveService implements FreeService {
 		if(result > 0) {
 			out.println("<script>");
 			out.println("alert('게시글이 삭제되었습니다.')");
-			out.println("location.href='" + request.getContextPath() + "/free/list.do'");
+			out.println("location.href='" + request.getContextPath() + "/list.do'");
 			out.println("</script>");
 		}
 		out.close();

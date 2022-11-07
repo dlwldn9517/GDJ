@@ -15,7 +15,7 @@ public class FreeDetailService implements FreeService {
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 		Optional<String> opt = Optional.ofNullable(request.getParameter("freeNo"));
-		long freeNo = Long.parseLong(opt.orElse("0"));
+		int freeNo = Integer.parseInt(opt.orElse("0"));
 		
 		request.setAttribute("free", FreeDAO.getInstance().selectFreeByNo(freeNo));
 		

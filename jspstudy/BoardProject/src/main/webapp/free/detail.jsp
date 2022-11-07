@@ -18,17 +18,19 @@
 	<div>작성자 ${free.writer}</div>
 	<div>작성IP ${free.ip}</div>
 	<div>조회수 ${free.hit}</div>
-	<div>
-		<label for="title">제목</label>
-		<input type="text" id="title" name="title" value="${free.title}">
-	</div>
-	<div>
-		<textarea id="content" name="content" rows="2" cols="20">${free.content}</textarea>
-	</div>
-	<div>
-		<input type="button" value="수정" onclick="location.href='${contextPath}/free/modify.do?freeNo=${freeNo}'">
-		<input type="button" value="목록" onclick="location.href='${contextPath}/list.do'">
-	</div>
+	<form id="frm_detail" method="post" action="${contextPath}/free/modify.do?freeNo=${free.freeNo}">
+		<div>
+			<label for="title">제목</label>
+			<input type="text" id="title" name="title" value="${free.title}">
+		</div>
+		<div>
+			<textarea id="content" name="content" rows="2" cols="20">${free.content}</textarea>
+		</div>
+		<div>
+			<button>수정</button>
+			<input type="button" value="목록" onclick="location.href='${contextPath}/list.do'">
+		</div>
+	</form>
 	
 </body>
 </html>
