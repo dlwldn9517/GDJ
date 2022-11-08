@@ -3,6 +3,7 @@ package com.gdu.app10.config;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.SqlSessionTemplate;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,11 +18,13 @@ import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
 /*
-	@PropertySource
-	안녕. 난 프로퍼티 파일을 참조할 수 있는 애너테이션이야.
+	@MapperScan
+	안녕. 난 @Mapper로 등록된 인터페이스를 bean으로 등록할 수 있도록
+	@Mapper의 위치를 알려주는 애너테이션이야.
 */
-@PropertySource(value = {"classpath:mybatis/config/db.properties"})
+@MapperScan(basePackages = {"com.gdu.app10.mapper"})
 
+@PropertySource(value = {"classpath:mybatis/config/db.properties"})
 @EnableTransactionManagement
 @EnableAspectJAutoProxy
 @Configuration
