@@ -9,5 +9,5 @@ import lombok.NoArgsConstructor;
 @Data
 public class BoardDTO {
 	private int boardNo;
-	private String title, content, writer, create_date, modify_date;
+	private String title, content, writer, createDate, modifyDate;
 }

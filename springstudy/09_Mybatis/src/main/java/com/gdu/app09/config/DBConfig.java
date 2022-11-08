@@ -1,7 +1,5 @@
 package com.gdu.app09.config;
 
-import java.io.IOException;
-
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -22,7 +20,7 @@ import com.zaxxer.hikari.HikariDataSource;
 	@PropertySource
 	안녕. 난 프로퍼티 파일을 참조할 수 있는 애너테이션이야.
 */
-@PropertySource(value = {"mybatis/config/db/properties"})
+@PropertySource(value = {"classpath:mybatis/config/db.properties"})
 
 @EnableTransactionManagement
 @EnableAspectJAutoProxy
@@ -32,16 +30,16 @@ public class DBConfig {
 	
 	// db.properties 파일을 읽어서 변수에 저장하기
 	// ${프로퍼티명}
-	@Value(value = "${driver}")
+	@Value(value = "${hikari.driver}")
 	private String driver;
 	
-	@Value(value = "${url}")
+	@Value(value = "${hikari.url}")
 	private String url;
 	
-	@Value(value = "${username}")
+	@Value(value = "${hikari.username}")
 	private String username;
 	
-	@Value(value = "${password}")
+	@Value(value = "${hikari.password}")
 	private String password;
 	
 	
