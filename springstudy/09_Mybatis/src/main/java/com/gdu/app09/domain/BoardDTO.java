@@ -8,6 +8,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 public class BoardDTO {
-	private int board_no;
+	private int boardNo;
 	private String title, content, writer, create_date, modify_date;
 }
