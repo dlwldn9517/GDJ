@@ -8,35 +8,25 @@
   
 <mapper namespace="com.gdu.app11.mapper.EmpMapper">
 
-	<select id="selectAllBoards" resultType="Board">
-		SELECT BOARD_NO, TITLE, CONTENT, WRITER, CREATE_DATE, MODIFY_DATE
-		  FROM BOARD
-		 ORDER BY BOARD_NO DESC
+	<!-- 전체 조회 -->
+	<select id="selectAllEmployeesCount" resultType="int">
+		SELECT COUNT(*)
+		  FROM EMPLOYEES
 	</select>
 	
-	<select id="selectBoardByNo" parameterType="int" resultType="Board">
-		SELECT BOARD_NO, TITLE, CONTENT, WRITER, CREATE_DATE, MODIFY_DATE
-		  FROM BOARD
-		 WHERE BOARD_NO = #{boardNo}
+	<!-- 입사순으로 정렬한 뒤(A) → rownum 붙이고(B) → 11 ~ 20 가져오기 -->
+	<select id="selectEmployeesByPage" resultType="EmpDTO">
+		SELECT B.*
+		  FROM (SELECT ROWNUM AS RN, A.*
+		  		  FROM (SELECT *
+		  		  		  FROM EMPLOYEES
+		 		 		 ORDER BY HIRE_DATE DESC) A) B
+		 WHERE B.RN BETWEEN #{param1} AND #{param2}
 	</select>
 	
-	<insert id="insertBoard" parameterType="Board">
-		INSERT INTO BOARD
-			(BOARD_NO, TITLE, CONTENT, WRITER, CREATE_DATE, MODIFY_DATE)
-		VALUES
-			(BOARD_SEQ.NEXTVAL, #{title}, #{content}, #{writer}, TO_CHAR(SYSDATE, 'YYYY-MM-DD'), TO_CHAR(SYSDATE, 'YYYY-MM-DD'))
-	</insert>
 	
-	<update id="updateBoard" parameterType="Board">
-		UPDATE BOARD
-		   SET TITLE = #{title}, CONTENT = #{content}, MODIFY_DATE = TO_CHAR(SYSDATE, 'YYYY-MM-DD')
-		 WHERE BOARD_NO = #{boardNo}
-	</update>
 	
-	<delete id="deleteBoard" parameterType="int">
-		DELETE
-		  FROM BOARD
-		 WHERE BOARD_NO = #{boardNo}
-	</delete>
+	
+	
  
 </mapper>
