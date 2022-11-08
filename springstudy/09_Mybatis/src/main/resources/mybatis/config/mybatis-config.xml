@@ -6,9 +6,6 @@
   
 <configuration>
 
-	<!-- db.properties 파일 경로 설정 -->
-	<properties resource="mybatis/config/db.properties"></properties>
-	
 	<!-- snake_case(DB) to camelCase(Java) -->
 	<settings>
 		<setting name="mapUnderscoreToCamelCase" value="true"/>
@@ -16,24 +13,7 @@
 	
 	<!-- domain.Board(type) to Board(alias) -->
 	<typeAliases>
-		<typeAlias type="domain.Board" alias="Board"/>	
+		<typeAlias type="com.gdu.app09.domain.BoardDTO" alias="Board"/>	
 	</typeAliases>
-	
 
-	<environments default="development">
-		<environment id="development">
-			<transactionManager type="JDBC"/>
-			<dataSource type="POOLED">
-				<property name="driver" value="${driver}"/>
-				<property name="url" value="${url}"/>
-				<property name="username" value="${username}"/>
-				<property name="password" value="${password}"/>
-			</dataSource>
-		</environment>
-	</environments>
-	
-	<mappers>
-		<mapper resource="mybatis/mapper/board.xml"/>
-	</mappers>
-  
 </configuration>
