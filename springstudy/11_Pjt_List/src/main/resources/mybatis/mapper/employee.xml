@@ -6,7 +6,7 @@
   
 <!-- mapper의 namespace를 Mapper Interface로 지정해 준다. -->
   
-<mapper namespace="mybatis.mapper.board">
+<mapper namespace="com.gdu.app11.mapper.EmpMapper">
 
 	<select id="selectAllBoards" resultType="Board">
 		SELECT BOARD_NO, TITLE, CONTENT, WRITER, CREATE_DATE, MODIFY_DATE
