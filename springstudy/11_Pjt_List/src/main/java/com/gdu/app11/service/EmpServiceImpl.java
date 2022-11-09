@@ -47,7 +47,7 @@ public class EmpServiceImpl implements EmpService {
 		List<EmpDTO> employees = empMapper.selectEmployeesByPage(map);	// map으로 begin과 end를 가져온다.
 		
 		model.addAttribute("employees", employees);
-		model.addAttribute("pageUtil", pageUtil);
+		model.addAttribute("paging", pageUtil.getPaging(request.getContextPath() + "/emp/list"));
 		
 	}
 
