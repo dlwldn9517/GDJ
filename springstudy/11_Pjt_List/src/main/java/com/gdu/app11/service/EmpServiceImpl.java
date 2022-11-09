@@ -46,8 +46,22 @@ public class EmpServiceImpl implements EmpService {
 		// begin ~ end 목록 가져오기
 		List<EmpDTO> employees = empMapper.selectEmployeesByPage(map);	// map으로 begin과 end를 가져온다.
 		
+		// 뷰로 보낼 데이터
 		model.addAttribute("employees", employees);
 		model.addAttribute("paging", pageUtil.getPaging(request.getContextPath() + "/emp/list"));
+		model.addAttribute("beginNo", totalRecord - (page - 1) * pageUtil.getRecordPerPage());
+	}
+	
+	@Override
+	public void findEmployees(HttpServletRequest request, Model model) {
+
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("column", request.getParameter("column"));
+		map.put("query", request.getParameter("query"));
+		map.put("begin", request.getParameter("begin"));
+		map.put("end", request.getParameter("end"));
+		
+		System.out.println("검색 결과 개수 : " + empMapper.selectFindEmployeesCount(map));
 		
 	}
 

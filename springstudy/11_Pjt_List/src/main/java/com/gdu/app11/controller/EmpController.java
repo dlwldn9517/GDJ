@@ -26,5 +26,10 @@ public class EmpController {
 		return "employee/list";		// "/employee"라고 적어도 상관없다.
 	}
 	
+	@GetMapping("/emp/search")
+	public String search(HttpServletRequest request, Model model) {
+		empService.findEmployees(request, model);
+		return "employee/list";
+	}
 	
 }

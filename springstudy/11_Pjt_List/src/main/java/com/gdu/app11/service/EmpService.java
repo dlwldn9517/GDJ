@@ -8,5 +8,7 @@ public interface EmpService {
 								// Controller에서만 Request, Response, Session, Model 선언할 수 있다.
 								// Controller에 넘기지 않고, 내가 응답하겠다. (= Model)
 	public void findAllEmployees(HttpServletRequest request, Model model); 	// 선언 아니고, Controller에서 받아오는거다.
+	
+	public void findEmployees(HttpServletRequest request, Model model);
 
 }
