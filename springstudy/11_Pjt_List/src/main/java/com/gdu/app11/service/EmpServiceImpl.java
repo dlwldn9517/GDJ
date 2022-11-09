@@ -55,13 +55,27 @@ public class EmpServiceImpl implements EmpService {
 	@Override
 	public void findEmployees(HttpServletRequest request, Model model) {
 
+		Optional<String> opt = Optional.ofNullable(request.getParameter("page"));
+		int page = Integer.parseInt(opt.orElse("1"));
+		
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("column", request.getParameter("column"));
 		map.put("query", request.getParameter("query"));
-		map.put("begin", request.getParameter("begin"));
-		map.put("end", request.getParameter("end"));
+		map.put("start", request.getParameter("start"));
+		map.put("stop", request.getParameter("stop"));
 		
-		System.out.println("검색 결과 개수 : " + empMapper.selectFindEmployeesCount(map));
+		int totalRecord = empMapper.selectFindEmployeesCount(map);
+		
+		pageUtil.setPageUtil(page, totalRecord);
+		
+		map.put("begin", pageUtil.getBegin());
+		map.put("end", pageUtil.getEnd());
+		
+		List<EmpDTO> employees = empMapper.selectFindEmployees(map);
+		
+		model.addAttribute("employees", employees);
+		model.addAttribute("beginNo", totalRecord - (page - 1) * pageUtil.getRecordPerPage());
+		model.addAttribute("paging", pageUtil.getPaging(request.getContextPath() + "/emp/search"));
 		
 	}
 

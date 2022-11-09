@@ -48,26 +48,40 @@ public class PageUtil {
 
 	
 	public String getPaging(String path) {
+		
 		StringBuilder sb = new StringBuilder();
 		
-		// 이전 블록 : 1block이 아니면 이전블록이 있다
+		sb.append("<div class=\"paging\">");
+		
+		// 이전블록 : 1block이 아니면 이전블록이 있다
 		if(beginPage != 1) {
-			sb.append("<a href=\"" + path + "?page=" + (beginPage-1) + "\">◀</a>");
+			sb.append("<a class=\"lnk\" href=\"" + path + "?page=" + (beginPage-1) + "\">◀</a>");
+		} else {
+			sb.append("<span class=\"hidden\">◀</span>");
 		}
 		
-		// 페이지 번호 : 현재 페이지는 링크가 없다
+		// 페이지번호 : 현재 페이지는 링크가 없다
+		int endPage = beginPage + pagePerBlock - 1;
 		for(int p = beginPage; p <= endPage; p++) {
-			if(p == page) {
-				sb.append(p);
+			if(p <= totalPage) {
+				if(p == page) {
+					sb.append("<span class=\"now_page\">" + p + "</span>");
+				} else {
+					sb.append("<a class=\"lnk\" href=\"" + path + "?page=" + p + "\">" + p + "</a>");
+				}				
 			} else {
-				sb.append("<a class=blind" + " href=\"" + path + "?page=" + p + "\">" + p + "</a>");
+				sb.append("<span class=\"hidden\">" + p + "</span>");
 			}
 		}
 		
-		// 다음 블록 : 마지막 블록이 아니면 다음 블록이 있다
-		if(endPage != totalPage) {
-			sb.append("<a href=\"" + path + "?page=" + (endPage+1) + "\">▶</a>");
+		// 다음블록 : 마지막 블록이 아니면 다음블록이 있다
+		if(endPage < totalPage) {
+			sb.append("<a class=\"lnk\" href=\"" + path + "?page=" + (endPage+1) + "\">▶</a>");
+		} else {
+			sb.append("<span class=\"hidden\">▶</span>");
 		}
+		
+		sb.append("</div>");
 		
 		return sb.toString();
 	}

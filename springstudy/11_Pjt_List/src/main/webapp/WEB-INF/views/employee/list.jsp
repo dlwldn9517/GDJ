@@ -8,40 +8,37 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-	
-	.paginate {
-		position: relative;
-		min-height: 22px;
-		margin-top: 17px;
+	* {
+		box-sizing: border-box;
+	}
+	a {
+		text-decoration: none;
+		color: gray;
+	}
+	.paging {
+		width: 210px;
+		margin: 0 auto;
+		color: gray;
+	}
+	.paging a, .paging span {
+		display: inline-block;
+		width: 30px;
+		height: 30px;
+		line-height: 30px;
 		text-align: center;
 	}
-	
-	.paginate a:hover, .paginate strong.page {
-		border: 1px solid #e0e0e0;
-		color: #00c73c;
+	.hidden {
+		visibility: hidden;
 	}
-	
-	.paginate a, .paginate strong.page, .low_btn {
-	    position: relative;
-	    min-width: 20px;
-	    height: 20px;
-	    margin: -1px 1px;
-	    padding: 2px 2px 0;
-	    border: 1px solid #fff;
-	    font-family: tahoma,helvetica,sans-serif;
-	    color: #999;
-	    line-height: normal;
-	    text-decoration: none;
-	    vertical-align: top;
-	    letter-spacing: -1px;
+	.now_page {
+		border: 1px solid gray;
+		color: teal;
+		font-weight: 900;
 	}
-	
-	
-	.blind {
-   		border: 1px solid #e0e0e0 !important;
-    	color: #00c73c !important;
+	.lnk:hover {
+		border: 1px solid gray;
+		color: skyblue;
 	}
-	
 </style>
 <script src="${contextPath}/resources/js/jquery-3.6.1.min.js"></script>
 <script>
@@ -72,20 +69,20 @@
 			<select id="column" name="column">
 				<option value="">:::선택:::</option>
 				<option value="EMPLOYEE_ID">사원번호</option>
-				<option value="DEPARTMENT_ID">부서번호</option>
+				<option value="E.DEPARTMENT_ID">부서번호</option>				
 				<option value="LAST_NAME">성</option>
 				<option value="FIRST_NAME">이름</option>
 				<option value="PHONE_NUMBER">연락처</option>
-				<option value="HIRE_DATE">입사일자</option>
+				<option value="HIRE_DATE">입사일</option>
 				<option value="SALARY">연봉</option>
 			</select>
 			<span id="area1">
 				<input type="text" id="query" name="query">
 			</span>
 			<span id="area2">
-				<input type="text" id="begin" name="begin">
+				<input type="text" id="start" name="start">
 				~
-				<input type="text" id="end" name="end">
+				<input type="text" id="stop" name="stop">
 			</span>
 			<span>
 				<input type="submit" value="검색">
@@ -115,7 +112,7 @@
 			<tbody>
 				<c:forEach items="${employees}" var="emp" varStatus="vs">
 					<tr>
-						<td>${beginNo - vs.index}</td>	<!-- vs.index : 0부터 인덱스값 가지고 온다 -->
+						<td>${beginNo - vs.index}</td>
 						<td>${emp.employeeId}</td>
 						<td>${emp.firstName} ${emp.lastName}</td>
 						<td>${emp.email}</td>
@@ -130,8 +127,8 @@
 			</tbody>
 			<tfoot>
 				<tr>
-					<td colspan="10" class="paginate">
-						${paging}
+					<td colspan="10">
+					    ${paging}
 					</td>
 				</tr>
 			</tfoot>
