@@ -60,7 +60,7 @@ public class PageUtil {
 			if(p == page) {
 				sb.append(p);
 			} else {
-				sb.append("<a href=\"" + path + "?page=" + p + "\">" + p + "</a>");
+				sb.append("<a class=blind" + " href=\"" + path + "?page=" + p + "\">" + p + "</a>");
 			}
 		}
 		
