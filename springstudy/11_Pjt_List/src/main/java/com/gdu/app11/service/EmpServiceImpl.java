@@ -47,11 +47,7 @@ public class EmpServiceImpl implements EmpService {
 		List<EmpDTO> employees = empMapper.selectEmployeesByPage(map);	// map으로 begin과 end를 가져온다.
 		
 		model.addAttribute("employees", employees);
-		
-		// 원하는 사원번호를 정렬시킨 후, 
-		// 가상으로 붙여준 rownum기준으로 begin값과 end값 처리 -> 
-		// 가지고 오기로 했던 인원수(recordPerPage)만큼 정보를 가지고 온당
-		
+		model.addAttribute("pageUtil", pageUtil);
 		
 	}
 
