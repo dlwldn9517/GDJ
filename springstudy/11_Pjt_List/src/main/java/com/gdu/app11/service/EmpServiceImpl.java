@@ -58,11 +58,16 @@ public class EmpServiceImpl implements EmpService {
 		Optional<String> opt = Optional.ofNullable(request.getParameter("page"));
 		int page = Integer.parseInt(opt.orElse("1"));
 		
+		String column = request.getParameter("column");
+		String query = request.getParameter("query");
+		String start = request.getParameter("start");
+		String stop = request.getParameter("stop");
+		
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("column", request.getParameter("column"));
-		map.put("query", request.getParameter("query"));
-		map.put("start", request.getParameter("start"));
-		map.put("stop", request.getParameter("stop"));
+		map.put("column", column);
+		map.put("query", query);
+		map.put("start", start);
+		map.put("stop", stop);
 		
 		int totalRecord = empMapper.selectFindEmployeesCount(map);
 		
@@ -75,8 +80,69 @@ public class EmpServiceImpl implements EmpService {
 		
 		model.addAttribute("employees", employees);
 		model.addAttribute("beginNo", totalRecord - (page - 1) * pageUtil.getRecordPerPage());
-		model.addAttribute("paging", pageUtil.getPaging(request.getContextPath() + "/emp/search"));
 		
+		String path = null;
+		switch(column) {
+		case "EMPLOYEE_ID":
+		case "E.DEPARTMENT_ID":
+		case "LAST_NAME":
+		case "FIRST_NAME":
+		case "PHONE_NUMBER":
+			path = request.getContextPath() + "/emp/search?column=" + column + "&query=" + query;
+			break;
+		case "HIRE_DATE":
+		case "SALARY":
+			path = request.getContextPath() + "/emp/search?column=" + column + "&start=" + start + "&stop=" + stop;
+			break;
+		}
+		model.addAttribute("paging", pageUtil.getPaging(path));
 	}
+	
+	@Override
+	public Map<String, Object> selectAutoCompleteList(HttpServletRequest request) {
+
+		String param = request.getParameter("param");
+		
+		List<EmpDTO> list = empMapper.selectAutoCompleteList(param);
+		
+		Map<String, Object> result = new HashMap<String, Object>();
+		if(list.size() == 0) {
+			result.put("status", 400);
+			result.put("list", null);
+		} else {
+			result.put("status", 200);
+			result.put("list", list);
+		}
+		
+		return result;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 }

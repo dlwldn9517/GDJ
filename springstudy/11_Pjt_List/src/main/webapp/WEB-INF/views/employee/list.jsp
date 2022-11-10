@@ -59,6 +59,27 @@
 				$('#area2').css('display', 'none');
 			}
 		});
+		
+		// 자동 완성
+		$('#email').keyup(function() {
+			$('#auto_complete').empty();
+			$.ajax({
+				/* 요청 */
+				type: 'get',
+				url: '${contextPath}/emp/autoComplete',
+				data: 'param=' + $(this).val(),
+				
+				/* 응답 */
+				dataType: 'json',
+				success: function(resData) {
+					
+				}
+			});
+		});
+		
+		
+		
+		
 	});
 </script>
 </head>
@@ -89,6 +110,12 @@
 				<input type="button" value="전체사원조회" id="btn_all">
 			</span>
 		</form>
+	</div>
+
+	<div>
+		<label for="email">이메일</label>
+		<input type="text" name="email" id="email">
+		<datalist id="auto_complete"></datalist>
 	</div>
 
 	<hr>
