@@ -59,8 +59,17 @@ public class BbsServiceImpl implements BbsService {
 
 	@Override
 	public int addBbs(HttpServletRequest request) {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		String writer = request.getParameter("writer");
+		String title = request.getParameter("title");
+		String ip = request.getRemoteAddr();
+		
+		BbsDTO bbs = new BbsDTO();
+		bbs.setWriter(writer);
+		bbs.setTitle(title);
+		bbs.setIp(ip);
+		
+		return bbsMapper.insertBbs(bbs);
 	}
 
 	@Override

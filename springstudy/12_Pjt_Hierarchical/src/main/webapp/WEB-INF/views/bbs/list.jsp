@@ -40,7 +40,7 @@
 			<option value="30">30</option>
 		</select>
 	</div>
-
+	
 	<div>
 		<table border="1">
 			<thead>
@@ -62,7 +62,20 @@
 						<td>${bbs.ip}</td>
 						<td>${bbs.createDate}</td>
 						<td>
-							<a href=""><i class="fa-solid fa-trash-can"></i></a>
+							<%-- <c:forEach>에서는 id를 여러개 생성하기 때문에 여러개 생성 가능한 class를 사용한다 --%>
+							<%-- <form data-aaa="${bbs.bbsNo} > data-데이터이름 : 데이터이름은 아무거나 상관없다 --%>
+							<%-- alert( $(this).parent().data('aaa') );    .data('데이터이름') : 데이터 값 가져오는 메소드 --%>
+							<form method="post" action="${contextPath}/bbs/remove">
+								<input type="hidden" name="bbsNo" value="${bbs.bbsNo}">
+								<a class="lnk_remove${bbs.bbsNo}"><i class="fa-solid fa-trash-can"></i></a>
+							</form>
+							<script>
+								$('.lnk_remove${bbs.bbsNo}').click(function() {
+									if(confirm('삭제할까요?')) {
+										$(this).parent().submit();
+									}
+								});
+							</script>
 						</td>
 					</tr>
 				</c:forEach>
