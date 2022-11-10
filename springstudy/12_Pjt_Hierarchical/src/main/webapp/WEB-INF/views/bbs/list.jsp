@@ -58,7 +58,14 @@
 					<tr>
 						<td>${beginNo - vs.index}</td>
 						<td>${bbs.writer}</td>
-						<td>${bbs.title}</td>
+						<td>
+							<c:if test="${bbs.state == 0}">
+								삭제된 게시글입니다.
+							</c:if>
+							<c:if test="${bbs.state == 1}">
+								${bbs.title}
+							</c:if>
+						</td>
 						<td>${bbs.ip}</td>
 						<td>${bbs.createDate}</td>
 						<td>

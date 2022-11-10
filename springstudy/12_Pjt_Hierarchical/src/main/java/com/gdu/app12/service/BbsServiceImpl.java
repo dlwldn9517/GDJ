@@ -80,8 +80,7 @@ public class BbsServiceImpl implements BbsService {
 
 	@Override
 	public int removeBbs(int bbsNo) {
-		// TODO Auto-generated method stub
-		return 0;
+		return bbsMapper.deleteBbs(bbsNo);
 	}
 
 }

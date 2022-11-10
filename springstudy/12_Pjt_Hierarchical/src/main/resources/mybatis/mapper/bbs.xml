@@ -52,9 +52,11 @@
 		
 	</insert>
 	
-	<delete id="deleteBbs">
-		
-	</delete>
+	<update id="deleteBbs">
+		UPDATE BBS
+		   SET STATE = 0
+		 WHERE BBS_NO = #{bbsNo}
+	</update>
 		
  
 </mapper>

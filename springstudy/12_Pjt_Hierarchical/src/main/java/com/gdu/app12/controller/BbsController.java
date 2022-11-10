@@ -41,8 +41,8 @@ public class BbsController {
 	
 	@PostMapping("/bbs/remove")
 	public String remove(@RequestParam("bbsNo") int bbsNo) {
-		System.out.println(bbsNo);
-		return null;
+		bbsService.removeBbs(bbsNo);
+		return "redirect:/bbs/list";
 	}
 	
 	
