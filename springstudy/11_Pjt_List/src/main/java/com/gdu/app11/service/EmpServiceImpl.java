@@ -100,10 +100,15 @@ public class EmpServiceImpl implements EmpService {
 	
 	@Override
 	public Map<String, Object> selectAutoCompleteList(HttpServletRequest request) {
-
+		
+		String target = request.getParameter("target");
 		String param = request.getParameter("param");
 		
-		List<EmpDTO> list = empMapper.selectAutoCompleteList(param);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("target", target);
+		map.put("param", param);
+		
+		List<EmpDTO> list = empMapper.selectAutoCompleteList(map);
 		
 		Map<String, Object> result = new HashMap<String, Object>();
 		if(list.size() == 0) {
@@ -114,35 +119,35 @@ public class EmpServiceImpl implements EmpService {
 			result.put("list", list);
 		}
 		
+		switch(target) {
+		case "FIRST_NAME": result.put("target", "firstName"); break;
+		case "LAST_NAME": result.put("target", "lastName"); break;
+		case "EMAIL": result.put("target", "email"); break;
+		}
+		
 		return result;
+		
+		/*
+			Map<> result가 jackson에 의해서 아래 JSON으로 자동 변경된다.
+			result = {
+				"status" : 200(성공),			=> result.status / result["status"]  - result에서 프로퍼티 꺼내는 방법 2가지
+				"list" : [
+					{
+						"employeeId": null,
+						"firstName": null,
+						"lastName": null,
+						...
+						"email": MHARTSTE"		=> result.list[0].email
+					},
+					{
+						...
+					},
+					...
+				] 
+			}
+		
+		*/
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 
 }
