@@ -11,8 +11,7 @@
 	</settings>
 	
 	<typeAliases>
-		<typeAlias type="com.gdu.app11.domain.EmpDTO" alias="EmpDTO"/>
-		<typeAlias type="com.gdu.app11.domain.DeptDTO" alias="DeptDTO"/>
+		<typeAlias type="com.gdu.app12.domain.BbsDTO" alias="BbsDTO"/>
 	</typeAliases>
 
 </configuration>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<!-- mapper의 namespace를 Mapper Interface로 지정해 준다. -->
+  
+<mapper namespace="com.gdu.app12.mapper.BbsMapper">
+
+	
+	<!-- 전체 조회 -->
+	<select id="selectAllBbsCount" resultType="int">
+		SELECT COUNT(*)
+		  FROM BBS
+	</select>
+	
+	<select id="selectAllBbsList" parameterType="Map" resultMap="BbsMap">	<!-- parameterType은 그냥 타입 -->
+
+		 
+	</select>
+	
+	<!-- 
+		 	컬럼명은 ${ }로 불러온다.
+		 	변수는 #{ } , ${ } 상관없다.
+		  
+		 	WHERE #{column} = #{query}		#{}는 작은 따옴표(')로 묶어서 값을 치환
+		 	WHERE 'EMPLOYEE_ID' = '150'		잘못된 사용
+		 	
+		 	WHERE ${column} = #{query}		${}는 그냥 치환
+		 	WHERE EMPLOYEE_ID = '150'		정상 동작
+	-->
+	
+	<insert id="insertBbs" parameterType="BbsDTO">
+		INSERT INTO
+	</insert>
+	
+	<update id="updatePreviousReply" parameterType="BbsDTO">
+		UPDATE SET 
+	</update>
+	
+	<insert id="insertReply" parameterType="BbsDTO">
+		INSERT INTO
+	</insert>
+	
+	<delete id="deleteBbs">
+		DELETE
+		  FROM BBS
+	</delete>
+		
+ 
+</mapper>
