@@ -6,6 +6,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<style>
+    @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css');
+</style>
 <title>Insert title here</title>
 <script src="${contextPath}/resources/js/jquery-3.6.1.min.js"></script>
 <script type="text/javascript">
@@ -25,6 +28,10 @@
 </script>
 </head>
 <body>
+
+	<div>
+		<a href="${contextPath}/bbs/write">작성하러가기</a>
+	</div>
 
 	<div>
 		<select id="recordPerPage">
@@ -55,7 +62,7 @@
 						<td>${bbs.ip}</td>
 						<td>${bbs.createDate}</td>
 						<td>
-							<a href="">X</a>
+							<a href=""><i class="fa-solid fa-trash-can"></i></a>
 						</td>
 					</tr>
 				</c:forEach>

@@ -31,7 +31,7 @@ public class EmpServiceImpl implements EmpService {
 		// page 파라미터가 전달되지 않는 경우 page = 1로 처리한다.
 		Optional<String> opt = Optional.ofNullable(request.getParameter("page"));
 		int page = Integer.parseInt(opt.orElse("1"));
-
+		
 		// 전체 레코드(직원) 개수 구하기
 		int totalRecord = empMapper.selectAllEmployeesCount();
 		
