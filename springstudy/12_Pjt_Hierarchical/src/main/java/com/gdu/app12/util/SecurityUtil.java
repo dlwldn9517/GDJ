@@ -10,10 +10,8 @@ public class SecurityUtil {
 
 	/* 
 		크로스 사이트 스크립팅 방지
-		
 		<script> 와 loction.href="" 스크립트 못 넣게 하려고
 	*/
-	
 	public String preventXSS(String str) {
 		str = str.replace("<", "&lt;");
 		str = str.replace(">", "&gt;");

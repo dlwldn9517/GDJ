@@ -1,14 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<style>
-    @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css');
-</style>
 <title>Insert title here</title>
 <script src="${contextPath}/resources/js/jquery-3.6.1.min.js"></script>
 <script type="text/javascript">
@@ -98,11 +96,11 @@
 								</script>
 							</td>
 							<td>${bbs.ip}</td>
-							<td>${bbs.createDate}</td>
+							<td><fmt:formatDate value="${bbs.createDate}" pattern="yy/MM/dd HH:mm:ss" /></td>
 							<td>
 								<form method="post" action="${contextPath}/bbs/remove">
 									<input type="hidden" name="bbsNo" value="${bbs.bbsNo}">
-									<a class="lnk_remove" id="lnk_remove${bbs.bbsNo}"><i class="fa-solid fa-trash-can"></i></a>
+									<a class="lnk_remove" id="lnk_remove${bbs.bbsNo}">X</a>
 								</form>
 								<script>
 									$('#lnk_remove${bbs.bbsNo}').click(function(){
