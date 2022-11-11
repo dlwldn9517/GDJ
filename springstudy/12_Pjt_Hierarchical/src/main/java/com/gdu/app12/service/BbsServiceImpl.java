@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 
 import com.gdu.app12.domain.BbsDTO;
@@ -72,10 +73,47 @@ public class BbsServiceImpl implements BbsService {
 		return bbsMapper.insertBbs(bbs);
 	}
 
+	/*
+		@Transactional
+		안녕. 난 트랜잭션을 처리하는 애너테이션이야.
+		INSERT/UPDATE/DELETE 중 2개 이상이 호출되는 서비스에 추가하면 돼.
+	*/
+	@Transactional
 	@Override
 	public int addReply(HttpServletRequest request) {
-		// TODO Auto-generated method stub
-		return 0;
+		
+		// 작성자, 제목
+		String writer = request.getParameter("writer");
+		String title = request.getParameter("title");
+		
+		// IP
+		String ip = request.getRemoteAddr();
+		
+		// 원글의 DEPTH, GROUP_NO, GROUP_ORDER
+		int depth = Integer.parseInt(request.getParameter("depth"));
+		int groupNo = Integer.parseInt(request.getParameter("groupNo"));
+		int groupOrder = Integer.parseInt(request.getParameter("groupOrder"));
+		
+		// 원글DTO(updatePreviousReply를 위함)
+		BbsDTO bbs = new BbsDTO();
+		bbs.setDepth(depth);
+		bbs.setGroupNo(groupNo);
+		bbs.setGroupOrder(groupOrder);
+		
+		// updatePreviousReply 쿼리 실행
+		bbsMapper.updatePreviousReply(bbs);
+		
+		// 답글DTO
+		BbsDTO reply = new BbsDTO();
+		reply.setWriter(writer);
+		reply.setTitle(title);
+		reply.setIp(ip);
+		reply.setDepth(depth + 1);				// 답글 depth : 원글 depth + 1
+		reply.setGroupNo(groupNo);				// 답글 groupNo	: 원글 groupNo
+		reply.setGroupOrder(groupOrder + 1);	// 답글 groupOrder : 원글 groupOrder + 1
+		
+		// insertReply 쿼리 실행
+		return bbsMapper.insertReply(reply);
 	}
 
 	@Override

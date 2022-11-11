@@ -12,6 +12,7 @@
 <title>Insert title here</title>
 <script src="${contextPath}/resources/js/jquery-3.6.1.min.js"></script>
 <script type="text/javascript">
+
 	$(function() {
 		if('${recordPerPage}' != '') {
 			$('#recordPerPage').val(${recordPerPage});
@@ -26,6 +27,14 @@
 		
 	});
 </script>
+<style>
+	.lnk_remove {
+		cursor: pointer;
+	}
+	.blind {
+		display: none;
+	}
+</style>
 </head>
 <body>
 
@@ -62,7 +71,26 @@
 						<tr>
 							<td>${beginNo - vs.index}</td>
 							<td>${bbs.writer}</td>
-							<td>${bbs.title}</td>
+							<td>
+								<!-- DEPTH에 따른 들여쓰기 -->
+								<c:forEach begin="1" end="${bbs.depth}" step="1">
+									&nbsp;&nbsp;
+								</c:forEach>
+								<!-- 답글은 [RE] 표시 -->
+								<c:if test="${bbs.depth > 0}">
+									[RE]
+								</c:if>
+								<!-- 제목 -->
+								${bbs.title}
+								<!-- 답글달기 버튼 -->
+								<input type="button" value="답글" class="btn_reply_write">
+								<script>
+									$('.btn_reply_write').click(function() {
+										$('.reply_write_tr').addClass('blind');
+										$(this).parent().parent().next().removeClass('blind');
+									});
+								</script>
+							</td>
 							<td>${bbs.ip}</td>
 							<td>${bbs.createDate}</td>
 							<td>
@@ -77,6 +105,18 @@
 										}
 									});
 								</script>
+							</td>
+						</tr>
+						<tr class="reply_write_tr blind">
+							<td colspan="6">
+								<form method="post" action="${contextPath}/bbs/reply/add">
+									<div><input type="text" name="writer" placeholder="작성자" required></div>
+									<div><input type="text" name="title" placeholder="제목" required></div>
+									<div><button>답글달기</button></div>
+									<input type="hidden" name="depth" value="${bbs.depth}">
+									<input type="hidden" name="groupNo" value="${bbs.groupNo}">
+									<input type="hidden" name="groupOrder" value="${bbs.groupOrder}">
+								</form>
 							</td>
 						</tr>
 					</c:if>
