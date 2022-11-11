@@ -83,6 +83,12 @@
 								<!-- 제목 -->
 								${bbs.title}
 								<!-- 답글달기 버튼 -->
+								<%-- 
+									1단 답글로 운용하는 경우 아래와 같이 처리한다.
+									<c:if test="${bbs.depth == 0}">
+										<input type="button" value="답글" class="btn_reply_write">
+									</c:if>
+								--%>
 								<input type="button" value="답글" class="btn_reply_write">
 								<script>
 									$('.btn_reply_write').click(function() {
