@@ -1,7 +1,9 @@
 package com.gdu.app13.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class userController {
@@ -15,4 +17,18 @@ public class userController {
 	public String agree() {
 		return "user/agree";
 	}
+	
+	@GetMapping("/user/join/write")
+	public String joinWrite(@RequestParam(required=false) String location
+						  , @RequestParam(required=false) String promotion
+						  , Model model) {
+		model.addAttribute("location", location);
+		model.addAttribute("promotion", promotion);
+		return "user/join";
+	}
+	
+	
+	
+	
+	
 }

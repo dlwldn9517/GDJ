@@ -11,7 +11,7 @@
 </head>
 <body>
 
-	<a href="${contextPath}/user/agree">회원가입페이지</a>	
+	
 
 </body>
 </html>
