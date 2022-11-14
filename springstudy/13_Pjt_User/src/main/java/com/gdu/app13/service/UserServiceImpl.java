@@ -4,6 +4,14 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
+import javax.mail.Authenticator;
+import javax.mail.Message;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+
 import org.springframework.stereotype.Service;
 
 import com.gdu.app13.mapper.UserMapper;
@@ -52,20 +60,48 @@ public class UserServiceImpl implements UserService {
 			이메일 보내기 API 사용을 위한 사전 작업
 			
 			1. 구글 로그인
-			2. Google 계정 - 보안
-				1) 2단계 인증  - 사용
-				2) 앱 비밀번호
+			2. Google 계정 - [보안]
+				1) [2단계 인증]  - [사용]
+				2) [앱 비밀번호]
 					(1) 앱 선택   : 기타
 					(2) 기기 선택 : Windows 컴퓨터
 					(3) 생성 버튼 : 16자리 앱 비밀번호를 생성해 줌(이 비밀번호를 이메일 보낼 때 사용)
 		*/
 		
 		// 이메일을 보내는 사용자 정보
-		String username = "";						// 본인 지메일
-		String password = "bcgsblmjuojqgunx";	// 발급 받은 앱 비밀번호
+		String username = "";	// 본인 지메일
+		String password = "";	// 발급 받은 앱 비밀번호
 		
+		// 사용자 정보를 javax.mail.Session에 저장
+		Session session = Session.getDefaultInstance(properties, new Authenticator() {
+			@Override
+			protected PasswordAuthentication getPasswordAuthentication() {
+				return new PasswordAuthentication(username, password);
+			}
+		});
 		
-		return null;
+		// 이메일 작성 및 전송
+		try {
+			
+			Message message = new MimeMessage(session);
+			
+			message.setFrom(new InternetAddress(username, "인증코드관리자"));			// 보내는 사람
+			message.setRecipient(Message.RecipientType.TO, new InternetAddress(email));	// 받는 사람
+			message.setSubject("[Application] 인증 요청 메일입니다.");					// 제목
+			message.setContent("인증번호는 <strong>" + authCode + "</strong>입니다.", "text/html; charset=UTF-8");	// 내용
+			
+			Transport.send(message);	// 이메일 전송
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		// join.jsp로 반환할 데이터
+		// 생성한 인증코드를 보내줘야 함
+		// 그래야 사용자가 입력한 인증코드와 비교를 할 수 있다.
+		Map<String, Object> result = new HashMap<String, Object>();
+		result.put("authCode", authCode);
+		return result;
 	}
 
 }
