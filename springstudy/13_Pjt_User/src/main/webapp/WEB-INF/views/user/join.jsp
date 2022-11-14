@@ -11,7 +11,29 @@
 </head>
 <body>
 
-	
+	<div>
+		
+		<h1>회원 가입</h1>
+		
+		<div>* 표시는 필수 입력사항입니다.</div>
+		
+		<hr>
+		
+		<form id="frm_join" action="${contextPath}/user/join" method="post">
+		
+			<!-- 약관 동의 여부 -->
+			<input type="hidden" name="location" value="${location}">
+			<input type="hidden" name="promotion" value="${promotion}">
+			
+			<!-- 아이디 -->
+			<div>
+				<label for="id">아이디*</label>
+				<input type="text" name="id" id="id">
+				<span id="msg_id"></span>
+			</div>
+		
+		</form>
+	</div>
 
 </body>
 </html>
