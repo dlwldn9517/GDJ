@@ -12,20 +12,30 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 
 import com.gdu.app13.mapper.UserMapper;
 import com.gdu.app13.util.SecurityUtil;
 
-import lombok.AllArgsConstructor;
-
-@AllArgsConstructor		// 필드의 @Autowired 역할
+@PropertySource(value = {"classpath:email.properties"})
 @Service
 public class UserServiceImpl implements UserService {
 
-	private UserMapper userMapper;
-	private SecurityUtil securityUtil;
+	// 이메일을 보내는 사용자 정보
+	@Value(value = "${mail.username}")
+	private String username;  // 본인 지메일 주소
 	
+	@Value(value="${mail.password}")
+	private String password;  // 발급 받은 앱 비밀번호
+	
+	@Autowired
+	private UserMapper userMapper;
+	
+	@Autowired
+	private SecurityUtil securityUtil;
 	
 	@Override
 	public Map<String, Object> isReduceId(String id) {
@@ -60,17 +70,13 @@ public class UserServiceImpl implements UserService {
 			이메일 보내기 API 사용을 위한 사전 작업
 			
 			1. 구글 로그인
-			2. Google 계정 - [보안]
-				1) [2단계 인증]  - [사용]
-				2) [앱 비밀번호]
-					(1) 앱 선택   : 기타
-					(2) 기기 선택 : Windows 컴퓨터
-					(3) 생성 버튼 : 16자리 앱 비밀번호를 생성해 줌(이 비밀번호를 이메일 보낼 때 사용)
+			2. [Google 계정] - [보안]
+			    1) [2단계 인증]  - [사용]
+			    2) [앱 비밀번호]
+			        (1) 앱 선택   : 기타
+			        (2) 기기 선택 : Windows 컴퓨터
+			        (3) 생성 버튼 : 16자리 앱 비밀번호를 생성해 줌(이 비밀번호를 이메일 보낼 때 사용)
 		*/
-		
-		// 이메일을 보내는 사용자 정보
-		String username = "";	// 본인 지메일
-		String password = "";	// 발급 받은 앱 비밀번호
 		
 		// 사용자 정보를 javax.mail.Session에 저장
 		Session session = Session.getDefaultInstance(properties, new Authenticator() {
