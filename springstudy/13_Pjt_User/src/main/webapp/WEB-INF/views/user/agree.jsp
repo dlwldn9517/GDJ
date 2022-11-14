@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core"  prefix="c" %>
-<c:set var="contextPath" value="${page.context.request.contextPath}" />
+<c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,7 +11,6 @@
 <script>
 	
 	$(function() {
-		
 		fn_checkAll();
 		fn_checkOne();
 	});
@@ -29,13 +28,32 @@
 		$('.check_one').click(function() {
 			//체크 상태 변경
 			let checkCount = 0;
-			for(let i = 0; i < $(this).length; i++) {
-				checkCount += $(this)[i]
+			for(let i = 0; i < $('.check_one').length; i++) {
+				// 체크의 개수
+				checkCount += $($('.check_one')[i]).prop('checked');	// [i]인덱스는 일반변수라서 제이쿼리로 사용하기 위해서 한번더 감싸야 함
 			}
+			
+			// 체크박스개수 vs 체크된박스개수
+			$('#check_all').prop('checked', $('.check_one').length == checkCount);
 		});
 	}
 	
+	// 체크할 때마다 lbl_checked 클래스를 줬다 뺐었다 하기
+	
+	
 </script>
+<style>
+	.blind{
+		display: none;
+	}
+	.lbl_all, .lbl_one {
+		padding-left: 20px;
+		background-image: url(${contextPath}/resources/images/uncheck.png);
+		background-size: 18px 18px;
+		background-repeat: no-repeat;
+	}
+	
+</style>
 </head>
 <body>
 
@@ -43,39 +61,39 @@
 	
 		<h1>약관 동의하기</h1>
 		
-		<form id="frm_agree" action="${contextPath}/user/write/join">
+		<form id="frm_agree" action="${contextPath}/user/join/write">
 		
 			<div>
-				<input type="checkbox" id="check_all">
-				<label for="check_all">모두 동의</label>
+				<input type="checkbox" id="check_all" class="blind">
+				<label for="check_all" class="lbl_all lbl_checked">모두 동의</label>
 			</div>
 			
 			<hr>
 			
 			<div>
-				<input type="checkbox" id="service" class="check_one">
-				<label for="service">이용약관 동의(필수)</label>
+				<input type="checkbox" id="service" class="check_one blind">
+				<label for="service" class="lbl_one">이용약관 동의(필수)</label>
 				<div>
 					<textarea>본 약관은 ...</textarea>
 				</div>				
 			</div>
 			<div>
-				<input type="checkbox" id="privacy" class="check_one">
-				<label for="privacy">개인정보수집 동의(필수)</label>
+				<input type="checkbox" id="privacy" class="check_one blind">
+				<label for="privacy" class="lbl_one">개인정보수집 동의(필수)</label>
 				<div>
 					<textarea>개인정보보호법에 따라 ...</textarea>
 				</div>				
 			</div>
 			<div>
-				<input type="checkbox" id="location" class="check_one">
-				<label for="location">위치정보수집 동의(선택)</label>
+				<input type="checkbox" id="location" class="check_one blind">
+				<label for="location" class="lbl_one">위치정보수집 동의(선택)</label>
 				<div>
 					<textarea>위치정보 ...</textarea>
 				</div>				
 			</div>
 			<div>
-				<input type="checkbox" id="promotion" class="check_one">
-				<label for="promotion">마케팅 동의(선택)</label>
+				<input type="checkbox" id="promotion" class="check_one blind">
+				<label for="promotion" class="lbl_one">마케팅 동의(선택)</label>
 				<div>
 					<textarea>이벤트 ...</textarea>
 				</div>				

@@ -5,8 +5,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class userController {
-
-	
 	
 	@GetMapping("/")
 	public String index() {
