@@ -21,5 +21,12 @@ public class UserServiceImpl implements UserService {
 		result.put("isRetireUser", userMapper.selectRetireUserById(id) != null);    // select 결과가 null이 아니면(조회 되었으면) true
       	return result;
 	}
+	
+	@Override
+	public Map<String, Object> isReduceEmail(String email) {
+		Map<String, Object> result = new HashMap<String, Object>();
+		result.put("isUser", userMapper.selectUserByEmail(email) != null);
+		return result;
+	}
 
 }

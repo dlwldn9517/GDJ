@@ -18,4 +18,13 @@
 		 WHERE ID = #{id}
 	</select>
 	
+	<select id="selectUserByEmail" parameterType="String" resultType="UserDTO">
+		SELECT EMAIL
+		  FROM USERS
+		 WHERE EMAIL = #{email}
+	</select>
+	
+	
+	
+	
 </mapper>

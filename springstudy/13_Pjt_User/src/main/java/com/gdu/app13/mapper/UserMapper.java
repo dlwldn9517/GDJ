@@ -10,5 +10,5 @@ public interface UserMapper {
 
 	public UserDTO selectUserById(String id);
 	public RetireUserDTO selectRetireUserById(String id);
-	
+	public UserDTO selectUserByEmail(String email);
 }

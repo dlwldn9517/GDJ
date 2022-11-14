@@ -43,5 +43,11 @@ public class userController {
 		return userService.isReduceId(id);
 	}
 	
+	@ResponseBody
+	@GetMapping(value="/user/checkReduceEmail", produces=MediaType.APPLICATION_JSON_VALUE)
+	public Map<String, Object> checkReduceEmail(String email) {
+		return userService.isReduceEmail(email);
+	}
+	
 	
 }
