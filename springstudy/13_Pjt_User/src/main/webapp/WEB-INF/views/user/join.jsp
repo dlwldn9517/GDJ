@@ -111,9 +111,26 @@
 				}
 			});	// ajax
 		}).then(function() {
-			
+			// 인증번호 보내는 ajax
+			$.ajax({
+				/* 요청 */
+				type: 'get',
+				url: '${contextPath}/user/sendAuthCode',
+				data: 'email=' + $('#email').val(),
+				
+				/* 응답 */
+				dataType: 'json',
+				success: function(resData) {
+					
+				},
+				error: function(jqXHR) {
+					alert('인증번호 발송이 실패했습니다.');
+				}
+			});
 		}).catch(function() {
-			
+			// 사용할 수 없는 이메일이 입력된 경우 (다른 회원이 등록한 이메일을 입력한 경우)
+			$('#msg_email').text('이미 사용중인 이메일입니다.');
+			$('#authCode').prop('readonly', true);
 		});
 	}
 	
