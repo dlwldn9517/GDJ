@@ -6,6 +6,16 @@
 
 <mapper namespace="com.gdu.app13.mapper.UsersMapper">
 
+	<select id="selectUserById" parameterType="String" resultType="UserDTO">
+		SELECT ID
+		  FROM USERS
+		 WHERE ID = #{id}
+	</select>
 	
+	<select id="selectRetireUserById" parameterType="String" resultType="RetireUserDTO">
+		SELECT ID
+		  FROM RETIRE_USERS
+		 WHERE ID = #{id}
+	</select>
 	
 </mapper>

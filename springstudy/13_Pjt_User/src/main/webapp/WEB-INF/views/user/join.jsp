@@ -8,6 +8,40 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="${contextPath}/resources/js/jquery-3.6.1.min.js"></script>
+<script>
+
+	$(function() {
+		fn_idCheck();
+	});
+	
+	// 1. 아이디 중복체크 & 정규식
+	function fn_idCheck() {
+		$('#id').keyup(function() {
+			// 정규식
+			
+			
+			// 중복체크
+			$.ajax({
+				
+				/* 요청 */
+				type: 'get',
+				url: '${contextPath}/user/checkReduceId',
+				data: 'id=' + $(this).val(),
+				
+				/* 응답 */
+				dataType: 'json',
+				success: function(resData) {	// resData = {"isUser" : true, "isRetireUser": false}
+					if(resData.isUser || resData.isRetireUser) {
+						$('#msg_id').text('이미 사용중이거나 탈퇴한 아이디입니다.');
+					} else {
+						$('#msg_id').text('사용 가능한 아이디입니다.')
+					}
+				}
+			});
+		});
+	}
+
+</script>
 </head>
 <body>
 
@@ -31,6 +65,7 @@
 				<input type="text" name="id" id="id">
 				<span id="msg_id"></span>
 			</div>
+			
 		
 		</form>
 	</div>
