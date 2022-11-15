@@ -23,6 +23,7 @@
 		<div>
 			<a href="${contextPath}/user/mypage">${loginUser.name}</a> 님 반갑습니다.
 		</div>
+		<a href="${contextPath}/user/logout">로그아웃</a>
 		<a id="lnk_retire" href="${contextPath}/user/retire">회원탈퇴</a>
 		<script>
 			$('#lnk_retire').click(function(event) {
@@ -33,6 +34,6 @@
 			});
 		</script>	
 	</c:if>
-
+	
 </body>
 </html>

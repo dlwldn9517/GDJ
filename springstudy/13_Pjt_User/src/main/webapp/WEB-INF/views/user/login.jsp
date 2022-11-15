@@ -15,9 +15,9 @@
 	
 		<h1>로그인</h1>
 		
-		<form id="frm_login" action="${contextPath}/member/login" method="post">
+		<form id="frm_login" action="${contextPath}/user/login" method="post">
 			
-			<input type="text" name="url" value="${url}">
+			<input type="hidden" name="url" value="${url}">
 			
 			<div>
 				<label for="id">아이디</label>
@@ -47,7 +47,7 @@
 		</form>
 			
 		<div>
-			<a href="${contextPath}/member/findId">아이디 찾기</a> | 
+			<a href="${contextPath}/member/findId">아이디 찾기</a>
 			<a href="${contextPath}/member/findPw">비밀번호 찾기</a>
 		</div>
 	
