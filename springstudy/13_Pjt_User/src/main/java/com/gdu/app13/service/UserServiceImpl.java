@@ -11,12 +11,15 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 
+import com.gdu.app13.domain.UserDTO;
 import com.gdu.app13.mapper.UserMapper;
 import com.gdu.app13.util.SecurityUtil;
 
@@ -109,5 +112,62 @@ public class UserServiceImpl implements UserService {
 		result.put("authCode", authCode);
 		return result;
 	}
+	
+	@Override
+	public void join(HttpServletRequest request, HttpServletResponse response) {
+		
+		// 파라미터
+		String id = request.getParameter("id");
+		String pw = request.getParameter("pw");
+		String name = request.getParameter("name");
+		String gender = request.getParameter("gender");
+		String mobile = request.getParameter("mobile");
+		String birthyear = request.getParameter("birthyear");
+		String birthmonth = request.getParameter("birthmonth");
+		String birthdate = request.getParameter("birthdate");
+		String postcode = request.getParameter("postcode");
+		String roadAddress = request.getParameter("roadAddress");
+		String jibunAddress = request.getParameter("jibunAddress");
+		String detailAddress = request.getParameter("detailAddress");
+		String extraAddress = request.getParameter("extraAddress");
+		String email = request.getParameter("email");
+		String location = request.getParameter("location");
+		String promotion = request.getParameter("promotion");
+		
+		// 일부 파라미터는 DB에 넣을 수 있도록 암호화로 가공
+		pw = securityUtil.sha256(pw);
+		name = securityUtil.preventXSS(name);	// <script>처럼 < >.. ".. ' 등 공격 방지
+		String birthday = birthmonth + birthdate;
+		int agreeCode = 0;	// 필수 동의
+		if(location != null && promotion == null) {
+			agreeCode = 1;	// 필수 + 위치
+		} else if(location == null && promotion != null) {
+			agreeCode = 2;	// 필수 + 프로모션
+		} else if(location != null && promotion != null) {
+			agreeCode = 3;	// 필수 + 위치 + 프로모션
+		}
+		
+		// DB로 보낼 USERDTO 만들기
+		UserDTO user = UserDTO.builder()
+				.id(id)
+				.pw(pw)
+				.name(name)
+				.gender(gender)
+				.email(email)
+				.mobile(mobile)
+				.birthyear(birthyear)
+				.birthday(birthday)
+				.postcode(postcode)
+				.roadAddress(roadAddress)
+				.jibunAddress(jibunAddress)
+				.detailAddress(detailAddress)
+				.extraAddress(extraAddress)
+				.agreeCode(agreeCode)
+				.build();
+		
+		
+		
+	}
+	
 
 }
