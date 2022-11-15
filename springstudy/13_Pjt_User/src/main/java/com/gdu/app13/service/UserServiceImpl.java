@@ -14,12 +14,15 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.gdu.app13.domain.RetireUserDTO;
 import com.gdu.app13.domain.UserDTO;
 import com.gdu.app13.mapper.UserMapper;
 import com.gdu.app13.util.SecurityUtil;
@@ -114,6 +117,7 @@ public class UserServiceImpl implements UserService {
 		return result;
 	}
 	
+	@Transactional	// INSERT, UPDATE, DELETE 중 2개 이상이 호출되는 서비스에서 필요함
 	@Override
 	public void join(HttpServletRequest request, HttpServletResponse response) {
 		
@@ -179,9 +183,9 @@ public class UserServiceImpl implements UserService {
 		
 		// 응답
 		try {
-			
 			response.setContentType("text/html; charset=UTF-8");
 			PrintWriter out = response.getWriter();
+			
 			if(result > 0) {
 				
 				// 로그인한다 = 로그인한 사용자의 정보를 session에 올려둔다.
@@ -210,9 +214,81 @@ public class UserServiceImpl implements UserService {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	@Transactional	// INSERT, UPDATE, DELETE 중 2개 이상이 호출되는 서비스에서 필요함
+	@Override
+	public void retire(HttpServletRequest request, HttpServletResponse response) {
+
+		// 탈퇴할 회원의 userNo, id, joinDate는 session의 loginUser에 저장되어 있다.
+		HttpSession session = request.getSession();
+		UserDTO loginUser = (UserDTO)session.getAttribute("loginUser");
+		
+		// 탈퇴할 회원 RetireUserDTO 생성
+		RetireUserDTO retireUser = RetireUserDTO.builder()
+				.userNo(loginUser.getUserNo())
+				.id(loginUser.getId())
+				.joinDate(loginUser.getJoinDate())
+				.build();
+		
+		// 탈퇴처리
+		int deleteResult = userMapper.deleteUser(loginUser.getUserNo());
+		int insertResult = userMapper.insertRetireUser(retireUser);
+		
+		// 응답
+		try {
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			
+			if(deleteResult > 0 && insertResult > 0) {
+				
+				// session 초기화 (로그인 사용자 loginUser 삭제를 위해서)
+				session.invalidate();
+				
+				out.println("<script>");
+				out.println("alert('회원 탈퇴되었습니다.');");
+				out.println("location.href='" + request.getContextPath() + "';");
+				out.println("</script>");
+			} else {
+				out.println("<script>");
+				out.println("alert('회원 탈퇴에 실패했습니다.');");
+				out.println("history.back();");	// 뒤로 2칸
+				out.println("</script>");
+			}
+			out.close();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 		
 		
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 
 }

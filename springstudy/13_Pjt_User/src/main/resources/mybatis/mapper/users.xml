@@ -45,6 +45,32 @@
 			(ACCESS_LOG_SEQ.NEXTVAL, #{id}, SYSDATE)
 	</insert>
 	
+	<!-- 회원탈퇴1 : USERS 테이블에서 제거 -->
+	<delete id="deleteUser" parameterType="int">
+		DELETE
+		  FROM USERS
+		 WHERE USER_NO = #{userNo}
+	</delete>
+	
+	<!-- 회원탈퇴2 : RETIRE_USERS 테이블에 추가 -->
+	<insert id="insertRetireUser" parameterType="RetireUserDTO">
+		INSERT INTO RETIRE_USERS
+			(USER_NO, ID, JOIN_DATE, RETIRE_DATE)
+		VALUES
+			(#{userNo}, #{id}, #{joinDate}, SYSDATE)
+	</insert>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
