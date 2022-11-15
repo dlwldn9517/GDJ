@@ -1,5 +1,6 @@
 package com.gdu.app13.service;
 
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
@@ -134,18 +135,26 @@ public class UserServiceImpl implements UserService {
 		String location = request.getParameter("location");
 		String promotion = request.getParameter("promotion");
 		
+		
 		// 일부 파라미터는 DB에 넣을 수 있도록 암호화로 가공
 		pw = securityUtil.sha256(pw);
 		name = securityUtil.preventXSS(name);	// <script>처럼 < >.. ".. ' 등 공격 방지
 		String birthday = birthmonth + birthdate;
+		detailAddress = securityUtil.preventXSS(detailAddress);
+		
 		int agreeCode = 0;	// 필수 동의
-		if(location != null && promotion == null) {
+		
+		if(!location.isEmpty() && promotion.isEmpty()) {
 			agreeCode = 1;	// 필수 + 위치
-		} else if(location == null && promotion != null) {
+		
+		} else if(location.isEmpty() && !promotion.isEmpty()) {
 			agreeCode = 2;	// 필수 + 프로모션
-		} else if(location != null && promotion != null) {
+		
+		} else if(!location.isEmpty() && !promotion.isEmpty()) {
 			agreeCode = 3;	// 필수 + 위치 + 프로모션
-		}
+		}	
+		// location, promotion 둘 다 name으로 전달되서 null이 아니라 isEmpty를 사용
+		
 		
 		// DB로 보낼 USERDTO 만들기
 		UserDTO user = UserDTO.builder()
@@ -165,6 +174,42 @@ public class UserServiceImpl implements UserService {
 				.agreeCode(agreeCode)
 				.build();
 		
+		// 회원가입처리
+		int result = userMapper.insertUser(user);
+		
+		// 응답
+		try {
+			
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			if(result > 0) {
+				
+				// 로그인한다 = 로그인한 사용자의 정보를 session에 올려둔다.
+				// 수많은 페이지들 위에 session이 있어서 모든 페이지에서 언제든지 session 꺼내쓸 수 있다. 
+				// 로그인 처리를 위해서 session에 로그인 된 사용자 정보를 올려둠
+				request.getSession().setAttribute("loginUser", userMapper.selectUserById(id));
+				
+				// 로그인 기록 남기기
+				int updateResult = userMapper.updateAccessLog(id);
+				if(updateResult == 0) {
+					userMapper.insertAccessLog(id);
+				}
+				
+				out.println("<script>");
+				out.println("alert('회원 가입되었습니다.');");
+				out.println("location.href='" + request.getContextPath() + "';");
+				out.println("</script>");
+			} else {
+				out.println("<script>");
+				out.println("alert('회원 가입에 실패했습니다.');");
+				out.println("history.go(-2);");	// 뒤로 2칸
+				out.println("</script>");
+			}
+			out.close();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 		
 	}

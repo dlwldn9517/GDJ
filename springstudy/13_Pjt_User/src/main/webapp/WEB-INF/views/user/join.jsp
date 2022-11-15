@@ -399,12 +399,12 @@
 			
 			<!-- 성별 -->
 			<div>
-				<label for="none">선택 안함</label>
 				<input type="radio" name="gender" id="none" value="N" checked="checked">
-				<label for="male">남자</label>
+				<label for="none">선택 안함</label>
 				<input type="radio" name="gender" id="male" value="M">
-				<label for="female">여자</label>
+				<label for="male">남자</label>
 				<input type="radio" name="gender" id="female" value="F">
+				<label for="female">여자</label>
 			</div>
 		
 			<!-- 휴대전화 -->
@@ -424,13 +424,13 @@
 			
 			<!-- 주소 -->
 			<div>
-				<input type="text" name="postcode" id="postcode" placeholder="우편번호">
+				<input type="text" onclick="fn_execDaumPostcode()" name="postcode" id="postcode" placeholder="우편번호" readonly>
 				<input type="button" onclick="fn_execDaumPostcode()" value="우편번호 찾기"><br>
-				<input type="text" name="roadAddress" id="roadAddress" placeholder="도로명주소">
-				<input type="text" name="jibunAddress" id="jibunAddress" placeholder="지번주소"><br>
+				<input type="text" name="roadAddress" id="roadAddress" placeholder="도로명주소" readonly>
+				<input type="text" name="jibunAddress" id="jibunAddress" placeholder="지번주소" readonly><br>
 				<span id="guide" style="color:#999;display:none"></span>
 				<input type="text" name="detailAddress" id="detailAddress" placeholder="상세주소">
-				<input type="text" name="extraAddress" id="extraAddress" placeholder="참고항목">
+				<input type="text" name="extraAddress" id="extraAddress" placeholder="참고항목" readonly>
 				<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 				<script>
 				    //본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
