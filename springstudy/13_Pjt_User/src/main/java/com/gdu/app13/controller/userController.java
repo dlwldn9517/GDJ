@@ -22,6 +22,7 @@ public class userController {
 	@Autowired
 	private UserService userService;
 	
+	// <a> 태그를 이용하여 값을 전달하면 GET 방식이다.
 	@GetMapping("/")
 	public String index() {
 		return "index";
@@ -63,4 +64,20 @@ public class userController {
 	public void join(HttpServletRequest request, HttpServletResponse response) {
 		userService.join(request, response);
 	}
+	
+	@GetMapping("/user/retire")
+	public void retire(HttpServletRequest request, HttpServletResponse response) {
+		userService.retire(request, response);
+	}
+	
+	@GetMapping("/user/login/form")
+	public String loginForm(HttpServletRequest request, Model model) {
+		
+		// 요청 헤더 referer : 이전 페이지의 주소가 저장
+		model.addAttribute("url", request.getHeader("referer"));	// 로그인 후 되돌아 갈 주소 url
+		
+		return "user/login";
+	}
+	
+	
 }
