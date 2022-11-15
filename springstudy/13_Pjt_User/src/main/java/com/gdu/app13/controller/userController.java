@@ -91,6 +91,4 @@ public class userController {
 		return "redirect:/";
 	}
 	
-	
-	
 }

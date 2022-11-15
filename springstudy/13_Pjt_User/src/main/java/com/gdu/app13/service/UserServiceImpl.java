@@ -46,16 +46,26 @@ public class UserServiceImpl implements UserService {
 	
 	@Override
 	public Map<String, Object> isReduceId(String id) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("id", id);
+		
 		Map<String, Object> result = new HashMap<String, Object>();
-		result.put("isUser", userMapper.selectUserById(id) != null);    // select 결과가 null이 아니면(조회 되었으면) true
-		result.put("isRetireUser", userMapper.selectRetireUserById(id) != null);    // select 결과가 null이 아니면(조회 되었으면) true
+	
+		result.put("isUser", userMapper.selectUserByMap(map) != null);    // select 결과가 null이 아니면(조회 되었으면) true
+		
+		result.put("isRetireUser", userMapper.selectRetireUserById(id) != null);
       	return result;
 	}
 	
 	@Override
 	public Map<String, Object> isReduceEmail(String email) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("email", email);
+		
 		Map<String, Object> result = new HashMap<String, Object>();
-		result.put("isUser", userMapper.selectUserByEmail(email) != null);
+		result.put("isUser", userMapper.selectUserByMap(map) != null);
 		return result;
 	}
 	
@@ -160,7 +170,7 @@ public class UserServiceImpl implements UserService {
 		// location, promotion 둘 다 name으로 전달되서 null이 아니라 isEmpty를 사용
 		
 		
-		// DB로 보낼 USERDTO 만들기
+		// DB로 보낼 UserDTO 만들기
 		UserDTO user = UserDTO.builder()
 				.id(id)
 				.pw(pw)
@@ -188,10 +198,13 @@ public class UserServiceImpl implements UserService {
 			
 			if(result > 0) {
 				
+				Map<String, Object> map = new HashMap<String, Object>();
+				map.put("id", id);
+				
 				// 로그인한다 = 로그인한 사용자의 정보를 session에 올려둔다.
 				// 수많은 페이지들 위에 session이 있어서 모든 페이지에서 언제든지 session 꺼내쓸 수 있다. 
 				// 로그인 처리를 위해서 session에 로그인 된 사용자 정보를 올려둠
-				request.getSession().setAttribute("loginUser", userMapper.selectUserById(id));
+				request.getSession().setAttribute("loginUser", userMapper.selectUserByMap(map));
 				
 				// 로그인 기록 남기기
 				int updateResult = userMapper.updateAccessLog(id);
@@ -252,7 +265,7 @@ public class UserServiceImpl implements UserService {
 			} else {
 				out.println("<script>");
 				out.println("alert('회원 탈퇴에 실패했습니다.');");
-				out.println("history.back();");	// 뒤로 2칸
+				out.println("history.back();");
 				out.println("</script>");
 			}
 			out.close();
@@ -265,6 +278,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void login(HttpServletRequest request, HttpServletResponse response) {
 
+		// 파라미터
 		String url = request.getParameter("url");
 		String id = request.getParameter("id");
 		String pw = request.getParameter("pw");
@@ -272,17 +286,14 @@ public class UserServiceImpl implements UserService {
 		// pw는 DB에 저장된 데이터와 동일한 형태로 가공
 		pw = securityUtil.sha256(pw);
 		
-		// DB로 보낼 UserDTO 생성
-		UserDTO user = UserDTO.builder()
-				.id(id)
-				.pw(pw)
-				.build();
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("id", id);
+		map.put("pw", pw);
 		
 		// id. pw가 일치하는 회원을 DB에서 조회하기
-		UserDTO loginUser = userMapper.selectUserByIdPw(user);
+		UserDTO loginUser = userMapper.selectUserByMap(map);
 		
 		// id. pw가 일치하는 회원이 있다 : 로그인 기록 남기기 + session에 loginUser 저장
-		
 		if(loginUser != null) {
 			
 			// 로그인 기록 남기기
@@ -292,7 +303,7 @@ public class UserServiceImpl implements UserService {
 			}
 			
 			// 로그인 처리를 위해서 session에 로그인 된 사용자 정보를 올려둠
-			request.getSession().setAttribute("loginUser", userMapper.selectUserById(id));
+			request.getSession().setAttribute("loginUser", loginUser);
 			
 			// 이동 (로그인페이지 이전 페이지로 돌아가기)
 			try {
@@ -304,6 +315,7 @@ public class UserServiceImpl implements UserService {
 		
 		// id. pw가 일치하는 회원이 없다 : 로그인 페이지로 돌려 보내기
 		else {
+			
 			// 응답
 			try {
 				response.setContentType("text/html; charset=UTF-8");

@@ -6,12 +6,21 @@
 
 <mapper namespace="com.gdu.app13.mapper.UserMapper">
 
+	<!-- 아이디/이메일 중복체크, 로그인 -->
 	<select id="selectUserByMap" parameterType="Map" resultType="UserDTO">
 		SELECT USER_NO, ID, PW, NAME, GENDER, EMAIL, MOBILE, BIRTHYEAR, BIRTHDAY, POSTCODE, ROAD_ADDRESS, JIBUN_ADDRESS, DETAIL_ADDRESS, EXTRA_ADDRESS, AGREE_CODE, SNS_TYPE, JOIN_DATE, PW_MODIFY_DATE, INFO_MODIFY_DATE, SESSION_ID, SESSION_LIMIT_DATE
 		  FROM USERS
-		 WHERE ID = #{id}
-		   AND PW = #{pw}
-		    OR EMAIL = #{email}
+		<where>	<!-- 조건에 AND나 OR이 먼저 나오면 알아서 무시한다. -->
+		  	<if test="id != null">
+		  		ID = #{id}
+		  	</if>
+		  	<if test="pw != null">
+		  		AND PW = #{pw}
+		  	</if>
+		  	<if test="email != null">
+		  		AND EMAIL = #{email}
+		  	</if>
+		</where>
 	</select>
 	
 	<select id="selectRetireUserById" parameterType="String" resultType="RetireUserDTO">
@@ -55,8 +64,5 @@
 		VALUES
 			(#{userNo}, #{id}, #{joinDate}, SYSDATE)
 	</insert>
-	
-	
-	
 	
 </mapper>
