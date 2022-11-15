@@ -187,17 +187,22 @@
 	
 	// 8. 생년월일(일)
 	function fn_birthdate(){
+		
 		$('#birthdate').append('<option value="">일</option>');
-		let endDay = 0;
-		let strDay = '';
-		$('#birthmonth').on('change', function(){
-			switch($('#birthmonth').val()){
-			case 2:
+		
+		$('#birthmonth').change(function(){
+			
+			$('#birthdate').empty();
+			$('#birthdate').append('<option value="">일</option>');
+			let endDay = 0;
+			let strDay = '';
+			switch($(this).val()){
+			case '02':
 				endDay = 29; break;
-			case 4:
-			case 6:
-			case 9:
-			case 11:
+			case '04':
+			case '06':
+			case '09':
+			case '11':
 				endDay = 30; break;
 			default:
 				endDay = 31; break;
@@ -210,7 +215,9 @@
 				}
 			}
 			$('#birthdate').append(strDay);
-		});
+			
+		});  // change
+		
 	}  // fn_birthdate
 	
 	// 9. 이메일
@@ -262,14 +269,17 @@
 				
 				// 인증번호 보내는 ajax
 				$.ajax({
+					
 					/* 요청 */
 					type: 'get',
 					url: '${contextPath}/user/sendAuthCode',
 					data: 'email=' + $('#email').val(),
+					
 					/* 응답 */
 					dataType: 'json',
 					success: function(resData){
 						alert('인증코드를 발송했습니다. 이메일을 확인하세요.');
+						
 						// 발송한 인증코드와 사용자가 입력한 인증코드 비교
 						$('#btn_verifyAuthCode').click(function(){
 							if(resData.authCode == $('#authCode').val()){
@@ -326,6 +336,10 @@
 				return;
 			} else if(mobilePass == false){
 				alert('휴대전화번호를 확인하세요.');
+				event.preventDefault();
+				return;
+			} else if($('#birthyear').val() == '' || $('#birthmonth').val() == '' || $('#birthdate').val() == ''){
+				alert('생년월일을 확인하세요.');
 				event.preventDefault();
 				return;
 			} else if(authCodePass == false){
