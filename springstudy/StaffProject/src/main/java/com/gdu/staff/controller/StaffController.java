@@ -2,9 +2,13 @@ package com.gdu.staff.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.gdu.staff.domain.StaffDTO;
@@ -27,7 +31,34 @@ public class StaffController {
 		return staffService.getstaffList();
 	}
 	
+	// 방법 1
+	@ResponseBody
+	@PostMapping(value="/add", produces="text/plain; charset=UTF-8")
+	public ResponseEntity<String> add(HttpServletRequest request) {
+		String sno = request.getParameter("sno");
+		String name = request.getParameter("name");
+		String dept = request.getParameter("dept");
+		StaffDTO staff = new StaffDTO(sno, name, dept, 0);
+		return staffService.addStaff(staff);
+	}
+	/*
+	// 방법 2
+	@ResponseBody
+	@PostMapping(value="/add", produces="text/plain; charset=UTF-8")
+	public ResponseEntity<String> add(@RequestParam(value="sno") String sno
+									, @RequestParam(value="name" , required=false) String name
+									, @RequestParam(value="dept") String dept) {
+		StaffDTO staff = new StaffDTO(sno, name, dept, 0);
+		return staffService.addStaff(staff);
+	}
 	
+	// 방법 3
+	@ResponseBody
+	@PostMapping(value="/add", produces="text/plain; charset=UTF-8")
+	public ResponseEntity<String> add(StaffDTO staff) {
+		return staffService.addStaff(staff);
+	}
+	*/
 	
 	
 }

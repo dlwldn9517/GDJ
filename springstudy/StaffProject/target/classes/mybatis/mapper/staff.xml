@@ -9,10 +9,17 @@
 <mapper namespace="com.gdu.staff.mapper.StaffMapper">
 
 	<select id="selectStaffList" resultType="StaffDTO">
-		SELECT SNO, NAME, DEPT,SALATY
+		SELECT SNO, NAME, DEPT, SALARY
 		  FROM STAFF
 		 ORDER BY SNO
 	</select>
+
+	<insert id="insertStaff" parameterType="StaffDTO">
+		INSERT INTO STAFF
+			(SNO, NAME, DEPT, SALARY)
+		VALUES
+			(#{sno}, #{name}, #{dept}, #{salary})
+	</insert>
 
  
 </mapper>

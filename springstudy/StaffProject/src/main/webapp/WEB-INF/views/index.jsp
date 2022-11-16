@@ -12,6 +12,7 @@
 
 	$(function() {
 		fn_list();
+		fn_add();
 	});
 	
 	function fn_list() {
@@ -42,10 +43,54 @@
 		});
 		
 	}
+	
+function fn_add() {
+		$('#btn_add').click(function() {
+			if( /^[0-9]{5}$/.test($('#sno').val()) == false) {
+				alert('사원번호는 5자리 숫자입니다.');
+				return;
+			}
+			$.ajax({
+				type: 'post',
+				url: '${contextPath}/add',
+				data: $('#frm_staff').serialize(),
+				// data: 'sno=' + $('#sno').val() + '&name=' + $('#name').val() + '&dept=' + $('#dept').val()
+				dataType: 'text',
+				success: function(resData) {	// try문에서 응답 만들어 준다.
+					alert(resData);
+					fn_list();
+					$('#sno').val('');
+					// document.getElementById('sno').value = '; 등록한 정보를 지움
+					$('#name').val('');
+					$('#dept').val('');
+				},
+				error: function(jqXHR) {		// catch문에서 에러응답 만들어 준다.
+					alert(jqXHR.responseText);
+				}
+			});
+		});
+	}
+	
+	
+	
+	
+	
+	
 
 </script>
 </head>
 <body>
+
+	<h3>사원등록</h3>
+	<form id="frm_staff">
+		<input type="text" id="sno" name="sno" placeholder="사원번호">
+		<input type="text" id="name" name="name" placeholder="사원명">
+		<input type="text" id="dept" name="dept" placeholder="부서명">
+		<input type="button" value="등록" id="btn_add">
+	</form>
+	
+	<h3>사원조회</h3>
+
 
 	<h3>사원목록</h3>
 	<table border="1">
