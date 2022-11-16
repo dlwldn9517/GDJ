@@ -26,15 +26,16 @@ public class StaffServiceImpl implements StaffService {
 		// staff에 salary 넣기 : 기획부 1000, 개발부 2000, 영업부 3000, 나머지 4000
 		try {
 			
-			if(staff.getDept() == "기획부") {
+			if(staff.getDept().equals("기획부")) {
 				staff.setSalary(1000);
-			} else if(staff.getDept() == "개발부") {
+			} else if(staff.getDept().equals("개발부")) {
 				staff.setSalary(2000);
-			} else if(staff.getDept() == "영업부") {
+			} else if(staff.getDept().equals("영업부")) {
 				staff.setSalary(3000);
 			} else {
 				staff.setSalary(4000);
 			}
+			
 			staffMapper.insertStaff(staff);
 			return new ResponseEntity<String>("사원 등록이 성공했습니다.", HttpStatus.OK);
 		} catch (Exception e) {

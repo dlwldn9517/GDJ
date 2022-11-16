@@ -13,6 +13,7 @@
 	$(function() {
 		fn_list();
 		fn_add();
+		fn_find();
 	});
 	
 	function fn_list() {
@@ -21,6 +22,7 @@
 			url: '${contextPath}/list.json',
 			dataType: 'json',
 			success: function(resData) {
+				$('#stfList').empty();
 				$.each(resData, function(i, staff) {
 					
 					/*
@@ -71,12 +73,11 @@ function fn_add() {
 		});
 	}
 	
-	
-	
-	
-	
-	
-
+	function fn_find() {
+		$('#btn_find').click(function() {
+			
+		});
+	}
 </script>
 </head>
 <body>
@@ -90,7 +91,11 @@ function fn_add() {
 	</form>
 	
 	<h3>사원조회</h3>
-
+	<form id=frm_find>
+		<input type="text" id="sno" name="sno" placeholder="사원번호">
+		<input type="button" value="조회" id="btn_find">
+		<input type="button" value="전체" id="btn_all">
+	</form>
 
 	<h3>사원목록</h3>
 	<table border="1">
@@ -106,7 +111,6 @@ function fn_add() {
 			
 		</tbody>
 	</table>
-
 
 </body>
 </html>
