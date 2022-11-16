@@ -7,13 +7,14 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script src="${contextPath}/resources/js/jquery-3.6.1.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script>
 
 	$(function() {
 		fn_list();
 		fn_add();
 		fn_find();
+		fn_all();
 	});
 	
 	function fn_list() {
@@ -46,10 +47,14 @@
 		
 	}
 	
-function fn_add() {
+	function fn_add() {
 		$('#btn_add').click(function() {
 			if( /^[0-9]{5}$/.test($('#sno').val()) == false) {
 				alert('사원번호는 5자리 숫자입니다.');
+				return;
+			}
+			if( /^[가-힣]{3,5}$/.test($('#dept').val()) == false) {
+				alert('부서는 3~5자리 한글입니다.');
 				return;
 			}
 			$.ajax({
@@ -75,9 +80,42 @@ function fn_add() {
 	
 	function fn_find() {
 		$('#btn_find').click(function() {
-			
+			if( /^[0-9]{5}$/.test($('#query').val()) == false) {
+				alert('사원번호는 5자리 숫자입니다.');
+				return;
+			}
+			$.ajax({
+				type:'get',
+				url:'${contextPath}/query.json',
+				data: 'sno=' + $('#query').val(),
+				dataType: 'json',
+				
+				success: function(resData) {
+					
+					$('#stfList').empty();
+					
+					$.each(resData, function(i, staff) {
+						$('<tr>')
+						.append( $('<td>').text(staff.sno) )
+						.append( $('<td>').text(staff.name) )
+						.append( $('<td>').text(staff.dept) )
+						.append( $('<td>').text(staff.salary) )
+						.appendTo('#stfList');
+					});
+				},
+				error: function(jqXHR) {
+					alert('조회된 사원 정보가 없습니다.');
+				}
+			});
 		});
 	}
+	
+	function fn_all() {
+		$('#btn_all').click(function() {
+			fn_list();
+		});
+	}
+	
 </script>
 </head>
 <body>
@@ -92,7 +130,7 @@ function fn_add() {
 	
 	<h3>사원조회</h3>
 	<form id=frm_find>
-		<input type="text" id="sno" name="sno" placeholder="사원번호">
+		<input type="text" id="query" placeholder="사원번호">
 		<input type="button" value="조회" id="btn_find">
 		<input type="button" value="전체" id="btn_all">
 	</form>

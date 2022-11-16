@@ -11,6 +11,7 @@ public interface StaffMapper {
 	
 	public List<StaffDTO> selectStaffList();
 	public int insertStaff(StaffDTO staff);
+	public StaffDTO selectFind(String sno);
 	
 
 }

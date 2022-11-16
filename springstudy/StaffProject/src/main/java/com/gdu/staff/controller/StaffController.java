@@ -41,6 +41,14 @@ public class StaffController {
 		StaffDTO staff = new StaffDTO(sno, name, dept, 0);
 		return staffService.addStaff(staff);
 	}
+	
+	@ResponseBody
+	@GetMapping(value="/query.json", produces="application/json; charset=UTF-8")
+	public StaffDTO find(HttpServletRequest request) {
+		String sno = request.getParameter("sno");
+		return staffService.getfind(sno);
+	}
+	
 	/*
 	// 방법 2
 	@ResponseBody

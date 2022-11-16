@@ -21,5 +21,10 @@
 			(#{sno}, #{name}, #{dept}, #{salary})
 	</insert>
 
+	<select id="selectFind" resultType="StaffDTO" >
+		SELECT SNO, NAME, DEPT, SALARY
+		  FROM STAFF
+		 WHERE SNO = #{sno}
+	</select>
  
 </mapper>

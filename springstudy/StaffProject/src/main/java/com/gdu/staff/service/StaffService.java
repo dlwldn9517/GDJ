@@ -10,5 +10,5 @@ public interface StaffService {
 
 	public List<StaffDTO> getstaffList();
 	public ResponseEntity<String> addStaff(StaffDTO staff);
-	
+	public StaffDTO getfind(String sno);
 }
