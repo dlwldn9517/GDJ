@@ -8,7 +8,11 @@
   
 <mapper namespace="com.gdu.staff.mapper.StaffMapper">
 
-	
+	<select id="selectStaffList" resultType="StaffDTO">
+		SELECT SNO, NAME, DEPT,SALATY
+		  FROM STAFF
+		 ORDER BY SNO
+	</select>
 
  
 </mapper>
