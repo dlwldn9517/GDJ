@@ -27,11 +27,11 @@ public class StaffServiceImpl implements StaffService {
 		try {
 			
 			if(staff.getDept().equals("기획부")) {
-				staff.setSalary(1000);
+				staff.setSalary(5000);
 			} else if(staff.getDept().equals("개발부")) {
-				staff.setSalary(2000);
+				staff.setSalary(6000);
 			} else if(staff.getDept().equals("영업부")) {
-				staff.setSalary(3000);
+				staff.setSalary(7000);
 			} else {
 				staff.setSalary(4000);
 			}

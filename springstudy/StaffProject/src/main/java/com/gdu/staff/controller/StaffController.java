@@ -49,6 +49,7 @@ public class StaffController {
 		return staffService.getfind(sno);
 	}
 	
+	
 	/*
 	// 방법 2
 	@ResponseBody

@@ -79,36 +79,33 @@
 	}
 	
 	function fn_find() {
-		$('#btn_find').click(function() {
-			if( /^[0-9]{5}$/.test($('#query').val()) == false) {
-				alert('사원번호는 5자리 숫자입니다.');
-				return;
-			}
-			$.ajax({
-				type:'get',
-				url:'${contextPath}/query.json',
-				data: 'sno=' + $('#query').val(),
-				dataType: 'json',
-				
-				success: function(resData) {
-					
-					$('#stfList').empty();
-					
-					$.each(resData, function(i, staff) {
-						$('<tr>')
-						.append( $('<td>').text(staff.sno) )
-						.append( $('<td>').text(staff.name) )
-						.append( $('<td>').text(staff.dept) )
-						.append( $('<td>').text(staff.salary) )
-						.appendTo('#stfList');
-					});
-				},
-				error: function(jqXHR) {
-					alert('조회된 사원 정보가 없습니다.');
+	      $('#btn_find').click(function(){
+	         if(/^[0-9]{5}$/.test($('#query').val()) == false){
+	            alert('사원번호는 5자리 숫자입니다.');
+	            return;
+	         }
+	         $.ajax({
+	            type : 'get',
+	            url : '${contextPath}/query.json',
+	            data : 'sno=' + $('#query').val(),
+	            dataType : 'json',
+	            success : function(resData){
+
+	               $('#stfList').empty();
+	               var tr = '<tr>'
+	               tr += '<td>' + resData.sno + '</td>'
+	               tr += '<td>' + resData.name + '</td>'
+	               tr += '<td>' + resData.dept + '</td>'
+	               tr += '<td>' + resData.salary + '</td>'
+	               tr += '</tr>'; 
+	               $('#stfList').append(tr);
+	               
+	            }, error : function(jqXHR){
+	               alert('조회된 사원 정보가 없습니다.');
 				}
 			});
 		});
-	}
+	} 
 	
 	function fn_all() {
 		$('#btn_all').click(function() {
