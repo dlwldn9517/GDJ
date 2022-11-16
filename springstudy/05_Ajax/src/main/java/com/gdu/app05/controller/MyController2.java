@@ -49,13 +49,5 @@ public class MyController2 {
 	public ResponseEntity<Board> detail3(Board board) {
 		return boardService.execute3(board);
 	}
-	
-	
-	
-	
-	
-	
-	
-	
 
 }
