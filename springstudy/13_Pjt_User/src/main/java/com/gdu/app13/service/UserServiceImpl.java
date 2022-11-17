@@ -1,6 +1,7 @@
 package com.gdu.app13.service;
 
 import java.io.PrintWriter;
+import java.sql.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
@@ -12,6 +13,7 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -302,6 +304,9 @@ public class UserServiceImpl implements UserService {
 				userMapper.insertAccessLog(id);
 			}
 			
+			// 로그인 유지 처리는 keepLogin 메소드가 따로 처리함
+			keepLogin(request, response);
+			
 			// 로그인 처리를 위해서 session에 로그인 된 사용자 정보를 올려둠
 			request.getSession().setAttribute("loginUser", loginUser);
 			
@@ -333,4 +338,111 @@ public class UserServiceImpl implements UserService {
 			}
 		}
 	}
+	
+	@Override
+	public void keepLogin(HttpServletRequest request, HttpServletResponse response) {
+
+		/*
+			로그인 유지를 체크한 경우
+			
+			1. session_id를 쿠키에 저장해둔다.
+				(쿠키명 : keepLogin)
+			2. session_id를 DB에 저장해둔다.
+				(SESSION_ID 칼럼에 session_id를 저장하고, SESSION_LIMIT_DATE 칼럼에 15일 후 날짜를 저장한다.)
+			
+	
+			로그인 유지를 체크하지 않은 경우
+			
+			1. 쿠키 또는 DB에 저장된 정보를 삭제한다.
+				편의상 쿠키명 keepLogin을 제거하는 것으로 처리한다.
+		*/
+		
+		// 파라미터
+		String id = request.getParameter("id");
+		String keepLogin = request.getParameter("keepLogin");
+		
+		// 로그인 유지를 체크한 경우
+		if(keepLogin != null) {
+			
+			// session_id
+			String sessionId = request.getSession().getId();
+			
+			// session_id를 쿠키에 저장하기
+			Cookie cookie = new Cookie("keepLogin", request.getSession().getId());
+			cookie.setMaxAge(60 * 60 * 24 * 15);	// 15일( 60분 * 60초 * 24시간 * 15일)
+			cookie.setPath(request.getContextPath());	// 쿠키 저장 장소를 getContextPath로 함
+			response.addCookie(cookie);
+			
+			// session_id를 DB에 저장하기
+			UserDTO user = UserDTO.builder()
+					.id(id)
+					.sessionId(sessionId)
+					.sessionLimitDate(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 24 * 15))
+					.build();
+			
+			userMapper.updateSessionInfo(user);
+			
+		}
+		
+		// 로그인 유지를 체크하지 않은 경우
+		else {
+			
+			// session_id를 쿠키에 저장하기
+			Cookie cookie = new Cookie("keepLogin", "");
+			cookie.setMaxAge(0);	// 쿠키 유지 시간이 0이면 삭제를 의미
+			cookie.setPath(request.getContextPath());
+			response.addCookie(cookie);
+			
+		}
+		
+	}
+	
+	
+	@Override
+	public void logout(HttpServletRequest request, HttpServletResponse response) {
+	
+		// 로그아웃 처리
+		HttpSession session = request.getSession();
+		if(session.getAttribute("loginUser") != null) {
+			session.invalidate();	// 세션 초기화
+		}
+		
+		// 로그인 유지 풀기
+		Cookie[] cookieList = request.getCookies();
+		Cookie cookie = null;
+		for(int i = 0; i < cookieList.length; i++) {
+			if(cookieList[i].getName().equals("keepLogin")) {
+				cookie = new Cookie("keepLogin", "");
+				cookie.setMaxAge(0);	// 쿠키 유지 시간이 0이면 삭제를 의미
+				cookie.setPath(request.getContextPath());
+				break;
+			}
+		}
+		response.addCookie(cookie);
+	}
+	
+	@Override
+	public UserDTO getUserBySessionId(Map<String, Object> map) {
+		return userMapper.selectUserByMap(map);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

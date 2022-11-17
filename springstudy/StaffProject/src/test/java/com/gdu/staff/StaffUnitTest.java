@@ -24,9 +24,9 @@ public class StaffUnitTest {
 	private StaffMapper staffMapper;
 	
 	
-	// @Test
+	@Test
 	public void 사원삽입테스트() {
-		StaffDTO staff = new StaffDTO("11117", "김기획", "기획부", 2000);
+		StaffDTO staff = new StaffDTO("99999", "김기획", "기획부", 5000);
 		assertEquals(1, staffMapper.insertStaff(staff));
 	}
 	

@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Service;
 
+import com.gdu.app13.domain.UserDTO;
+
 @Service
 public interface UserService {
 	
@@ -16,6 +18,8 @@ public interface UserService {
 	public void join(HttpServletRequest request, HttpServletResponse response);
 	public void retire(HttpServletRequest request, HttpServletResponse response);
 	public void login(HttpServletRequest request, HttpServletResponse response);
-	
+	public void keepLogin(HttpServletRequest request, HttpServletResponse response);
+	public void logout(HttpServletRequest request, HttpServletResponse response);
+	public UserDTO getUserBySessionId(Map<String, Object> map);	// KeepLoginInterceptor에서 호출
 	
 }

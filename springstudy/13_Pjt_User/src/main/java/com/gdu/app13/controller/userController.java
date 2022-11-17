@@ -86,7 +86,7 @@ public class userController {
 	
 	@GetMapping("/user/logout")
 	public String logout(HttpServletRequest request, HttpServletResponse response) {
-		request.getSession().invalidate();	// 세션 초기화
+		userService.logout(request, response);
 		return "redirect:/";
 	}
 	
