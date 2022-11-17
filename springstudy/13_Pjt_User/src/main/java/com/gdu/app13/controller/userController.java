@@ -66,7 +66,7 @@ public class userController {
 	}
 	
 	@GetMapping("/user/retire")
-	public void retiredLogin_retire(HttpServletRequest request, HttpServletResponse response) {
+	public void requiredLogin_retire(HttpServletRequest request, HttpServletResponse response) {
 		userService.retire(request, response);
 	}
 	
@@ -85,29 +85,29 @@ public class userController {
 	}
 	
 	@GetMapping("/user/logout")
-	public String retiredLogin_logout(HttpServletRequest request, HttpServletResponse response) {
+	public String logout(HttpServletRequest request, HttpServletResponse response) {
 		userService.logout(request, response);
 		return "redirect:/";
 	}
 	
 	@GetMapping("/user/check/form")
-	public String retiredLogin_checkForm() {
+	public String requiredLogin_checkForm() {
 		return "user/check";
 	}
 	
 	@ResponseBody
 	@PostMapping(value="/user/check/pw", produces="application/json")
-	public Map<String, Object> retiredLogin_checkPw(HttpServletRequest request) {
+	public Map<String, Object> requiredLogin_checkPw(HttpServletRequest request) {
 		return userService.confirmPassword(request);
 	}
 	
 	@GetMapping("/user/mypage")
-	public String retiredLogin_mypage() {
+	public String requiredLogin_mypage() {
 		return "user/mypage";
 	}
 	
 	@PostMapping("/user/modify/pw")
-	public void retiredLogin_modifyPw(HttpServletRequest request, HttpServletResponse response) {
+	public void requiredLogin_modifyPw(HttpServletRequest request, HttpServletResponse response) {
 		userService.modifyPassword(request, response);
 	}
 	
