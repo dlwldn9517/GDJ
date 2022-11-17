@@ -82,7 +82,7 @@
 	<update id="updateUserPassword" parameterType="UserDTO">
 		UPDATE USERS
 		   SET PW = #{pw}
-		  	   PW_MODIFY_DATE = SYSDATE
+		  	 , PW_MODIFY_DATE = SYSDATE
 		 WHERE USER_NO = #{userNo}
 	</update>
 	
