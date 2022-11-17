@@ -39,11 +39,10 @@
 	}
 	
 	function fn_displayRememberId(){
-		
 		let rememberId = $.cookie('rememberId');
 		if(rememberId == ''){
 			$('#id').val('');
-			$('#rememberId').prop('checked', false);
+			$('#rememberId').prop('checked', false);	// 저장된 아이디가 없으면 , id 입력창을 공란으로 만들고 아이디저장의 체크를 푼다
 		} else {
 			$('#id').val(rememberId);
 			$('#rememberId').prop('checked', true);

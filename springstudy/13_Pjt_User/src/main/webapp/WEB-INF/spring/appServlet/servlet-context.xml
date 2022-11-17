@@ -34,6 +34,13 @@
 			<mapping path="/**"/>
 			<beans:ref bean="keepLoginInterceptor" />
 		</interceptor>
+		<interceptor>
+			<!-- 로그인 완료된 상황에서 로그인 페이지 /user/login/form 으로 이동하면 로그인 입력창 뜨는거 막는거 구현하라고 한거 -->
+			<mapping path="/user/login/form"/>
+			<mapping path="/user/join/write"/>
+			<mapping path="/user/agree"/>
+			<beans:ref bean="PreventLoginInterceptor" />
+		</interceptor>
 	</interceptors>
 	
 	
