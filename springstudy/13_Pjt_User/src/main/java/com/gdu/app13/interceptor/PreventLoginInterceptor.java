@@ -20,7 +20,7 @@ public class PreventLoginInterceptor implements HandlerInterceptor {
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		
-		if(request.getAttribute("loginUser") != null) {
+		if(request.getSession().getAttribute("loginUser") != null) {
 	         
 			response.setContentType("text/html; charset=UTF-8");
 			PrintWriter out = response.getWriter();

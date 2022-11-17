@@ -419,17 +419,31 @@ public class UserServiceImpl implements UserService {
 		return userMapper.selectUserByMap(map);
 	}
 	
+	@Override
+	public Map<String, Object> confirmPassword(HttpServletRequest request) {
+		
+		// 파라미터 pw + SHA-256 처리
+		String pw = securityUtil.sha256(request.getParameter("pw"));
+		
+		// id
+		HttpSession session = request.getSession();
+		String id = ((UserDTO)session.getAttribute("loginUser")).getId();
+		
+		// 조회 조건으로 사용할 Map
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("id", id);
+		map.put("pw", pw);
+		
+		// id, pw가 일치하는 회원 조회
+		UserDTO user = userMapper.selectUserByMap(map);
+		
+		// 결과 반환
+		Map<String, Object> result = new HashMap<String, Object>();
+		result.put("isUser", user != null);		// 조회된 결과가 null이 아니면 isUser(사이트 회원이란 의미)
+		return result;
+	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	
 	
 	

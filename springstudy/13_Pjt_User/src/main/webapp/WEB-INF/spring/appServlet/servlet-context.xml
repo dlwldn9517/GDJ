@@ -23,25 +23,22 @@
 	
 	<context:component-scan base-package="com.gdu.app13" />
 	
-	<!-- interceptor -->
-	<!-- /** : /로부터 모든 경로 -->
-	<!-- beans:bean은 interceptor-mapping-beans:ref 이 때 동작한다! -->
 	
-	<beans:bean id="keepLoginInterceptor" class="com.gdu.app13.interceptor.KeepLoginInterceptor"></beans:bean>
-
+	<!-- interceptor -->
+	
+	<beans:bean id="keepLoginInterceptor" class="com.gdu.app13.interceptor.KeepLoginInterceptor" />
+	
 	<interceptors>
 		<interceptor>
-			<mapping path="/**"/>
+			<mapping path="/**" />
 			<beans:ref bean="keepLoginInterceptor" />
 		</interceptor>
 		<interceptor>
-			<!-- 로그인 완료된 상황에서 로그인 페이지 /user/login/form 으로 이동하면 로그인 입력창 뜨는거 막는거 구현하라고 한거 -->
 			<mapping path="/user/login/form"/>
 			<mapping path="/user/join/write"/>
 			<mapping path="/user/agree"/>
-			<beans:ref bean="PreventLoginInterceptor" />
+			<beans:bean class="com.gdu.app13.interceptor.PreventLoginInterceptor" />
 		</interceptor>
 	</interceptors>
-	
 	
 </beans:beans>

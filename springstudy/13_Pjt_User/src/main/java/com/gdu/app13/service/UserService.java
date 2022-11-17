@@ -22,6 +22,6 @@ public interface UserService {
 	public void logout(HttpServletRequest request, HttpServletResponse response);
 	public UserDTO getUserBySessionId(Map<String, Object> map);	// KeepLoginInterceptor에서 호출(원래 서비스는 컨트롤러가 호출하는데 요건 인터셉터가 호출)
 																// 요청 들어가기 전에 인터셉터를 동작시켜야해서
-	
+	public Map<String, Object> confirmPassword(HttpServletRequest request);
 	
 }
