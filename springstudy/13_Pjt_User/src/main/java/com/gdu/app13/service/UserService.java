@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Service;
 
+import com.gdu.app13.domain.SleepUserDTO;
 import com.gdu.app13.domain.UserDTO;
 
 @Service
@@ -24,5 +25,7 @@ public interface UserService {
 																// 요청 들어가기 전에 인터셉터를 동작시켜야해서
 	public Map<String, Object> confirmPassword(HttpServletRequest request);
 	public void modifyPassword(HttpServletRequest request, HttpServletResponse response);
+	public void sleepUserHandle();	// SleepUserScheduler에서 호출
+	public SleepUserDTO getSleepUserById(String id);
 	
 }

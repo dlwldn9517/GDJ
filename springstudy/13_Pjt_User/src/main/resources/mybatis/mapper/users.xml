@@ -107,8 +107,12 @@
                           OR (MONTHS_BETWEEN(SYSDATE, U.JOIN_DATE) >=12 AND A.LAST_LOGIN_DATE IS NULL))
 	</delete>
 	
-	
-	
+	<!-- 로그인 이전에 휴면회원인지 확인 -->
+	<select id="selectSleepUserById" parameterType="String" resultType="SleepUserDTO">
+		SELECT ID, JOIN_DATE, LAST_LOGIN_DATE, SLEEP_DATE
+		  FROM SLEEP_USERS
+		 WHERE ID = #{id}
+	</select>
 	
 	
 	

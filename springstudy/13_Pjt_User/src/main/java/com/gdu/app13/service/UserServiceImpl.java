@@ -25,6 +25,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.gdu.app13.domain.RetireUserDTO;
+import com.gdu.app13.domain.SleepUserDTO;
 import com.gdu.app13.domain.UserDTO;
 import com.gdu.app13.mapper.UserMapper;
 import com.gdu.app13.util.SecurityUtil;
@@ -510,8 +511,22 @@ public class UserServiceImpl implements UserService {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	@Transactional	// 휴면처리 : insert와 delete 동시 진행되기 때문에 트랜잭션 처리 필요
+	@Override
+	public void sleepUserHandle() {
 		
-		
+		int insertCount = userMapper.insertSleepUser();	  // inserCount로 반환되는게 3인거.
+		if(insertCount > 0) {
+			userMapper.deleteUserForSleep();
+		}
+	}
+	
+	@Override
+	public SleepUserDTO getSleepUserById(String id) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	
