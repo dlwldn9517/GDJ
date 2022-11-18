@@ -109,5 +109,9 @@ public class userController {
 	public void requiredLogin_modifyPw(HttpServletRequest request, HttpServletResponse response) {
 		userService.modifyPassword(request, response);
 	}
-	   
+	
+	@GetMapping("/user/sleep/display")
+	public String sleepDisplay() {
+		return "user/sleep";
+	}
 }

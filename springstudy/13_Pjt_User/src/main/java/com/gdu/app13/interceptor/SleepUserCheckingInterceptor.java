@@ -5,11 +5,13 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import com.gdu.app13.domain.SleepUserDTO;
 import com.gdu.app13.service.UserService;
 
+@Component
 public class SleepUserCheckingInterceptor implements HandlerInterceptor {
 
 	@Autowired
@@ -31,7 +33,7 @@ public class SleepUserCheckingInterceptor implements HandlerInterceptor {
 		
 		// 휴면회원이면 복원을 위한 과정(/user/sleep/display)을 진행함
 		if(sleepUser != null) {
-			response.sendRedirect(request.getContextPath() + " /user/sleep/display");
+			response.sendRedirect(request.getContextPath() + "/user/sleep/display");
 			return false;
 		}
 		// 휴면회원이 아니면 로그인(/user/login)을 진행함
