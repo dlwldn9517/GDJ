@@ -1,6 +1,14 @@
 package com.gdu.app13.service;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+import java.math.BigInteger;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
+import java.security.SecureRandom;
 import java.sql.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -568,5 +576,104 @@ public class UserServiceImpl implements UserService {
 		}
 	}
 	
+	@Override
+	public String getNaverLoginApiURL(HttpServletRequest request) {
+		
+		String apiURL = null;
+		
+		try {
+			
+			String clientId = "r8AzKZxCTRl5CxIreAMx";	//애플리케이션 클라이언트 아이디값"; 
+			String redirectURI = URLEncoder.encode("http://localhost:9090/" + request.getContextPath() + "/user/naver/login", "UTF-8");	 // 네이버 로그인 Callback URL에 작성한 주소 입력
+			SecureRandom random = new SecureRandom();
+		    String state = new BigInteger(130, random).toString();
+		    apiURL = "https://nid.naver.com/oauth2.0/authorize?response_type=code";
+		    apiURL += "&client_id=" + clientId;
+		    apiURL += "&redirect_uri=" + redirectURI;
+		    apiURL += "&state=" + state;
+		    HttpSession session = request.getSession();
+		    session.setAttribute("state", state);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	    return apiURL;
+	    
+	    /*
+	    	로그인 화면에서 네이버 로그인 클릭
+			(reponse_type, client_id, redirect_uri, state 전송)
+			->
+			
+			네이버로그인 동의화면(제공 정보 선택)
+			이전 화면에서 보낸 redirect_uri 주소로 code, state값을 전송
+			redirect_uri를 /user/naver/login이므로
+			관련 매핑을 컨트롤러에 만들고, code, state 처리하는 서비스 구현
+			
+			callback url
+	    */
+	    
+	}
+	
+	@Override
+	public UserDTO getNaverLoginTokenNProfile(HttpServletRequest request) {
+		
+		String clientId = "r8AzKZxCTRl5CxIreAMx";	//애플리케이션 클라이언트 아이디값";
+	    String clientSecret = "PxjZVSOTBc";	//애플리케이션 클라이언트 시크릿값";
+	    String code = request.getParameter("code");
+	    String state = request.getParameter("state");
+	    
+	    String redirectURI = null;
+	    try {
+	    	redirectURI = URLEncoder.encode("http://localhost:9090" + request.getContextPath(), "UTF-8");
+	    } catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+	    
+	    String apiURL;
+	    apiURL = "https://nid.naver.com/oauth2.0/token?grant_type=authorization_code&";
+	    apiURL += "client_id=" + clientId;
+	    apiURL += "&client_secret=" + clientSecret;
+	    apiURL += "&redirect_uri=" + redirectURI;
+	    apiURL += "&code=" + code;
+	    apiURL += "&state=" + state;
+	    
+	    String access_token = "";
+	    String refresh_token = "";
+	    
+	    try {
+	    	URL url = new URL(apiURL);
+	    	HttpURLConnection con = (HttpURLConnection)url.openConnection();
+	    	con.setRequestMethod("GET");
+	    	int responseCode = con.getResponseCode();
+	    	BufferedReader br;
+
+	    	if(responseCode == 200) { // 정상 호출
+	    		br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+	    	} else {  // 에러 발생
+	    		br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
+	    	}
+	    	String inputLine;
+	    	StringBuffer sb = new StringBuffer();	// StringBuffer는 StringBuilder와 동일한 역할 수행
+	    	while ((inputLine = br.readLine()) != null) {
+	    		sb.append(inputLine);
+	    	}
+	    	br.close();
+	    	
+	    	System.out.println(sb.toString());
+	    	
+	    	/*
+	    		{
+		    		"access_token":"AAAAOpCedduWeWpQh3BN26tr4g6MvsZCBexFCI9gzXPMAbW2_4fGfS-8RJplo7O3JyuU8LpebTFf9B_FV-d1vIn52Po",
+		    		"refresh_token":"bpQUGvEUABu4yjD2R287YWcRUsxUFsTb2p31YajAmvT38qLRd5NANPhFJYMJkRX2wzEsptwEcmGjCagZ5I1kAzWx0DiikI3IcaWHJmc2rN4IoVyhFmnipCVHipfPMtl1aRw",
+		    		"token_type":"bearer",
+		    		"expires_in":"3600"
+		    	}
+	    	*/
+	    
+	    } catch (Exception e) {
+	    	e.printStackTrace();
+	    }
+		return null;
+	}
 		
 }
