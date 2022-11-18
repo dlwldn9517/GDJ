@@ -26,6 +26,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
@@ -583,7 +584,7 @@ public class UserServiceImpl implements UserService {
 		
 		try {
 			
-			String clientId = "r8AzKZxCTRl5CxIreAMx";	//애플리케이션 클라이언트 아이디값"; 
+			String clientId = "";	//애플리케이션 클라이언트 아이디값"; 
 			String redirectURI = URLEncoder.encode("http://localhost:9090/" + request.getContextPath() + "/user/naver/login", "UTF-8");	 // 네이버 로그인 Callback URL에 작성한 주소 입력
 			SecureRandom random = new SecureRandom();
 		    String state = new BigInteger(130, random).toString();
@@ -617,8 +618,9 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public UserDTO getNaverLoginTokenNProfile(HttpServletRequest request) {
 		
-		String clientId = "r8AzKZxCTRl5CxIreAMx";	//애플리케이션 클라이언트 아이디값";
-	    String clientSecret = "PxjZVSOTBc";	//애플리케이션 클라이언트 시크릿값";
+		// access_token을 이용해서 profile 받기
+		String clientId = "";	//애플리케이션 클라이언트 아이디값";
+	    String clientSecret = "";	//애플리케이션 클라이언트 시크릿값";
 	    String code = request.getParameter("code");
 	    String state = request.getParameter("state");
 	    
@@ -629,18 +631,21 @@ public class UserServiceImpl implements UserService {
 			e.printStackTrace();
 		}
 	    
-	    String apiURL;
-	    apiURL = "https://nid.naver.com/oauth2.0/token?grant_type=authorization_code&";
-	    apiURL += "client_id=" + clientId;
-	    apiURL += "&client_secret=" + clientSecret;
-	    apiURL += "&redirect_uri=" + redirectURI;
-	    apiURL += "&code=" + code;
-	    apiURL += "&state=" + state;
-	    
 	    String access_token = "";
 	    String refresh_token = "";
 	    
+	    StringBuffer res = new StringBuffer();	// StringBuffer는 StringBuilder와 동일한 역할 수행
+	    
 	    try {
+	    	
+	    	String apiURL;
+		    apiURL = "https://nid.naver.com/oauth2.0/token?grant_type=authorization_code&";
+		    apiURL += "client_id=" + clientId;
+		    apiURL += "&client_secret=" + clientSecret;
+		    apiURL += "&redirect_uri=" + redirectURI;
+		    apiURL += "&code=" + code;
+		    apiURL += "&state=" + state;
+	    	
 	    	URL url = new URL(apiURL);
 	    	HttpURLConnection con = (HttpURLConnection)url.openConnection();
 	    	con.setRequestMethod("GET");
@@ -653,26 +658,83 @@ public class UserServiceImpl implements UserService {
 	    		br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
 	    	}
 	    	String inputLine;
-	    	StringBuffer sb = new StringBuffer();	// StringBuffer는 StringBuilder와 동일한 역할 수행
+	    	while ((inputLine = br.readLine()) != null) {
+	    		res.append(inputLine);
+	    	}
+	    	br.close();
+	    	con.disconnect();
+	    	
+	    	/*
+	    		{
+		    		"access_token":"",
+		    		"refresh_token":"",
+		    		"token_type":"bearer",
+		    		"expires_in":"3600"   -- 갱신주기
+		    	}
+	    	*/
+	    	
+	    	} catch (Exception e) {
+	    		e.printStackTrace();
+	    	}
+	    	
+	    
+    	JSONObject obj = new JSONObject(res.toString());
+    	access_token = obj.getString("access_token");
+    	refresh_token = obj.getString("refresh_token");
+    	
+    	// access_token을 이용해서 profile 받기
+    	String header = "Bearer " + access_token; // Bearer 다음에 공백 추가
+    	
+    	StringBuffer sb = new StringBuffer();
+    	
+    	try {
+    		
+    		String apiURL = "https://openapi.naver.com/v1/nid/me";
+    		URL url = new URL(apiURL);
+	    	HttpURLConnection con = (HttpURLConnection)url.openConnection();
+	    	con.setRequestMethod("GET");
+	    	con.setRequestProperty("Authorization", header);
+	    	
+	    	int responseCode = con.getResponseCode();
+	    	BufferedReader br;
+
+	    	if(responseCode == 200) { // 정상 호출
+	    		br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+	    	} else {  // 에러 발생
+	    		br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
+	    	}
+	    	String inputLine;
 	    	while ((inputLine = br.readLine()) != null) {
 	    		sb.append(inputLine);
 	    	}
 	    	br.close();
+	    	con.disconnect();
 	    	
-	    	System.out.println(sb.toString());
-	    	
+	    	// 사용자의 프로필 정보
 	    	/*
 	    		{
-		    		"access_token":"AAAAOpCedduWeWpQh3BN26tr4g6MvsZCBexFCI9gzXPMAbW2_4fGfS-8RJplo7O3JyuU8LpebTFf9B_FV-d1vIn52Po",
-		    		"refresh_token":"bpQUGvEUABu4yjD2R287YWcRUsxUFsTb2p31YajAmvT38qLRd5NANPhFJYMJkRX2wzEsptwEcmGjCagZ5I1kAzWx0DiikI3IcaWHJmc2rN4IoVyhFmnipCVHipfPMtl1aRw",
-		    		"token_type":"bearer",
-		    		"expires_in":"3600"
+		    		"resultcode":"00",
+		    		"message":"success",
+		    		"response":
+		    					{
+					    		"id":"",
+					    		"gender":"F",
+					    		"email":"admin@naver.com",
+					    		"mobile":"010-0000-0000",
+					    		"mobile_e164":"+821000000000",
+					    		"name":"",
+					    		"birthday":"11-18",
+					    		"birthyear":"2022"
+					    		}
 		    	}
 	    	*/
-	    
-	    } catch (Exception e) {
-	    	e.printStackTrace();
-	    }
+	    	
+    	} catch (Exception e) {
+			e.printStackTrace();
+		}
+    	
+    	// 받아온 profile을 UserDTO로 만들어서 반환
+    	
 		return null;
 	}
 		
