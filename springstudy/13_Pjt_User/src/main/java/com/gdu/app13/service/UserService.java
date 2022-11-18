@@ -27,5 +27,6 @@ public interface UserService {
 	public void modifyPassword(HttpServletRequest request, HttpServletResponse response);
 	public void sleepUserHandle();	// SleepUserScheduler에서 호출
 	public SleepUserDTO getSleepUserById(String id);
+	public void restoreUser(HttpServletRequest request, HttpServletResponse response);
 	
 }

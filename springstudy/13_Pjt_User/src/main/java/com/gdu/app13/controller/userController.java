@@ -114,4 +114,13 @@ public class userController {
 	public String sleepDisplay() {
 		return "user/sleep";
 	}
+	
+	@PostMapping("/user/restore")
+	public void restore(HttpServletRequest request, HttpServletResponse response) {
+		userService.restoreUser(request, response);
+	}
+	
+	
+	
+	
 }

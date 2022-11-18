@@ -2,7 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core"  prefix="c" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
-<c:set var="requestURL" value="${pageContext.request.requestURI}" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,22 +21,18 @@
 			<li>마지막 로그인 ${sleepUser.lastLoginDate}</li>
 			<li>휴면전환일 ${sleepUser.sleepDate}</li>
 		</ul>
-		휴면 해제를 위해 휴면해제하기 버튼을 클릭해주세요.
 	</div>
 	
-	<div>
-		<input type="button" value="취소" onclick="location.href='${contextPath}'">
-		<input type="button" value="휴면해제하기" id="btn_restore">
-	</div>
+	<hr>
 	
 	<div>
-		<form>
-			<div>
-				<label for="pw">비밀번호</label>
-				<input type="password" id="pw" name="pw">
-			</div>
+		<div>
+			휴면해제를 위해 휴면해제 버튼을 클릭해주세요.
+		</div>
+		<form id="frm_restore" action="${contextPath}/user/restore" method="post">
 			<div>
 				<button>휴면해제</button>
+				<input type="button" value="취소" onclick="location.href='${contextPath}'">
 			</div>
 		</form>
 	</div>

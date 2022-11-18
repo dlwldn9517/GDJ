@@ -114,10 +114,22 @@
 		 WHERE ID = #{id}
 	</select>
 	
-	
-	
-	
-	
+	<!-- 휴면복원1 : 복원할 회원을 USERS 테이블에 삽입 -->
+	<insert id="insertRestoreUser" parameterType="String">
+		INSERT INTO USERS(USER_NO, ID, PW, NAME, GENDER, EMAIL, MOBILE, BIRTHYEAR, BIRTHDAY, POSTCODE, ROAD_ADDRESS, JIBUN_ADDRESS, DETAIL_ADDRESS, EXTRA_ADDRESS, AGREE_CODE, SNS_TYPE, JOIN_DATE)
+			(SELECT USER_NO, ID, PW, NAME, GENDER, EMAIL, MOBILE, BIRTHYEAR, BIRTHDAY, POSTCODE, ROAD_ADDRESS, JIBUN_ADDRESS, DETAIL_ADDRESS, EXTRA_ADDRESS, AGREE_CODE, SNS_TYPE, JOIN_DATE
+			   FROM SLEEP_USERS
+			  WHERE ID = #{id})
+	</insert>
+
+
+	<!-- 휴면복원2 : 복원할 회원을 SLEEP_USERS 테이블에서 삭제 -->
+	<delete id="deleteSleepUser" parameterType="String">
+		DELETE
+  		  FROM SLEEP_USERS
+  		 WHERE ID = #{id}
+	</delete>
+
 	
 	
 	

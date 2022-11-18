@@ -23,6 +23,7 @@ public interface UserMapper {
 	public int insertSleepUser();
 	public int deleteUserForSleep();
 	public SleepUserDTO selectSleepUserById(String id);
-	
+	public int insertRestoreUser(String id);
+	public int deleteSleepUser(String id);
 	
 }

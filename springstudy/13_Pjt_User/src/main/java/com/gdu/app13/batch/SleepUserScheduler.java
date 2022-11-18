@@ -16,7 +16,7 @@ public class SleepUserScheduler {
 	
 	// 매일 새벽 1시 		@Scheduled(cron = "0 0 1 * * *") (초 분 시 일 요일 월)
 
-	@Scheduled(cron = "0 20 10 * * *")	// 10시 20분에 동작
+	@Scheduled(cron = "0 1 0 * * *")	// 복구되더라도 로그인을 안하면 스케줄러에 의해 계속 휴면으로 빠짐
 	public void execute() {
 		userService.sleepUserHandle();
 	}
