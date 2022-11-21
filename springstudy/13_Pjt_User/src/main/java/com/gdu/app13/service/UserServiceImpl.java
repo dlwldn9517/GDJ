@@ -584,7 +584,7 @@ public class UserServiceImpl implements UserService {
 		
 		try {
 			
-			String clientId = "";	//애플리케이션 클라이언트 아이디값"; 
+			String clientId = "r8AzKZxCTRl5CxIreAMx";	//애플리케이션 클라이언트 아이디값"; 
 			String redirectURI = URLEncoder.encode("http://localhost:9090/" + request.getContextPath() + "/user/naver/login", "UTF-8");	 // 네이버 로그인 Callback URL에 작성한 주소 입력
 			SecureRandom random = new SecureRandom();
 		    String state = new BigInteger(130, random).toString();
@@ -619,8 +619,8 @@ public class UserServiceImpl implements UserService {
 	public UserDTO getNaverLoginTokenNProfile(HttpServletRequest request) {
 		
 		// access_token을 이용해서 profile 받기
-		String clientId = "";	//애플리케이션 클라이언트 아이디값";
-	    String clientSecret = "";	//애플리케이션 클라이언트 시크릿값";
+		String clientId = "r8AzKZxCTRl5CxIreAMx";	//애플리케이션 클라이언트 아이디값";
+	    String clientSecret = "PxjZVSOTBc";	//애플리케이션 클라이언트 시크릿값";
 	    String code = request.getParameter("code");
 	    String state = request.getParameter("state");
 	    
@@ -666,8 +666,8 @@ public class UserServiceImpl implements UserService {
 	    	
 	    	/*
 	    		{
-		    		"access_token":"",
-		    		"refresh_token":"",
+		    		"access_token":"AAAAOpCedduWeWpQh3BN26tr4g6MvsZCBexFCI9gzXPMAbW2_4fGfS-8RJplo7O3JyuU8LpebTFf9B_FV-d1vIn52Po",
+		    		"refresh_token":"bpQUGvEUABu4yjD2R287YWcRUsxUFsTb2p31YajAmvT38qLRd5NANPhFJYMJkRX2wzEsptwEcmGjCagZ5I1kAzWx0DiikI3IcaWHJmc2rN4IoVyhFmnipCVHipfPMtl1aRw",
 		    		"token_type":"bearer",
 		    		"expires_in":"3600"   -- 갱신주기
 		    	}
@@ -717,13 +717,13 @@ public class UserServiceImpl implements UserService {
 		    		"message":"success",
 		    		"response":
 		    					{
-					    		"id":"",
+					    		"id":"EHDKccaO0aTLLhHW53HU6_N1XfQ_0w2E31Jl6KbCwFg",
 					    		"gender":"F",
 					    		"email":"admin@naver.com",
 					    		"mobile":"010-0000-0000",
 					    		"mobile_e164":"+821000000000",
-					    		"name":"",
-					    		"birthday":"11-18",
+					    		"name":"\uc774\uc9c0\uc6b0",
+					    		"birthday":"11-17",
 					    		"birthyear":"2022"
 					    		}
 		    	}
