@@ -67,11 +67,20 @@ public class UploadServiceImpl implements UploadService {
 		
 		/* ATTACH 테이블에 저장하기 */
 		
-		// 첨부 결과
-		int attachResult = 0;
+
 		
 		// 첨부된 파일 목록
 		List<MultipartFile> files = multipartRequest.getFiles("files");	// <input type="file" name="files">
+
+		// 첨부 결과
+		int attachResult = 0;
+		// files[0] (x) → files.get(0).getSize() == 0 : 첫번째 요소 사이즈 가져오기
+		//				  files.get(0).getOriginalFilename().isEmpty()도 가능한데 너무 길다.
+		if(files.get(0).getSize() == 0) {	// 첨부가 없는 경우 (files 리스트에 [MultipartFile[field="files", filename=, contentType=application/octet-stream, size=0]] 이렇게 저장되어 있어서 files.size()가 1이다.
+			attachResult = 1;
+		} else {
+			attachResult = 0;
+		}
 		
 		// 첨부된 파일 목록 순회(하나씩 저장) (첨부파일 개수만큼 for문 돈다)
 		for(MultipartFile multipartFile : files) {
@@ -132,7 +141,7 @@ public class UploadServiceImpl implements UploadService {
 			if(uploadResult > 0 && attachResult == files.size()) {
 				out.println("<script>");
 				out.println("alert('업로드 되었습니다.');");
-				out.println("location.href='" + multipartRequest.getContextPath() + "/upload/list");
+				out.println("location.href='" + multipartRequest.getContextPath() + "/upload/list'");
 				out.println("</script>");
 			} else {
 				out.println("<script>");
@@ -145,6 +154,8 @@ public class UploadServiceImpl implements UploadService {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		// 첨부가 없이 글 작성 시 attachResult = 0이고, files.size() = 1 이라서 업로드 실패했습니다. 라는 메세지가 떴었다.
 		
 	}
 	

@@ -8,9 +8,8 @@
 
 	<!-- 같은 별명을 줘야 DTO에 맵핑이 된다. UploadDTO에서 attachCnt-->
 	<select id="selectUploadList" resultType="UploadDTO">
-		SELECT U.UPLOAD_NO, U.TITLE, U.CONTENT, U.CREATE_DATE, U.MODIFY_DATE, 1 AS ATTACH_CNT
-  		  FROM UPLOAD U INNER JOIN ATTACH A
-            ON U.UPLOAD_NO = A.UPLOAD_NO
+		SELECT U.UPLOAD_NO, U.TITLE, U.CONTENT, U.CREATE_DATE, U.MODIFY_DATE, (SELECT COUNT(*) FROM ATTACH A WHERE U.UPLOAD_NO = A.UPLOAD_NO) AS ATTACH_CNT
+		  FROM UPLOAD U
 	</select>
 	
 	<!-- 글 한 개당 insert 2개 ATTACH 테이블, UPLOAD 테이블 -->
@@ -34,7 +33,7 @@
 		INSERT INTO ATTACH
 			(ATTACH_NO, PATH, ORIGIN, FILESYSTEM, DOWNLOAD_CNT, UPLOAD_NO)
 		VALUES
-			(ATTACH.SEQ.NEXTVAL, #{path}, #{origin}, #{filesystem}, 0, #{uploadNo})
+			(ATTACH_SEQ.NEXTVAL, #{path}, #{origin}, #{filesystem}, 0, #{uploadNo})
 	</insert>
 	
 	

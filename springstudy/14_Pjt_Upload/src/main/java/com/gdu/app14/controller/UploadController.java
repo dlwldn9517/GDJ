@@ -22,7 +22,7 @@ public class UploadController {
 		return "index";
 	}
 	
-	@GetMapping("upload/list")
+	@GetMapping("/upload/list")
 	public String list(Model model) {
 		model.addAttribute("uploadList", uploadService.getUploadList());	// list.jsp에서 (items="${uploadList}) == uploadList 이름으로 모델에 저장
 		return "upload/list";

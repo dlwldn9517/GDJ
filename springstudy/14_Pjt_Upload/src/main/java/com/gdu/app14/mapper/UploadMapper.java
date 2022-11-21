@@ -13,4 +13,5 @@ public interface UploadMapper {
 	public List<UploadDTO> selectUploadList();
 	public int insertUpload(UploadDTO upload);
 	public int insertAttach(AttachDTO attach);
+	
 }
