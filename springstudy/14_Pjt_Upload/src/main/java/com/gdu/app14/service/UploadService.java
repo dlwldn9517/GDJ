@@ -8,6 +8,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.gdu.app14.domain.UploadDTO;
 
+
 public interface UploadService {
 	
 	public List<UploadDTO> getUploadList();

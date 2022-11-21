@@ -15,8 +15,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.gdu.app14.domain.AttachDTO;
 import com.gdu.app14.domain.UploadDTO;
 import com.gdu.app14.mapper.UploadMapper;
-
-import Util.MyFileUtil;
+import com.gdu.app14.util.MyFileUtil;
 
 @Service
 public class UploadServiceImpl implements UploadService {
