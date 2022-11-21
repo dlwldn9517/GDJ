@@ -15,11 +15,12 @@ public class MyFileUtil {
 	
 	public String getFilename(String filename) {
 		
-		// 확장자 예외 처리
 		String extension = null;
 		
+		// 확장자 예외 처리
 		if(filename.endsWith("tar.gz")) {
 			extension = "tar.gz";
+			
 		} else {
 			// unique : 파일이름의 중복을 막기 위해서 사용한다. 마치 비번처럼 이름이 겁나 길어지고 확장자만 살아있다.
 			// 원래 올렸던 이름은 DB에 저장되어 있고, 영문 또는 숫자로 변하기 때문에 한글 인코딩 할 필요 없다.

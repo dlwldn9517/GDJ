@@ -36,6 +36,8 @@ public class UploadServiceImpl implements UploadService {
 	@Override
 	public void save(MultipartHttpServletRequest multipartRequest, HttpServletResponse response) {
 
+		/*  UPLOAD 테이블에 저장하기 */
+		
 		// 파라미터
 		String title = multipartRequest.getParameter("title");
 		String content = multipartRequest.getParameter("content");
@@ -71,7 +73,7 @@ public class UploadServiceImpl implements UploadService {
 		// 첨부된 파일 목록
 		List<MultipartFile> files = multipartRequest.getFiles("files");	// <input type="file" name="files">
 		
-		// 첨부된 파일 목록 순회(하나씩 저장)(첨부파일 개수만큼 for문 돈다)
+		// 첨부된 파일 목록 순회(하나씩 저장) (첨부파일 개수만큼 for문 돈다)
 		for(MultipartFile multipartFile : files) {
 			
 			try {
@@ -119,6 +121,7 @@ public class UploadServiceImpl implements UploadService {
 				e.printStackTrace();
 			}
 		}	// for
+		
 		
 		// 응답
 		try {

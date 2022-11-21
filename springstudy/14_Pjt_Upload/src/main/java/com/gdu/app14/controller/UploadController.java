@@ -30,7 +30,7 @@ public class UploadController {
 	
 	@GetMapping("/upload/write")
 	public String write() {
-		return "/upload/write";
+		return "upload/write";
 	}
 	
 	@PostMapping("/upload/add")
