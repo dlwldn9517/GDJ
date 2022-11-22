@@ -60,7 +60,7 @@ public class UploadController {
 	@GetMapping("/upload/attach/remove")
 	public String attachRemove(@RequestParam("uploadNo") int uploadNo, @RequestParam("attachNo") int attachNo) {
 		uploadService.removeAttachByAttachNo(attachNo);
-		return "redirect:/upload/detail?uploadNo=" + uploadNo;	// detail.jsp로 갈때 uploadNo가 필요하다. 디테일에서 파라미터로 uploadNo를 받아갈 수 있게 해줘야함
+		return "redirect:/upload/detail?uploadNo=" + uploadNo;	// detail.jsp로 갈때 uploadNo가 필요하다. detail.jsp에서 파라미터로 uploadNo를 받아갈 수 있게 해줘야함
 	}
 	
 }
