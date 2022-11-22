@@ -8,6 +8,24 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="${contextPath}/resources/js/jquery-3.6.1.min.js"></script>
+<script>
+	
+	$(function() {
+		
+		// 첨부 삭제
+		$('.btn_attach_remove').click(function() {
+			if(confirm('해당 첨부파일을 삭제할까요?')) {
+				location.href = '${contextPath}/upload/attach/remove?uploadNo='+ $(this).data('upload_no') + '&attachNo=' + $(this).data('attach_no');	// get방식 요청
+				/* 
+					꺼내서 사용할 속성 : attach_no 
+					data-속성값을 넣어주고 삭제할 번호(attach_no)를 넣어주면 된다.
+					$(this).data('속성값') 으로 꺼내서 사용하면 된다.
+				*/
+			}
+		});
+	});
+	
+</script>
 </head>
 <body>
 	
@@ -18,7 +36,6 @@
 			<li>내용 : ${upload.content}</li>
 			<li>작성일 : ${upload.createDate}</li>
 			<li>수정일 : ${upload.modifyDate}</li>
-			<li></li>
 		</ul>
 	</div>
 
@@ -26,9 +43,11 @@
 	
 	<div>
 		<h3>첨부목록</h3>
-		<c:forEach items="${attachList}" var="attach">
+		<c:forEach items="${attachList}" var="attach">	<!-- for문이니까 계속 생성되니 class로 해야 한다. id는 계속 생성불가 -->
 			<div>
-				<a href="">${attach.origin}</a>	<!-- origin : 원본이름 -->
+				<a href="${contextPath}/upload/download?attachNo=${attach.attachNo}">${attach.origin}</a>	<!-- origin : 원본이름 -->
+				<input type="button" value="삭제" class="btn_attach_remove" data-upload_no="${upload.uploadNo}" data-attach_no="${attach.attachNo}" >	<!-- 버튼에 data-attach_no 데이터 속성값을 넣어주고 꺼내서 쓰겠다. -->
+				
 			</div>
 		
 		</c:forEach>

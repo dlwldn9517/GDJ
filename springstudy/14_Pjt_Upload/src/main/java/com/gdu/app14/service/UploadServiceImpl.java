@@ -2,11 +2,17 @@ package com.gdu.app14.service;
 
 import java.io.File;
 import java.io.PrintWriter;
+import java.net.URLEncoder;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -164,13 +170,79 @@ public class UploadServiceImpl implements UploadService {
 		// 2가지 종류를 싣어야 하니까 model에 편하게 싣어서 이동
 		model.addAttribute("upload", uploadMapper.selectUploadByNo(uploadNo));
 		model.addAttribute("attachList", uploadMapper.selectAttachList(uploadNo));
-		
-		
-		
-		
 	}
 	
+	@Override
+	// ResponseEntity는 페이지 변화 없이 값만 반환. (ajax 같은 상황)
+	// 다운로드할 때 페이지가 변경되지 않으니까
+	public ResponseEntity<Resource> download(String userAgent, int attachNo) {
+		
+		// 다운로드 할 첨부 파일의 정보(경로, 이름)
+		AttachDTO attach = uploadMapper.selectAttachByNo(attachNo);
+		File file = new File(attach.getPath(), attach.getFilesystem());		// (경로, 파일명) 원본 이름은 DB에만 있는거야  Filesystem : 영문+숫자로 파일명 변경 해놓은것
+		
+		// 반환할 Resource
+		Resource resource = new FileSystemResource(file);	// file 전달
+		
+		// Resource가 없으면 종료 (다운로드할 파일이 없음)
+		if(resource.exists() == false) {
+			return new ResponseEntity<Resource>(HttpStatus.NOT_FOUND);	
+		}
+		
+		// 다운로드 횟수 증가
+		uploadMapper.updateDownloadCnt(attachNo);
+		
+		// 다운로드 되는 파일명(브라우저 마다 다르게 세팅)
+		String origin = attach.getOrigin();
+		try {
+			
+			// IE (userAgent에 "Trident"가 포함되어 있음)
+			if(userAgent.contains("Trident")) {
+				origin = URLEncoder.encode(origin, "UTF-8").replaceAll("\\+", " ");	// replaceAll("+", " ")는 안된다 왜냐 +가 따로 하는 일이 있어서
+			}
+			// Edge (userAgent에 "Edg"가 포함되어 있음)
+			else if(userAgent.contains("Edg")) {
+				origin = URLEncoder.encode(origin, "UTF-8");
+			}
+			// 나머지
+			else {
+				origin = new String(origin.getBytes("UTF-8"), "ISO-8859-1");
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		// 다운로드 헤더 만들기
+		// 실제로 반환할 리소스, 헤더, 상태값
+		HttpHeaders header = new org.springframework.http.HttpHeaders();
+		header.add("Content-Disposition", "attachment; filename=" + origin);
+		header.add("Content-Length", file.length() + "");
+		
+		return new ResponseEntity<Resource>(resource, header, HttpStatus.OK);
+	}
 	
-	
+	@Override
+	public void removeAttachByAttachNo(int attachNo) {
+		
+		// 삭제할 Attach 정보 가져오기
+		// 삭제하면 되돌릴 수 없으니까
+		AttachDTO attach = uploadMapper.selectAttachByNo(attachNo);
+		
+		// DB에서 Attach 정보 삭제
+		int result = uploadMapper.deleteAttachByAttachNo(attachNo);
+		
+		// 첨부 파일 삭제
+		if(result > 0) {
+			
+			// 첨부 파일을 File 객체로 만듬
+			File file = new File(attach.getPath(), attach.getFilesystem());	// 경로, 파일명
+			
+			// 삭제
+			if(file.exists()) {	// 파일이 존재하면
+				file.delete();	// 파일 삭제해라
+			}
+		}
+	}
 	
 }
