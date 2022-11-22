@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.gdu.app14.service.UploadService;
@@ -37,5 +38,14 @@ public class UploadController {
 	public void add(MultipartHttpServletRequest multipartRequest, HttpServletResponse response) {	// 첨부가 있을 때는 MultipartHttpServletRequest 사용, 첨부할 때 일반 request는 사용 불가
 		uploadService.save(multipartRequest, response);
 	}
+	
+	@GetMapping("/upload/detail")
+	// 매개변수에 서비스한테 넘겨줄 것이 필요해서 @RequestParam에 uploadNo를 담는다.
+	public String detail(@RequestParam(value="uploadNo", required=false, defaultValue="0") int uploadNo, Model model) {
+		uploadService.getUploadByNo(uploadNo, model);
+		return "upload/detail";
+	}
+	
+	
 	
 }

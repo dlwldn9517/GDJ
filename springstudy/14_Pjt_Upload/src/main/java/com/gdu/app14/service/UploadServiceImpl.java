@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -155,7 +156,21 @@ public class UploadServiceImpl implements UploadService {
 		}
 		
 		// 첨부가 없이 글 작성 시 attachResult = 0이고, files.size() = 1 이라서 업로드 실패했습니다. 라는 메세지가 떴었다.
+	}
+	
+	// select는 @Transactional 대상이 아니다.	
+	@Override
+	public void getUploadByNo(int uploadNo, Model model) {
+		// 2가지 종류를 싣어야 하니까 model에 편하게 싣어서 이동
+		model.addAttribute("upload", uploadMapper.selectUploadByNo(uploadNo));
+		model.addAttribute("attachList", uploadMapper.selectAttachList(uploadNo));
+		
+		
+		
 		
 	}
+	
+	
+	
 	
 }
