@@ -81,6 +81,7 @@
 		 WHERE UPLOAD_NO = #{uploadNo}
 	</delete>
 	
+	<!-- 어제 날짜의 첨부 목록을 가지고 와라 -->
 	<select id="selectAttachListInYesterday" resultType="AttachDTO">
 		SELECT ATTACH_NO, PATH, ORIGIN, FILESYSTEM, DOWNLOAD_CNT, UPLOAD_NO
 		  FROM ATTACH
