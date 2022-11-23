@@ -1,26 +1,60 @@
-<%@page import="java.util.Optional"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<% 
-	Optional<String> opt = Optional.ofNullable(request.getParameter("title"));
-	String title = opt.orElse("Welcome");
-	pageContext.setAttribute("title", title);	// EL 사용을 위함 ( ${title} )
-%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>${title}</title>
-<script src="${contextPath}/resources/js/jquery-3.6.1.min.js"></script>
-</head>
-<body>
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 
+<%-- 헤더.jsp에서 request.getParameter("title")랑 연결 --%>
+<jsp:include page="../layout/header.jsp">
+	<jsp:param value="블로그목록" name="title"/>
+</jsp:include>
+
+<div>
+	
+	<%--
+	<c:if test="${loginUser != null}">	// 관리자만 작성했으면 좋겠어 -> test="${loginUser != admin}"
+		<input type="button" value="블로그 작성하기" onclick="${contextPath}/blog/write">	로그인이랑 작성하기를 접목 시킨 것
+	</c:if>
+	--%>
+	
+	<h1>블로그 목록(전체 ${totalRecord}개)</h1>
+	
 	<div>
-		
+		<input type="button" value="블로그 작성하기" onclick="${contextPath}/blog/write"> <!-- 로그인 한 사람만 작성 버튼이 보인다. 로그인 안하면 작성 못해 -->
 	</div>
 	
+	<div>
+		<table border="1">
+			<thead>
+				<tr>
+					<td>순번</td>				
+					<td>제목</td>				
+					<td>조회수</td>				
+					<td>작성일</td>				
+				</tr>
+			</thead>
+			<tbody>
+				<c:forEach items="${blogList}" var="blog" varStatus="vs">
+					<tr>
+						<td>${beginNo - vs.index}</td>	<!-- 인덱스값 사용해서 순번 만들어줌 -->
+						<td>${blog.title}</td>
+						<td>${blog.hit}</td>
+						<td>${blog.createDate}</td>
+					</tr>
+				</c:forEach>
+			</tbody>
+			<tfoot>
+				<tr>
+					<td colspan="4">
+						${paging}	<!-- 서비스임플에서 'paging'란 이름에 싣었다 -->
+					</td>
+				</tr>
+			</tfoot>
+		</table>
+	</div>
+	
+</div>
+
+<!-- footer jsp 따로 할거면 닫아주는 바디와 html은 해당 페이지에서 닫아야 함 -->
 </body>
 </html>
