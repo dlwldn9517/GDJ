@@ -1,5 +1,6 @@
 package com.gdu.app14.controller;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,10 +58,32 @@ public class UploadController {
 		return uploadService.download(userAgent, attachNo);
 	}
 	
+	@ResponseBody
+	@GetMapping("/upload/downloadAll")
+	public ResponseEntity<Resource> downloadAll(@RequestHeader("User-Agent") String userAgent, @RequestParam("uploadNo") int uploadNo) {
+		return uploadService.downloadAll(userAgent, uploadNo);
+	}
+	
+	@PostMapping("/upload/edit")
+	public String edit(@RequestParam("uploadNo") int uploadNo, Model model) {
+		uploadService.getUploadByNo(uploadNo, model);
+		return "upload/edit";
+	}
+	
+	@PostMapping("/upload/modify")
+	public void modify(MultipartHttpServletRequest multipartRequest, HttpServletResponse response) {
+		uploadService.modifyUpload(multipartRequest, response);
+	}
+	
 	@GetMapping("/upload/attach/remove")
 	public String attachRemove(@RequestParam("uploadNo") int uploadNo, @RequestParam("attachNo") int attachNo) {
 		uploadService.removeAttachByAttachNo(attachNo);
 		return "redirect:/upload/detail?uploadNo=" + uploadNo;	// detail.jsp로 갈때 uploadNo가 필요하다. detail.jsp에서 파라미터로 uploadNo를 받아갈 수 있게 해줘야함
+	}
+	
+	@PostMapping("/upload/remove")
+	public void remove(HttpServletRequest request, HttpServletResponse response) {
+		uploadService.removeUpload(request, response);
 	}
 	
 }
