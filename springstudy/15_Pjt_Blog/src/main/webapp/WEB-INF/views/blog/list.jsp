@@ -2,7 +2,11 @@
     pageEncoding="UTF-8"%>
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<c:set var="contextPath" value="${pageContext.request.contextPath}" />
+<c:set var="contextPath" value="${pageContext.request.contextPath}" />	<!-- scope="page" 생략가능 -->
+<!-- 
+   ajax로 page 목록을 만든다는 뜻 = javascript로 전부 다 만든다는 뜻. 날짜/시간 형태로 바꿔줄 수 있는 코드가 어려워서
+   js에 moment-with-locales.js 라는 라이브러리 넣어놓았음
+ -->
 
 <%-- 헤더.jsp에서 request.getParameter("title")랑 연결 --%>
 <jsp:include page="../layout/header.jsp">
@@ -20,7 +24,7 @@
 	<h1>블로그 목록(전체 ${totalRecord}개)</h1>
 	
 	<div>
-		<input type="button" value="블로그 작성하기" onclick="${contextPath}/blog/write"> <!-- 로그인 한 사람만 작성 버튼이 보인다. 로그인 안하면 작성 못해 -->
+		<input type="button" value="블로그 작성하기" onclick="location.href='${contextPath}/blog/write'"> <!-- 로그인 한 사람만 작성 버튼이 보인다. 로그인 안하면 작성 못해 -->
 	</div>
 	
 	<div>
