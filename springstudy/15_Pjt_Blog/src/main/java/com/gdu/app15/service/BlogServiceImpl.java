@@ -191,20 +191,20 @@ public class BlogServiceImpl implements BlogService {
 			response.setContentType("text/html; charset=UTF-8");
 			PrintWriter out = response.getWriter();
 			
+			out.println("<script>");
 			if(result > 0) {
-				out.println("<script>");
-				out.println("<script>");
-				out.println("<script>");
-				out.println("</script>");
+				out.println("alert('삭제 성공');");
+				out.println("location.href='" + request.getContextPath() + "/blog/list'");
+			} else {
+				out.println("alert('삭제 실패');");
+				out.println("history.back();");
 			}
-			
+			out.println("</script>");
+			out.close();
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		
-		
 	}
 	
 	

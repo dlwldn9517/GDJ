@@ -61,16 +61,16 @@
 								summernote는
 								<img src="${contextPath}/load/image/aaa.jpg"> 태그를 만든다.
 								
-								mapping=${contextPath}/load/image/aaa.jpg 인 파일의 실제 위치는
+								mapping=${contextPath}/load/image/aaa.jpg인 파일의 실제 위치는
 								location=C:\\upload\\aaa.jpg이다.
 								
-								스프링에서 정적 자원 표시하는 방법은 servlet-content.xml에 있다.
+								스프링에서 정적 자원 표시하는 방법은 servlet-context.xml에 있다.
 								이미지(정적 자원)의 mapping과 location을 servlet-context.xml에 작성해야 한다.
 							*/
 						}
-					});
-				}
-			}
+					});	// ajax
+				}	// onImageUpload
+			}	// callbacks
 		});
 		
 		// 목록

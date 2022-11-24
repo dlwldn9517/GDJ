@@ -15,13 +15,13 @@
 	<h1>${blog.title}</h1>
 
 	<div>
-		<span>▷ 작성일 <fmt:formatDate value="${blog.createDate}" pattern="yyyy. m. d HH:mm"/></span>
+		<span>▷ 작성일 <fmt:formatDate value="${blog.createDate}" pattern="yyyy. M. d HH:mm" /></span>
 		&nbsp;&nbsp;&nbsp;
-		<span>▷ 수정일 <fmt:formatDate value="${blog.modifyDate}" pattern="yyyy. m. d HH:mm"/></span>
+		<span>▷ 수정일 <fmt:formatDate value="${blog.modifyDate}" pattern="yyyy. M. d HH:mm" /></span>
 	</div>
 	
 	<div>
-		<span>조회수 <fmt:formatNumber value="${blog.hit}" pattern="#,##0"></fmt:formatNumber></span>
+		<span>조회수 <fmt:formatNumber value="${blog.hit}" pattern="#,##0" /></span>
 	</div>
 	
 	<hr>
@@ -56,8 +56,6 @@
 			});
 		</script>
 	</div>
-	
-
 </div>
 
 </body>
