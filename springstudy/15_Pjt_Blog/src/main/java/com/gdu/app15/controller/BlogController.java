@@ -1,11 +1,13 @@
 package com.gdu.app15.controller;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import com.gdu.app15.service.BlogService;
 
@@ -33,6 +35,10 @@ public class BlogController {
 		return "blog/write";
 	}
 	
+	@PostMapping("/blog/add")
+	public void add(HttpServletRequest request, HttpServletResponse response) {
+		blogService.saveBlog(request, response);
+	}
 	
 	
 }

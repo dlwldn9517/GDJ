@@ -10,7 +10,7 @@
 </head>
 <body>
 
-	<a href="${contextPath}/bbs/list">게시판목록</a>
+	<a href="${contextPath}/emp/list">게시판목록</a>
 
 </body>
 </html>

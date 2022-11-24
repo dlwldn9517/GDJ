@@ -1,16 +1,19 @@
 package com.gdu.app15.service;
 
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
+import com.gdu.app15.domain.BlogDTO;
 import com.gdu.app15.mapper.BlogMapper;
 import com.gdu.app15.util.PageUtil;
 
@@ -56,10 +59,60 @@ public class BlogServiceImpl implements BlogService {
 		model.addAttribute("beginNo", totalRecord - (page - 1) * pageUtil.getRecordPerPage());	// 순번 만들때 필요한 정보 모델에 싣는다.
 		model.addAttribute("paging", pageUtil.getPaging(request.getContextPath() + "/blog/list"));	// 완성된 번호 텍스트로 받아서 넘기깅(getPaging()에 경로path만 넘겨주면 다 작성되게 String으로 넘겨줌)
 		 																							// 뭘 누르든 어차피 blogList. 그래서 "/blog/list" 경로로 이동
-		
-		
-		
 	}
+	
+	@Override
+	public void saveBlog(HttpServletRequest request, HttpServletResponse response) {
+		
+		// 파라미터 title, content
+		String title = request.getParameter("title");
+		String content = request.getParameter("content");
+		
+		// 작성자의 ip
+		// 작성된 내용이 어딘가를 경유해서 도착하면 원래 ip가 X-Forwarded-For라는 요청헤더에 저장된다.
+		
+		// 출발			  			도착
+		// 1.1.1.1					1.1.1.1 : request.getRemoteAddr()
+		//							null	: request.getHeader("X-Forwarded-For")
+		
+		// 출발			경유		도착
+		// 1.1.1.1		2.2.2.2		2.2.2.2 : request.getRemoteAddr()
+		//							1.1.1.1 : request.getHeader("X-Forwarded-For")
+		Optional<String> opt = Optional.ofNullable(request.getHeader("X-Forwarded-For"));	
+		String ip = opt.orElse(request.getRemoteAddr());	// 만약에 null이 나오면 request.getRemoteAddr()를 사용해라
+		
+		// DB로 보낼 BlogDTO
+		BlogDTO blog = BlogDTO.builder()
+				.title(title)
+				.content(content)
+				.ip(ip)
+				.build();
+		
+		// DB에 저장
+		int result = blogMapper.insertBlog(blog);
+		
+		// 응답
+		try {
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			
+			out.println("<script>");
+			if(result > 0) {
+				out.println("alert('삽입 성공')");
+				out.println("location.href='" + request.getContextPath() + "/blog/list';");
+			} else {
+				out.println("alert('삽입 실패')");
+				out.println("history.back();");
+			}
+			out.println("</script>");
+			out.close();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
 	
 	
 	
