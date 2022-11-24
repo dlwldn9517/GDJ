@@ -30,19 +30,31 @@
 		${blog.content}
 	</div>
 	
-	<!-- 수정/삭제 버튼은 작성자에게만 보이도록 -->
 	<div>
-			<form id="frm_btn" method="post">
+		<!-- 주소로 바로 이동하는 방식을 막기 위해 post 방식으로 넘기는 것 -->
+		<form id="frm_btn" method="post">
+			<!-- 블로그넘버를 넣어줘야 서브밋할 때 넘어감. hidden으로 숨겨놓고 수정/삭제할 때도 써먹자 -->
+			<input type="hidden" name="blogNo" value="${blog.blogNo}">
+			<!-- 수정/삭제 버튼은 작성자에게만 보이도록 -->
 			<input type="button" value="수정" id="btn_edit_blog">
 			<input type="button" value="삭제" id="btn_remove_blog">
-			<script>
-				$('#btn_remove_blog').click(function() {
-					if(confirm('블로그를 삭제하면 블로그에 달린 댓글을 더 이상 확인할 수 없습니다. 삭제하시겠습니까?')) {
-						
-					}
-				});
-			</script>
+			<input type="button" value="목록" onclick="location.href='${contextPath}/blog/list'">
 		</form>
+
+		<script>
+		
+			$('#btn_edit_blog').click(function() {
+				$('#frm_btn').attr('action', '${contextPath}/blog/edit');
+				$('#frm_btn').submit();
+			});
+		
+			$('#btn_remove_blog').click(function() {
+				if(confirm('블로그를 삭제하면 블로그에 달린 댓글을 더 이상 확인할 수 없습니다. 삭제하시겠습니까?')) {
+					$('#frm_btn').attr('action', '${contextPath}/blog/remove');
+					$('#frm_btn').submit();
+				}
+			});
+		</script>
 	</div>
 	
 

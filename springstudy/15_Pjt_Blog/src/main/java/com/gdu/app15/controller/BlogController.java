@@ -46,8 +46,8 @@ public class BlogController {
 	}
 	
 	@ResponseBody
-	@PostMapping(value="/blog/uploadImage", produces="application/json")
-	public Map<String, Object> uploadImage(MultipartHttpServletRequest multipartRequest) {	// 이미지 첨부가 가능한 request 
+	@PostMapping(value="/blog/uploadImage", produces="application/json") // 이미지 받아올 수 있는 request ==> multipartRequest
+	public Map<String, Object> uploadImage(MultipartHttpServletRequest multipartRequest) {	// json 반환 - MAP (잭슨 있으니까)
 		return blogService.saveSummernoteImage(multipartRequest);
 	}
 	
@@ -63,10 +63,24 @@ public class BlogController {
 	
 	@GetMapping("/blog/detail")	// 상세보기
 	public String detail(@RequestParam(value="blogNo", required=false, defaultValue="0") int blogNo, Model model) {
-		blogService.getBlogByNo(blogNo, model);
+		model.addAttribute("blog", blogService.getBlogByNo(blogNo));
 		return "blog/detail";
 	}
 	
+	@PostMapping("/blog/edit")
+	public String edit(int blogNo, Model model) {	// blogNo가 안올수가 없다 <input> name에 blog.blogNo로 입력해서 파라미터로 넘어옴
+		model.addAttribute("blog", blogService.getBlogByNo(blogNo));	// 수정하러 갈 때 조회수 증가하는 것을 막음
+		return "blog/edit";
+	}
 	
+	@PostMapping("/blog/modify")
+	public void modify(HttpServletRequest request, HttpServletResponse response) {
+		blogService.modifyBlog(request, response);	// 수정 후 상세보기로
+	}
+	
+	@PostMapping("/blog/remove")
+	public void remove(HttpServletRequest request, HttpServletResponse response) {
+		blogService.removeBlog(request, response);	// 삭제 후 목록보기로
+	}
 	
 }

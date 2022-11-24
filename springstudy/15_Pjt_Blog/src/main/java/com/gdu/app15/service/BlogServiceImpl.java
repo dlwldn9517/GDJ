@@ -3,6 +3,7 @@ package com.gdu.app15.service;
 import java.io.File;
 import java.io.PrintWriter;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -162,9 +164,48 @@ public class BlogServiceImpl implements BlogService {
 	}
 	
 	@Override
-	public void getBlogByNo(int blogNo, Model model) {
-		model.addAttribute("blog", blogMapper.selectBlogByNo(blogNo));
+	public BlogDTO getBlogByNo(int blogNo) {
+		return blogMapper.selectBlogByNo(blogNo);
+	}
+	
+	@Transactional
+	@Override
+	public void modifyBlog(HttpServletRequest request, HttpServletResponse response) {
+		
+		
 		
 	}
+	
+	@Override
+	public void removeBlog(HttpServletRequest request, HttpServletResponse response) {
+		
+		// 파라미터 blogNo
+		int blogNo = Integer.parseInt(request.getParameter("blogNo"));
+		
+		// DB 삭제
+		int result = blogMapper.deleteBlog(blogNo);
+		
+		// 응답
+		try {
+			
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			
+			if(result > 0) {
+				out.println("<script>");
+				out.println("<script>");
+				out.println("<script>");
+				out.println("</script>");
+			}
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		
+	}
+	
 	
 }
