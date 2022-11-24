@@ -163,7 +163,7 @@ public class BlogServiceImpl implements BlogService {
 	
 	@Override
 	public void getBlogByNo(int blogNo, Model model) {
-		// TODO Auto-generated method stub
+		model.addAttribute("blog", blogMapper.selectBlogByNo(blogNo));
 		
 	}
 	
