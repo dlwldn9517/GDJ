@@ -168,12 +168,43 @@ public class BlogServiceImpl implements BlogService {
 		return blogMapper.selectBlogByNo(blogNo);
 	}
 	
-	@Transactional
 	@Override
 	public void modifyBlog(HttpServletRequest request, HttpServletResponse response) {
 		
+		// 파라미터 title, content, blogNo
+		String title = request.getParameter("title");
+		String content = request.getParameter("content");
+		int blogNo = Integer.parseInt(request.getParameter("blogNo"));
 		
+		// DB로 보낼 BlogDTO
+		BlogDTO blog = BlogDTO.builder()
+				.title(title)
+				.content(content)
+				.blogNo(blogNo)
+				.build();
 		
+		// DB 수정
+		int result = blogMapper.updateBlog(blog);
+		
+		// 응답
+		try {
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			
+			out.println("<script>");
+			if(result > 0) {
+				out.println("alert('수정 성공');");
+				out.println("location.href='" + request.getContextPath() + "/blog/detail?blogNo=" + blogNo + "';");
+			} else {
+				out.println("alert('수정 실패');");
+				out.println("history.back();");
+			}
+			out.println("</script>");
+			out.close();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	@Override
