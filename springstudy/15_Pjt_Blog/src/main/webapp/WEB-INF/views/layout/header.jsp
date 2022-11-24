@@ -12,7 +12,17 @@
 <head>
 <meta charset="UTF-8">
 <%-- list.jsp에 있는 <jsp:param value="블로그목록" name="title"/>에서 '블로그목록'을 가지고 와서 뜬다. --%>
-<title>${title}</title>	
+<title>${title}</title>
+<%-- 
+	* ${contextPath}로 시작하는 값은 모두 매핑
+	
+	<resources mapping="/resources/**" location="/resources/" />
+		script src="${contextPath}/resources => mapping 값(경로 X)
+	
+	location="/resources/"
+	===> /resources/로 시작하는 모든 매핑은 resources 폴더 안에서 찾아라
+		
+--%>
 <script src="${contextPath}/resources/js/jquery-3.6.1.min.js"></script>
 <script src="${contextPath}/resources/js/moment-with-locales.js"></script>	
 <script src="${contextPath}/resources/summernote-0.8.18-dist/summernote-lite.js"></script>

@@ -14,8 +14,8 @@
 	// contextPath를 반환하는 자바스크립트 함수
 	function getContextPath() {
 		var begin = location.href.indexOf(location.origin) + location.origin.length;	// location.href에서 인덱스를 찾아라
-		var end = location.href.indexOf("/", begin + 1);	// 어디서부터 찾아야하는지 지정
-		return location.href.subString(begin, end);
+		var end = location.href.indexOf("/", begin + 1);	// 어디서부터 찾아야 하는지 지정
+		return location.href.substring(begin, end);
 	}
 	
 	$(document).ready(function(){
@@ -34,7 +34,43 @@
 			    ['para', ['ul', 'ol', 'paragraph']],
 			    ['height', ['height']],
 			    ['insert', ['link', 'picture', 'video']]
-			]
+			],
+			callbacks: {
+				// summernote 편집기에 이미지를 로드할 때 이미지는 function의 매개변수 files로 전달됨
+				onImageUpload: function(files) {	// files HDD로 보내고 싶으면 이미지를 ajax 처리하고 그 경로를 받아오라
+					
+					// 이미지를 ajax를 이용해서 서버로 보낼 때 가상 form 데이터 사용
+					// ajax를 사용하는 이유? 이미지를 DB에 저장하면 용량이 너무 커서
+					// 이미지를 하드에 저장하고, DB에는 하드에 저장한 경로를 받아온다.
+					var formData = new FormData();
+					formData.append('file', files[0]);	// 파라미터 file, summernote 편집기에 추가된 이미지가 files[0]이다.
+					
+					// 이미지를 HDD에 저장하고 경로를 받아오는 ajax
+					$.ajax({
+						type: 'post',
+						url: getContextPath() + '/blog/uploadImage',
+						data:formData,
+						contentType: false,	// ajax 이미지 첨부용
+						processData: false,	// ajax 이미지 첨부용
+						dataType: 'json',	// HDD에 저장된 이미지의 경로를 json으로 받아옴
+						success: function(resData) {
+							$('#content').summernote('insertImage', resData.src);	// map에 담은 src
+							
+							/*
+								src=${contextPath}/load/image/aaa.jpg 값이 넘어온 경우
+								summernote는
+								<img src="${contextPath}/load/image/aaa.jpg"> 태그를 만든다.
+								
+								mapping=${contextPath}/load/image/aaa.jpg 인 파일의 실제 위치는
+								location=C:\\upload\\aaa.jpg이다.
+								
+								스프링에서 정적 자원 표시하는 방법은 servlet-content.xml에 있다.
+								이미지(정적 자원)의 mapping과 location을 servlet-context.xml에 작성해야 한다.
+							*/
+						}
+					});
+				}
+			}
 		});
 		
 		// 목록

@@ -1,5 +1,7 @@
 package com.gdu.app15.controller;
 
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -8,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.gdu.app15.service.BlogService;
 
@@ -39,6 +42,15 @@ public class BlogController {
 	public void add(HttpServletRequest request, HttpServletResponse response) {
 		blogService.saveBlog(request, response);
 	}
+	
+	@PostMapping(value="/blog/uploadImage", produces="application/json")
+	public Map<String, Object> uploadImage(MultipartHttpServletRequest multipartRequest) {	// 이미지 첨부가 가능한 request 
+		return blogService.saveSummernoteImage(multipartRequest);
+	}
+	
+	
+	
+	
 	
 	
 }
