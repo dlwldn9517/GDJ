@@ -2,6 +2,8 @@ package com.gdu.app15.controller;
 
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,5 +30,12 @@ public class CommentController {
 	public Map<String, Object> add(CommentDTO comment) {
 		return commentService.addComment(comment);
 	}
+	
+	@ResponseBody
+	@GetMapping(value="/comment/list", produces="application/json")
+	public Map<String, Object> list(HttpServletRequest request) {
+		return commentService.getCommentList(request);
+	}
+	
 	
 }

@@ -67,7 +67,13 @@
 	
 	<hr>
 	
+	<div>
+		<div id="comment_list"></div>
+		<div id="paging"></div>
+	</div>
+	
 	<!-- name="content", name="blogNo" 을 form 안에 넣은 이유 ? serialize()로 보내기 위해서 -->
+	<!-- serialize()하면 form안에 있는 모든 name을 넘겨준다 -->
 	<div>
 		<form id="frm_add_comment">
 			<div class="add_comment">
@@ -84,9 +90,15 @@
 	
 	<script>
 	
+		// 함수 호출
 		fn_commentCount();
 		fn_addComment();
+		fn_commentList();
+		
+		// 전역변수 page (모든 함수에서 사용 가능)
+		var page = 1;
 	
+		// 함수 정의
 		function fn_commentCount() {
 			$.ajax({
 				type: 'get',
@@ -108,18 +120,97 @@
 				$.ajax({
 					type: 'post',
 					url: '${contextPath}/comment/add',
-					data:$('#frm_add_comment').serialize(),
+					data: $('#frm_add_comment').serialize(),
 					dataType: 'json',
 					success: function(resData) {	// resData = {""}
 						if(resData.isAdd) {
 							alert('댓글이 등록되었습니다.');
 							$('#content').val('');	//  입력되어 있는 댓글 초기화
 							fn_commentList();	// 댓글 목록 가져와서 뿌리는 함수
+							fn_commentCount();	// 댓글 목록 개수 갱신하는 함수
 						}
 					}
 				});
 			});
 		}
+		
+		function fn_commentList() {
+			$.ajax({
+				type: 'get',
+				url: '${contextPath}/comment/list',
+				data: 'blogNo=${blog.blogNo}&page=' + page,	// 현재 page도 넘겨줘야 함
+				dataType: 'json',
+				success: function(resData) {
+					/*
+						resData = {
+							"commentList": [
+								{댓글하나},
+								{댓글하나},
+								...
+							],
+							"pageUtil": {
+								page: x,
+								...
+							}
+						}
+					*/
+					
+					// 화면에 댓글 목록 뿌리기
+					$('#comment_list').empty();	// 목록 초기화 필수
+					$.each(resData.commentList, function(i, comment){
+						// 댓글 depth: 0 이면 들어갈 필요 없고, 대댓 depth: 1 이면 한칸 들어가야 함, 1단이면 그룹오더 필요x
+						var div = '';
+						if(comment.depth == 0) {
+							div += '<div>';
+						} else {
+							div += '<div style="margin-left: 40px;">';
+						}
+						if(comment.state == 1) {	// state:1 정상, state:-1은 삭제라서 보여주면 x			
+							div += '<div>' + comment.content + '</div>';
+						} else {
+							if(comment.depth == 0) {
+								div += '<div>삭제된 댓글입니다.</div>';
+							} else{
+								div += '<div>삭제된 대댓글입니다.</div>';
+							}
+						}
+						// 날짜 형식 지정하는 자바스크립트 (moment-with-locales.js)
+						div += '<div>';
+						moment.locale('ko-KR');
+						div += '<span style="font-size: 12px; color: silver;">' + moment(comment.createDate).format('YYYY. MM. DD hh:mm') + '</span>';
+						div += '</div>';
+						div += '</div>';	// comment.depth에서 열어준 div 닫기
+						$('#comment_list').append(div);
+						$('#comment_list').append('<div style="border-bottom: 1px dotted gray;"></div>');	// dotted(점선), solid(실선)
+					});
+					
+					// 페이징
+					$('#paging').empty(); // 초기화
+					var pageUtil = resData.pageUtil;
+					var paging = '';
+					
+					// 이전 블록
+					if(pageUtil.beginPage != 1) {
+						paging += '<span class="enable_link" data-page="'+ (pageUtil.beginPage - 1) +'">◀</span>';	// 페이지를 파라미터로 넘기는걸로 하면 안되고 링크를 클릭하면 fn_commentList을 재실행 넘겨줄 페이지 값이 변경됨
+					}
+					
+					// 페이지 번호
+					for(let p = pageUtil.beginPage; p <= pageUtil.endPage; p++) {
+						if(p == page) {
+							paging += '<strong>' + p + '</strong>';
+						} else {
+							paging += '<span class="enable_link" data-page="' + p + '">' + p + '</span>';
+						}
+					}
+					
+					// 다음 블록
+					if(pageUtil.endPage != pageUtil.totalPage) {
+						paging += '<span class="enable_link" data-page="' + (pageUtil.endPage + 1) + '">▶</span>';
+					}
+					$('#paging').append(paging); // 페이지 뿌림
+				}
+			}); 
+		} // fn_commentList()
 		
 	</script>
 	
