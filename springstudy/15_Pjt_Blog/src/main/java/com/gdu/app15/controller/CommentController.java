@@ -1,8 +1,15 @@
 package com.gdu.app15.controller;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.gdu.app15.domain.CommentDTO;
 import com.gdu.app15.service.CommentService;
 
 @Controller
@@ -11,6 +18,15 @@ public class CommentController {
 	@Autowired
 	private CommentService commentService;
 	
-		
+	@ResponseBody
+	@GetMapping(value="/comment/getCount", produces="application/json")
+	public Map<String, Object> getCount(@RequestParam("blogNo") int blogNo) {
+		return commentService.getCommentCount(blogNo);
+	}
+	
+	@PostMapping(value="/comment/add", produces="application/json")	// true, false 반환이라 UTF-8 필요없음
+	public Map<String, Object> add(CommentDTO comment) {
+		return commentService.addComment(comment);
+	}
 	
 }

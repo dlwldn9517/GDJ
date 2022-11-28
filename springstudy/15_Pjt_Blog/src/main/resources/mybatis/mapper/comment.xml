@@ -6,6 +6,18 @@
 
 <mapper namespace="com.gdu.app15.mapper.CommentMapper">
 
-
+	<select id="selectCommentCount" parameterType="int" resultType="int">
+		SELECT COUNT(*)
+		  FROM COMMENTS
+		  WHERE BLOG_NO = #{blogNo}
+	</select>
+	
+	<insert id="insertComment" parameterType="CommentDTO">
+		INSERT INTO COMMENTS
+			(COMMENT_NO, BLOG_NO, CONTENT, STATE, DEPTH, GROUP_NO, CREATE_DATE)
+		VALUES
+			(COMMENT.SEQ_NEXTVAL, #{blogNo}, #{content}, 1, 0, COMMENT_SEQ.CURRVAL, SYSDATE)
+	</insert>
+	
 	
 </mapper>
