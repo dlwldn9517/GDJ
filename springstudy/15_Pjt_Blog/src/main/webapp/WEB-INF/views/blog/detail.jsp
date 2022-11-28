@@ -10,6 +10,12 @@
 	<jsp:param value="${blog.blogNo}번 블로그" name="title"/>
 </jsp:include>
 
+<style>
+	.blind {
+		display: none;
+	}
+</style>
+
 <div>
 
 	<h1>${blog.title}</h1>
@@ -66,7 +72,7 @@
 	
 	<hr>
 	
-	<div>
+	<div id="comment_area" class="blind">
 		<div id="comment_list"></div>
 		<div id="paging"></div>
 	</div>
@@ -94,6 +100,7 @@
 	
 		// 함수 호출
 		fn_commentCount();
+		fn_switchCommentList();
 		fn_addComment();
 		fn_commentList();
 		fn_changePage();
@@ -108,6 +115,12 @@
 				success: function(resData){  // resData = {"commentCount": 개수}
 					$('#comment_count').text(resData.commentCount);
 				}
+			});
+		}
+		
+		function fn_switchCommentList() {
+			$('#btn_comment_list').click(function() {
+				$('#comment_area').toggleClass('blind');	// 토글을 줬다가 뺐다가
 			});
 		}
 		
@@ -182,12 +195,7 @@
 						$('#comment_list').append(div);
 						$('#comment_list').append('<div style="border-bottom: 1px dotted gray;"></div>');	// dotted(점선), solid(실선)
 					});
-					// 페이징
 					
-				}
-			});
-		}  // fn_commentList
-		
 					// 페이징
 					$('#paging').empty(); // 초기화
 					var pageUtil = resData.pageUtil;
@@ -201,16 +209,16 @@
 					
 					// 페이지 번호
 					for(let p = pageUtil.beginPage; p <= pageUtil.endPage; p++) {
-						if(p == $('#page').val()) {
+						if(p == $('#page').val()){
 							paging += '<strong>' + p + '</strong>';
 						} else {
-							paging += '<span class="enable_link" data-page="' + p + '">' + p + '</span>';	// enable_link를 클릭하면 해당 페이지 값으로 변경하고 목록은 갱신
+							paging += '<span class="enable_link" data-page="'+ p +'">' + p + '</span>';	// enable_link를 클릭하면 해당 페이지 값으로 변경하고 목록은 갱신
 						}
 					}
 					
 					// 다음 블록
-					if(pageUtil.endPage != pageUtil.totalPage) {
-						paging += '<span class="enable_link" data-page="' + (pageUtil.endPage + 1) + '">▶</span>';
+					if(pageUtil.endPage != pageUtil.totalPage){
+						paging += '<span class="enable_link" data-page="'+ (pageUtil.endPage + 1) +'">▶</span>';
 					}
 					$('#paging').append(paging); // 페이지 뿌림
 				}
@@ -224,7 +232,6 @@
 				fn_commentList();	// 목록을 다시 가져와라
 			});
 		}
-		
 		
 	</script>
 	

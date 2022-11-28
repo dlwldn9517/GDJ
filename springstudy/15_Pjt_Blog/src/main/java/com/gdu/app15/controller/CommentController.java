@@ -26,6 +26,7 @@ public class CommentController {
 		return commentService.getCommentCount(blogNo);
 	}
 	
+	@ResponseBody
 	@PostMapping(value="/comment/add", produces="application/json")	// true, false 반환이라 UTF-8 필요없음
 	public Map<String, Object> add(CommentDTO comment) {
 		return commentService.addComment(comment);
