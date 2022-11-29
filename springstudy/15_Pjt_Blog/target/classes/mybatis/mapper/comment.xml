@@ -33,4 +33,18 @@
 		 WHERE A.ROW_NUM BETWEEN #{begin} AND #{end}
 	</select>
 	
+	<!-- 삭제하는데 update로 사용, -1 : 삭제 (번호는 상관없음 내가 지정하는거) -->
+	<update id="deleteComment" parameterType="int">
+		UPDATE COMMENTS
+		   SET STATE = -1
+		 WHERE COMMENT_NO = #{commentNo}
+	</update>
+	
+	<insert id="insertReply" parameterType="CommentDTO">
+		INSERT INTO COMMENTS
+			(COMMENT_NO, BLOG_NO, CONTENT, STATE, DEPTH, GROUP_NO, CREATE_DATE)
+		VALUES
+			(COMMENTS_SEQ.NEXTVAL, #{blogNo}, #{content}, 1, 1, #{groupNo}, SYSDATE)
+	</insert>
+	
 </mapper>

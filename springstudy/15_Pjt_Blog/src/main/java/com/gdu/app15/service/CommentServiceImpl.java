@@ -31,7 +31,7 @@ public class CommentServiceImpl implements CommentService {
 	@Override
 	public Map<String, Object> addComment(CommentDTO comment) {
 		Map<String, Object> result = new HashMap<String, Object>();
-		result.put("isAdd", commentMapper.insertComment(comment) == 1);	// 삽입의 결과가 1과 같으면 성공, 0이면 실패
+		result.put("isAdd", commentMapper.insertComment(comment) == 1);	// insert 결과가 1과 같으면 성공, 0이면 실패
 		return result;
 	}
 	
@@ -54,6 +54,20 @@ public class CommentServiceImpl implements CommentService {
 		result.put("commentList", commentMapper.selectCommentList(map));
 		result.put("pageUtil", pageUtil);
 		
+		return result;
+	}
+	
+	@Override
+	public Map<String, Object> removeComment(int commentNo) {
+		Map<String, Object> result = new HashMap<String, Object>();
+		result.put("isRemove", commentMapper.deleteComment(commentNo) == 1);	// state:1 정상
+		return result;
+	}
+	
+	@Override
+	public Map<String, Object> addReply(CommentDTO reply) {
+		Map<String, Object> result = new HashMap<String, Object>();
+		result.put("isAdd", commentMapper.insertReply(reply) == 1);	// insert 결과가 1과 같으면 성공, 0이면 실패
 		return result;
 	}
 	
