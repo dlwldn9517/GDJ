@@ -185,11 +185,13 @@
 							div += comment.content;	// 정상일 때 내용 보여줌
 							// ★ 작성자만 삭제할 수 있도록 if 처리 필요! (댓글 작성자와 user 정보랑 같으면 보여주고 같지 않으면 안 보여주고)
 							// 필요하면 사용자(users)와 join으로 쿼리문 작성해야 한다.
-							div += '<input type="button" value="삭제" class="btn_comment_remove" data-comment_no="' + comment.commentNo + '"></div>';
+							div += '<input type="button" value="삭제" class="btn_comment_remove" data-comment_no="' + comment.commentNo + '">';
+							if(comment.depth == 0) {	// 0과 같으면 답글에는 삭제버튼만 있고 답글버튼이 없어서 답글에 댓글을 달 수 없다.
+								div += '<input type="button" value="답글" class="btn_reply_area">';
+							}
+							div += '</div>';  
 							// 댓글(depth=0)만 답글(depth=1)을 달 수 있도록 if 처리 필요
 							// 쿼리문 depth = 1로 변경 , group_no=샵{} 어떤 댓글에 달리는지 변수를 받아와야 한다. (댓글 번호, 코멘트 등 그대로 받아와야)
-							div += '<input type="button" value="답글" class="btn_reply_area">';
-							div += '</div>';  
 						} else {
 							if(comment.depth == 0) {
 								div += '<div>삭제된 댓글입니다.</div>';
@@ -206,7 +208,7 @@
 						div += '<div style="margin-left: 40px;" class="reply_area blind">';	// class 2개, 클래스 값blind에 토글줘서 들어왔다가 나갔다가 설정 (css에 처리함)
 						div += '<form class="frm_reply">';	// 반복문 안에 들어있으니 class 줘야 함
 						div += '<input type="hidden" name="blogNo" value="' + comment.blogNo + '">';
-						div += '<input type="hidden" name="groupNo" value="' + comment.commentNo + '">';
+						div += '<input type="hidden" name="groupNo" value="' + comment.commentNo + '">';	// 댓글에서 comment_no = group_no
 						div += '<input type="text" name="content" placeholder="답글을 작성하려면 로그인을 해주세요">';
 						// 로그인한 사용자만 볼 수 있도록 if 처리
 						div += '<input type="button" value="답글작성완료" class="btn_reply_add">';
@@ -301,6 +303,8 @@
 				});
 			});
 		}
+		
+		
 	</script>
 	
 </div>
