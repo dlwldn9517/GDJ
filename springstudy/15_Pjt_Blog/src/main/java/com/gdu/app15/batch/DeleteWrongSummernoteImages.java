@@ -24,6 +24,8 @@ public class DeleteWrongSummernoteImages {
 	
 	@Autowired
 	private BlogMapper blogMapper;
+
+	private List<Path> pathList = new ArrayList<Path>();
 	
 	@Scheduled(cron="0 0 4 * * *")  // 새벽 4시마다 동작
 	//@Scheduled(cron="0 0/1 * * * *")
@@ -36,7 +38,6 @@ public class DeleteWrongSummernoteImages {
 		List<SummernoteImageDTO> summernoteImageList = blogMapper.selectAllSummernoteImageList();
 		
 		// DB에 업로드 된 파일(경로 + 파일명) 목록을 List<Path>로 생성
-		List<Path> pathList = new ArrayList<Path>();
 		if(summernoteImageList != null && summernoteImageList.isEmpty() == false) {
 			for(SummernoteImageDTO summernoteImage : summernoteImageList) {
 				pathList.add(Paths.get(path, summernoteImage.getFilesystem()));
@@ -50,7 +51,7 @@ public class DeleteWrongSummernoteImages {
 		File[] wrongSummernoteImages = dir.listFiles(new FilenameFilter() {
 			@Override
 			public boolean accept(File dir, String name) {
-				return !pathList.contains(new File(dir, name).toPath());
+				return pathList.contains(new File(dir, name).toPath()) == false;
 			}
 		});
 		
