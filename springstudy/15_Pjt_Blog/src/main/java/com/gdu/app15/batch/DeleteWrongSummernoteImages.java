@@ -50,6 +50,7 @@ public class DeleteWrongSummernoteImages {
 		File[] wrongSummernoteImages = dir.listFiles(new FilenameFilter() {
 			@Override
 			public boolean accept(File dir, String name) {
+				
 				return !pathList.contains(new File(dir, name).toPath());
 			}
 		});
