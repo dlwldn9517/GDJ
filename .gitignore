@@ -27,3 +27,6 @@ images
 
 # installer 폴더
 installer
+
+# 프로퍼티
+*.properties
