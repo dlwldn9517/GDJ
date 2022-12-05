@@ -6,7 +6,7 @@
 	
 .lbl_all, .lbl_one {
 	padding-left: 20px;
-	background-image: url(../..//resources/images/uncheck.png);
+	background-image: url(../../resources/images/uncheck.png);
 	background-size: 18px 18px;
 	background-repeat: no-repeat;
 }
