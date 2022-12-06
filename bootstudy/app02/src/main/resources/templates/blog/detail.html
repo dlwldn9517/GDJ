@@ -10,37 +10,37 @@
 <div>
 
 	<h1 th:text="${blog.title}"></h1>
-
+	
 	<div>
-		<!--  
+		<!--
 			날짜 형식 지정하기
 			
-			1. Date 타입			${#dates.format(날짜,'패턴')}
-			2. VARCHAR 타입			${#temporals.format(날짜,'패턴')}
-			   LocalDate 타입		${#temporals.format(날짜,'패턴')}
-			   LocalTime 타입		${#temporals.format(날짜,'패턴')}
-			   LocalDateTime 타입	${#temporals.format(날짜,'패턴')}
-			3. Calendar 타입		${#calendars.format(날짜,'패턴')}
-			   
-			* '패턴'dms SimpleDateFormat의 패턴을 그대로 사용함
+			1. Date 타입           ${#dates.format(날짜,'패턴')}
+			2. VARCHAR 타입        ${#temporals.format(날짜,'패턴')}
+			   LocalDate 타입      ${#temporals.format(날짜,'패턴')}
+			   LocalTime 타입      ${#temporals.format(날짜,'패턴')}
+			   LocalDateTime 타입  ${#temporals.format(날짜,'패턴')}
+			3. Calendar 타입       ${#calendars.format(날짜,'패턴')}
+			
+			* '패턴'은 SimpleDateFormat의 패턴을 그대로 사용함
 		-->
-		
-		<span th:text="'▷ 작성일' + ${#dates.format(blog.createDate, 'yyyy. M. d HH:mm')}"></span>
-		<span th:text="|▷ 작성일 ${#dates.format(blog.createDate, 'yyyy. M. d HH:mm')}|"></span>
+		<span th:text="'▷ 작성일'  + ${#dates.format(blog.createDate,'yyyy. M. d HH:mm')}"></span>
+		<br>
+		<span th:text="|▷ 작성일 ${#dates.format(blog.createDate,'yyyy. M. d HH:mm')}|"></span>
 		&nbsp;&nbsp;&nbsp;
-		<span th:text="'▷ 수정일' + ${#dates.format(blog.modifyDate, 'yyyy. M. d a hh:mm')}"></span>
+		<span th:text="'▷ 수정일 ' + ${#dates.format(blog.modifyDate, 'yyyy. M. d a hh:mm')}"></span>
 		<span th:text="|▷ 수정일 ${#dates.format(blog.modifyDate, 'yyyy. M. d a hh:mm')}|"></span>
 	</div>
 	
 	<div>
-		<!-- 
+		<!--
 			숫자 형식 지정하기
 			
-			1. 정수 형식		${#numbers.formatInteger(숫자,자릿수,천단위구분기호)}
-			2. 실수 형식		${#numbers.formatDecimal(숫자,정수자릿수,천단위구분기호,소수자릿수,정수소수구분자)}
+			1. 정수 형식      ${#numbers.formatInteger(숫자,자릿수,천단위구분기호)}
+			2. 실수 형식      ${#numbers.formatDecimal(숫자,정수자릿수,천단위구분기호,소수자릿수,정수소수구분자)}
 		-->
-		<span th:text="'조회수' + ${numbers.formatInteger(blog.hit,1,'COMMA')}"></span>
-		<span th:text="|조회수 ${numbers.formatInteger(blog.hit,1,'COMMA')}|"></span>
+		<span th:text="'조회수 ' + ${#numbers.formatInteger(blog.hit,1,'COMMA')}"></span>
+		<span th:text="|조회수 ${#numbers.formatInteger(blog.hit,1,'COMMA')}|"></span>
 	</div>
 	
 	<hr>
