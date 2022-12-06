@@ -6,27 +6,36 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class ApiSearchBook {
 
 	public static void main(String[] args) {
 		
-		String clientId = "r8AzKZxCTRl5CxIreAMx";
-		String clientSecret = "PxjZVSOTBc";
+		String clientId = "";
+		String clientSecret = "";
 		
 		try {
 			Scanner sc = new Scanner(System.in);
-			String apiURL = "https://openapi.naver.com/v1/search/book?query=" + 검색어;	// 검색어는 URL인코딩해서 
+	        System.out.print("검색어를 입력하세요 >>>  ");
+	        String bookName = sc.next();
+	        sc.nextLine();
+	        sc.close();
+			
+			String apiURL = "https://openapi.naver.com/v1/search/book?query=" + URLEncoder.encode(bookName,"UTF-8"); 
 			URL url = new URL(apiURL);
 			HttpURLConnection con = (HttpURLConnection)url.openConnection();
 			con.setRequestMethod("GET");
 			con.setRequestProperty("X-Naver-Client-Id", clientId);
 			con.setRequestProperty("X-Naver-Client-Secret", clientSecret);
 			BufferedReader br = null;
-			if(채우고) {
+			if(con.getResponseCode() == HttpURLConnection.HTTP_OK) {
 				br = new BufferedReader(new InputStreamReader(con.getInputStream()));
 			} else {
 				br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
@@ -41,20 +50,29 @@ public class ApiSearchBook {
 			
 			JSONObject obj = new JSONObject(sb.toString());
 			
-			File dir = new File();
+			File dir = new File("C:/download");
 			if(dir.exists() == false) {
 				dir.mkdirs();
 			}
-			File file = new File(dir, 검색어 + ".html");
+			File file = new File(dir, bookName + ".html");
+			JSONArray items = obj.getJSONArray("items");
 			PrintWriter out = new PrintWriter(file);
 			out.println("<!DOCTYPE html>");
 			out.println("<html>");
 			out.println("<head>");
 			out.println("<meta charset=\"UTF-8\">");
-			out.println("<title>아무말</title>");
+			out.println("<title>책이름검색결과</title>");
 			out.println("</head>");
 			out.println("<body>");
-			
+			for(int i = 0; i < items.length(); i++) {
+				JSONObject element = items.getJSONObject(i);
+				String title = element.getString("title").replaceAll(bookName, "<strong>" + bookName + "</strong>");
+	            String link = element.getString("link");
+	            String image = element.getString("image");
+	            out.println("<img src=\""+ image + "\" width=\"150px\"><br>");
+	            out.println("<a href="+ link + ">" + title + "</a>");
+	            out.println("<hr>");
+			}
 			out.println("</body>");
 			out.println("</html>");
 			out.close();
@@ -62,13 +80,16 @@ public class ApiSearchBook {
 		} catch (Exception e) {
 			
 			try {
-				File dir = new File();
+				File dir = new File("C:/download/log");
 				if(dir.exists() == false) {
 					dir.mkdirs();
 				}
-				File file = new File(dir, "");
+				File file = new File(dir, "error_log.txt");
 				PrintWriter out = new PrintWriter(file);
-				out.println(넣으란 말 넣고);
+				LocalDateTime now = LocalDateTime.now();
+				String date = now.format(DateTimeFormatter.ofPattern("yyyy-M-dd a h:mm:ss"));
+				out.println("예외메시지	" + e.getMessage());
+				out.println("예외발생시간	" + date);
 				out.close();
 				
 			} catch (Exception e2) {
