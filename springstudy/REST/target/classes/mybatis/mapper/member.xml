@@ -6,6 +6,11 @@
 
 <mapper namespace="com.gdu.rest.mapper.MemberMapper">
 
-	
+	<insert id="insertMember" parameterType="MemberDTO">
+		INSERT INTO MEMBER
+			(MEMBER_NO, ID, NAME, GENDER, ADDRESS)
+		VALUES
+			(MEMBER_SEQ.NEXTVAL, #{id}, #{name}, #{gender}, #{address})
+	</insert>
 
 </mapper>

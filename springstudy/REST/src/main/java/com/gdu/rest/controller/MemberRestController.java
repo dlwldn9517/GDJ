@@ -2,8 +2,11 @@ package com.gdu.rest.controller;
 
 import java.util.Map;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.gdu.rest.domain.MemberDTO;
@@ -30,9 +33,11 @@ public class MemberRestController {
 	private MemberService memberService;
 	
 	// 삽입
-	@PostMapping(value="/members", produces="application/json")
-	public Map<String, Object> addMember(MemberDTO member) {	// 1. MemberDTO  2. Map으로 받아서 여러 필드를 넘겨줄 수 있다.
-		
+	@PostMapping(value="/members", produces="application/json")				
+	public Map<String, Object> addMember(@RequestBody MemberDTO member, HttpServletResponse response) {	// 1. MemberDTO  2. Map으로 받아서 여러 필드를 넘겨줄 수 있다.
+		// @RequestBody : 바디에 있는 요청 데이터를 본문에 member를 포함시켜서 전송한 걸 가져옴
+		// HttpServletResponse response 에러를 받아서 보여주는 용도
+		return memberService.register(member, response);
 	}
 	
 }

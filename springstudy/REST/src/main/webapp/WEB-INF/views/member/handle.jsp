@@ -15,7 +15,7 @@
 	});
 	
 	function fn_add(){
-		$('#btn_add').click(function() {
+		$('#btn_add').click(function(){
 			// 추가할 회원 정보를 JSON으로 만든다.
 			// {} : 객체
 			let member = JSON.stringify({
@@ -28,12 +28,17 @@
 			$.ajax({
 				/* 요청 */
 				type: 'post',
-				url: '/members',
-				data: member,	// 파라미터 이름 없다(본문에 member를 포함시켜서 전송) | 위쪽에 있는 let member의 member이다.
-				contentType: 'appliction/json',	// 요청 데이터의 MIME-TYPE
-				
-				
-				
+				url: '${contextPath}/members',
+				data: member,  // 파라미터 이름 없음(본문에 member를 포함시켜서 전송) | 위쪽에 있는 let member의 member이다.
+				contentType: 'application/json',  // 요청 데이터의 MIME-TYPE
+				/* 응답 */
+				dataType: 'json',
+				success: function(resData){
+					
+				},
+				error: function(jqXHR){
+					
+				}
 			});
 		});
 	}
@@ -99,12 +104,11 @@
 				<tr>
 					<td colspan="6">
 						<div id="paging"></div>
-					</td>				
+					</td>
 				</tr>
 			</tfoot>
-			
 		</table>
-	</div>	
+	</div>
 
 </body>
 </html>
