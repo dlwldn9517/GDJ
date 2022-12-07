@@ -1,6 +1,16 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
+<!--/* 
+	th:replace 헤드를 다른 조각으로 변경해줘라
+	
+	레이아웃 폴더의 헤더html의 헤더 부분을 찾아서 바꿔줘
+	확장자 .html은 적지 않는다.
+	
+	''로 스트링 감싸줌
+*/-->
+<head th:replace="~{layout/header::head('작성')}"></head>
+
 <script>
 	
 	$(document).ready(function(){
@@ -74,35 +84,37 @@
 	});
 	
 </script>
+<body>
+<div>
 
-	<div>
-	
-		<h1>작성 화면</h1>
-	
-		<form id="frm_write" th:action="@{/blog/add}" method="post">
-	
-			<div>
-				<label for="title">제목</label>
-				<input type="text" name="title" id="title">
-			</div>
-			
-			<div>
-				<label for="content">내용</label>
-				<textarea name="content" id="content"></textarea>				
-			</div>
-			
-			<!-- 써머노트에서 사용한 이미지 목록(등록 후 삭제한 이미지도 우선은 모두 올라감: 서비스단에서 지움) -->
-			<div id="summernote_image_list"></div>
-			
-			<div>
-				<button>작성완료</button>
-				<input type="reset" value="입력초기화">
-				<input type="button" value="목록" id="btn_list">
-			</div>
+	<div th:replace="~{layout/header::body_title}"></div>
+
+	<h1>작성 화면</h1>
+
+	<form id="frm_write" th:action="@{/blog/add}" method="post">
+
+		<div>
+			<label for="title">제목</label>
+			<input type="text" name="title" id="title">
+		</div>
 		
-		</form>
+		<div>
+			<label for="content">내용</label>
+			<textarea name="content" id="content"></textarea>				
+		</div>
 		
-	</div>
+		<!-- 써머노트에서 사용한 이미지 목록(등록 후 삭제한 이미지도 우선은 모두 올라감: 서비스단에서 지움) -->
+		<div id="summernote_image_list"></div>
+		
+		<div>
+			<button>작성완료</button>
+			<input type="reset" value="입력초기화">
+			<input type="button" value="목록" id="btn_list">
+		</div>
+	
+	</form>
+	
+</div>
 
 </body> <!-- footer가 없으니까 살려야 함 -->
 </html>
