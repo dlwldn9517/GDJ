@@ -13,6 +13,6 @@ public interface MemberMapper {
 	public int insertMember(MemberDTO member);
 	public int selectMemberCount();
 	public List<MemberDTO> selectMemberListByMap(Map<String, Object> map);
-	
+	public MemberDTO selectMemberByNo(int memberNo);
 	
 }

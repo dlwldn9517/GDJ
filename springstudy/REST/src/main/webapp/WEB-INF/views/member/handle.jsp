@@ -10,10 +10,12 @@
 <script src="${contextPath}/resources/js/jquery-3.6.1.min.js"></script>
 <script>
 	
-	$(function() {
+	$(function(){
 		fn_add();
 		fn_init();
 		fn_list();
+		fn_detail();
+		fn_modify();
 	});
 	
 	function fn_add(){
@@ -52,19 +54,72 @@
 	}
 	
 	function fn_init(){
-		$('#id').val('');
+		$('#id').val('').prop('readonly', false);
 		$('#name').val('');
 		$(':radio[name=gender]').prop('checked', false);	// 라디오의 프로퍼티에서 선택된 것을 false(해제)
 		$('#address').val('');
 	}
 	
+	// 전역변수
+	var page = 1;
+	
 	function fn_list(){
 		$.ajax({
 			type: 'get',
-			url: '${contextPath}/members/page/' + page, 
+			url: '${contextPath}/members/page/' + page,
+			dataType: 'json',
+			success: function(resData){
+				$('#member_list').empty();
+				$.each(resData.memberList, function(i, member){
+					var tr = '<tr>';
+					tr += '<td><input type="checkbox" class="check_one" value="'+ member.memberNo +'"></td>';
+					tr += '<td>' + member.id + '</td>';
+					tr += '<td>' + member.name + '</td>';
+					tr += '<td>' + (member.gender == 'M' ? '남자' : '여자') + '</td>';
+					tr += '<td>' + member.address + '</td>';
+					tr += '<td><input type="button" value="조회" class="btn_detail" data-member_no="'+ member.memberNo +'"></td>';
+					tr += '</tr>';
+					$('#member_list').append(tr);
+				});
+			}
 		});
 	}
 	
+	function fn_detail(){
+		$(document).on('click', '.btn_detail', function(){
+			$.ajax({
+				type: 'get',
+				url: '${contextPath}/members/' + $(this).data('member_no'),
+				dataType: 'json',
+				success: function(resData){
+					let member = resData.member;
+					if(member == null){
+						alert('해당 회원을 찾을 수 없습니다.');
+					} else {
+						$('#memberNo').val(member.memberNo);
+						$('#id').val(member.id).prop('readonly', true);
+						$('#name').val(member.name);
+						$(':radio[name=gender][value='+ member.gender +']').prop('checked', true);
+						$('#address').val(member.address);
+					}
+				}
+			});
+		});
+	}
+	
+	function fn_modify(){
+		$('#btn_modify').click(function(){
+			// 수정할 회원정보를 JSON
+			let member = JSON.stringify({
+				memberNo: $('#memberNo').val(),
+				name: $('#name').val(),
+				gender: $(':radio[name=gender]:checked').val(),
+				address: $('#address').val()	// select는 input처럼
+			});
+			alert(member);
+		});
+		
+	}
 	
 </script>
 </head>
@@ -72,6 +127,7 @@
 
 	<h1>회원 관리</h1>
 	<div>
+		<input type="hidden" id="memberNo">
 		<div>
 			<label for="id">
 				아이디 <input type="text" id="id">
@@ -103,7 +159,7 @@
 			</label>
 		</div>
 		<div>
-			<input type="button" value="초기화" id="btn_init">
+			<input type="button" value="초기화" onclick="fn_init()">	<!-- 클릭하면 fn_init() 함수를 실행하자 -->
 			<input type="button" value="등록하기" id="btn_add">
 			<input type="button" value="수정하기" id="btn_modify">
 		</div>
