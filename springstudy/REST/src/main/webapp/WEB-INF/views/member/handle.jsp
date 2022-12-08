@@ -16,6 +16,7 @@
 		fn_list();
 		fn_detail();
 		fn_modify();
+		fn_remove();
 	});
 	
 	function fn_add(){
@@ -132,11 +133,22 @@
 					}
 				},
 				error: function(jqXHR) {
-					alert('에러코드(' + )
+					alert('에러코드(' + jqXHR.status + ') ' + jqXHR.responseText);
 				}
 			});
 		});
+	}
 	
+	function fn_remove(){
+		$('#btn_remove').click(function(){	// 1번3번 클릭하면 어레이리스트에 담아준 후에 삭제
+			if(confirm('선택한 회원을 모두 삭제할까요?')){
+				// 삭제할 회원번호
+				let memberNoList = '';
+				for(let i = 0; i < $('.check_one').length; i++) {
+					if($( '.check_one')[i] )
+				}
+			}
+		});
 	}
 	
 </script>
