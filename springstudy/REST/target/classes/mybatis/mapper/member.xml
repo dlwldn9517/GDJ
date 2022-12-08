@@ -12,5 +12,18 @@
 		VALUES
 			(MEMBER_SEQ.NEXTVAL, #{id}, #{name}, #{gender}, #{address})
 	</insert>
+	
+	<select id="selectMemberCount" resultType="int">
+		SELECT COUNT(*)
+		  FROM MEMBER
+	</select>
+	
+	<select id="selectMemberListByMap" parameterType="map" resultType="MemberDTO">
+		SELECT A.ROW_NUM, A.MEMBER_NO, A.ID, A.NAME, A.GENDER, A.ADDRESS
+		  FROM (SELECT ROW_NUMBER() OVER(ORDER BY MEMBER_NO DESC) AS ROW_NUM, MEMBER_NO, ID, NAME, GENDER, ADDRESS
+		  		  FROM MEMBER) A
+		 WHERE A.ROW_NUM BETWEEN #{begin} AND #{end}
+	</select>
+	
 
 </mapper>

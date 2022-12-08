@@ -12,6 +12,8 @@
 	
 	$(function() {
 		fn_add();
+		fn_init();
+		fn_list();
 	});
 	
 	function fn_add(){
@@ -34,14 +36,35 @@
 				/* 응답 */
 				dataType: 'json',
 				success: function(resData){
-					
+					if(resData.insetResult > 0) {
+						alert('회원이 등록되었습니다.');
+						fn_list();
+						fn_init();
+					} else {
+						alert('회원이 등록되지 않았습니다.');
+					}
 				},
 				error: function(jqXHR){
-					
+					alert('에러코드(' + jqXHR.status + ') ' + jqXHR.responseText);
 				}
 			});
 		});
 	}
+	
+	function fn_init(){
+		$('#id').val('');
+		$('#name').val('');
+		$(':radio[name=gender]').prop('checked', false);	// 라디오의 프로퍼티에서 선택된 것을 false(해제)
+		$('#address').val('');
+	}
+	
+	function fn_list(){
+		$.ajax({
+			type: 'get',
+			url: '${contextPath}/members/page/' + page, 
+		});
+	}
+	
 	
 </script>
 </head>
