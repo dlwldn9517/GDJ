@@ -109,16 +109,31 @@
 	
 	function fn_modify(){
 		$('#btn_modify').click(function(){
-			// 수정할 회원정보를 JSON
+			// 수정할 회원정보를 JSON 만들기
 			let member = JSON.stringify({
 				memberNo: $('#memberNo').val(),
 				name: $('#name').val(),
 				gender: $(':radio[name=gender]:checked').val(),
 				address: $('#address').val()	// select는 input처럼
 			});
-			alert(member);
+			// 수정
+			$.ajax({
+				type: 'put',
+				url:'${contextPath}/members',
+				data: member,
+				contentType: 'application/json',
+				dataType: 'json',
+				success: function(resData){
+					if(resData.updateResult > 0) {
+						alert('회원 정보가 수정되었습니다.');
+						fn_list();
+					} else {
+						alert('회원 정보가 수정되지 않았습니다.');
+					}
+				}
+			});
 		});
-		
+	
 	}
 	
 </script>
