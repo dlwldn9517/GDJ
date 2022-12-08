@@ -38,5 +38,16 @@
              , ADDRESS = #{address}
          WHERE MEMBER_NO = #{memberNo}
    </update>
+   
+   <delete id="deleteMemberList" parameterType="List">
+   		DELETE
+   		  FROM MEMBER
+   		<where>
+   			MEMBER_NO IN
+   			<foreach collection="list" item="memberNo" open="(" close=")" separator=",">
+   				#{memberNo}
+   			</foreach>
+   		</where>
+   </delete>
 
 </mapper>

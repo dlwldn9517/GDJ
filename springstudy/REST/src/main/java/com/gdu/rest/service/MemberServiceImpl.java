@@ -1,7 +1,9 @@
 package com.gdu.rest.service;
 
 import java.io.PrintWriter;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
@@ -114,6 +116,14 @@ public class MemberServiceImpl implements MemberService {
 			}
 		}
 		return null;
+	}
+	
+	@Override
+	public Map<String, Object> removeMemberList(String memberNoList) {
+		List<String> list = Arrays.asList(memberNoList.split("\\,"));  // ArraysList 초기화
+		Map<String, Object> result = new HashMap<String, Object>();
+		result.put("deleteResult", memberMapper.deleteMemberList(list));	// 실제로 삭제된 데이터 개수 반환
+		return result;
 	}
 
 }

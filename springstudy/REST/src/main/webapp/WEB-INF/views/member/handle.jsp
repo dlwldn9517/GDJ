@@ -146,7 +146,7 @@
 				let memberNoList = '';
 				for(let i = 0; i < $('.check_one').length; i++) {
 					if($( $( '.check_one')[i]).is(':checked') ) {
-						memberNoList += $( '.check_one')[i]).val() + ',';	// 3,1,	(마지막 콤마 있음을 주의!)
+						memberNoList += ($('.check_one')[i]).val() + ',';	// 3,1,	(마지막 콤마 있음을 주의!)
 					}
 				}
 				memberNoList = memberNoList.substr(0, memberNoList.length - 1);	// 3,1,	(마지막 콤마 자르기)

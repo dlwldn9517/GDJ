@@ -68,5 +68,9 @@ public class MemberRestController {
 	}
 	
 	// 삭제
-	@DeleteMapping(value="/members/{memberNo}", produces="application/json")
+	@DeleteMapping(value="/members/{memberNoList}", produces="application/json")
+	public Map<String, Object> removeMemberList(@PathVariable String memberNoList) {
+		return memberService.removeMemberList(memberNoList);
+	}
+	
 }

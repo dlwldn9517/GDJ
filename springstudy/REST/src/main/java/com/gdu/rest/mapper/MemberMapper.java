@@ -15,5 +15,6 @@ public interface MemberMapper {
 	public List<MemberDTO> selectMemberListByMap(Map<String, Object> map);
 	public MemberDTO selectMemberByNo(int memberNo);
 	public int updateMember(Map<String, Object> map);
+	public int deleteMemberList(List<String> memberNoList);
 	
 }
