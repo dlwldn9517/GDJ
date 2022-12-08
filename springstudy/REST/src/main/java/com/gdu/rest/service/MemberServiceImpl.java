@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.DuplicateKeyException;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.gdu.rest.domain.MemberDTO;
@@ -92,5 +93,27 @@ public class MemberServiceImpl implements MemberService {
 		return result;
 	}
 	
+	@Override
+	public Map<String, Object> modifyMember(Map<String, Object> map, HttpServletResponse response) {
+		
+		try {
+			Map<String, Object> result = new HashMap<String, Object>();
+			result.put("updateResult", memberMapper.updateMember(map));
+			return result;
+		} catch (DataIntegrityViolationException e) {
+			try {
+				// new ResponseEntity<T>(null);   - 이거 한줄이면 간단하고 좋은데 버전차이 때문에 사용 X
+				response.setContentType("text/plain; charset=UTF-8");
+				PrintWriter out = response.getWriter();
+				response.setStatus(501);	// 응답코드 501
+				out.println("필수 정보가 누락되었습니다.");	// 응답 메시지
+				out.close();
+				
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return null;
+	}
 
 }

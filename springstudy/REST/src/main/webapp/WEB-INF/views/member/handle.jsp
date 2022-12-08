@@ -130,6 +130,9 @@
 					} else {
 						alert('회원 정보가 수정되지 않았습니다.');
 					}
+				},
+				error: function(jqXHR) {
+					alert('에러코드(' + )
 				}
 			});
 		});

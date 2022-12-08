@@ -60,6 +60,9 @@ public class MemberRestController {
 	}
 	
 	// 수정
-	//@PutMapping
+	@PutMapping(value="/members", produces="application/json")
+	public Map<String, Object> modifyMember(@RequestBody Map<String, Object> map, HttpServletResponse response) {
+		return memberService.modifyMember(map, response);
+	}
 
 }
