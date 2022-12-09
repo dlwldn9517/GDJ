@@ -144,18 +144,18 @@
 			if(confirm('선택한 회원을 모두 삭제할까요?')){
 				// 삭제할 회원번호
 				let memberNoList = '';
-				for(let i = 0; i < $('.check_one').length; i++) {
-					if($( $( '.check_one')[i]).is(':checked') ) {
-						memberNoList += ($('.check_one')[i]).val() + ',';	// 3,1,	(마지막 콤마 있음을 주의!)
+				for(let i = 0; i < $('.check_one').length; i++){
+					if( $($('.check_one')[i]).is(':checked') ) {
+						memberNoList += $($('.check_one')[i]).val() + ',';  // 3,1,  (마지막 콤마 있음을 주의)
 					}
 				}
-				memberNoList = memberNoList.substr(0, memberNoList.length - 1);	// 3,1,	(마지막 콤마 자르기)
+				memberNoList = memberNoList.substr(0, memberNoList.length - 1);  // 3,1  (마지막 콤마 자르기)
 				$.ajax({
 					type: 'delete',
-					url:'${contextPath}/members' + memberNoList,
+					url: '${contextPath}/members/' + memberNoList,
 					dataType: 'json',
 					success: function(resData){
-						if(resData.deleteResult > 0) {
+						if(resData.deleteResult > 0){
 							alert('선택된 회원 정보가 삭제되었습니다.');
 							fn_list();
 						} else {
