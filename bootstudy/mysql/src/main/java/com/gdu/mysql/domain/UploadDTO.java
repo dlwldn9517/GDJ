@@ -15,7 +15,7 @@ public class UploadDTO {
 	private int uploadNo;
 	private String title;
 	private String content;
-	private Date createDate;
-	private Date modifyDate;
+	private Date createDate;	// sql, util 둘다 되는데 sql은 시간이 안나옴
+	private Date modifyDate;	// util로 했을 경우 포맷해줘야 함
 	private int attachCnt;
 }

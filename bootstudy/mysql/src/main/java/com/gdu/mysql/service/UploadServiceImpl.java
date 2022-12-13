@@ -63,7 +63,7 @@ public class UploadServiceImpl implements UploadService {
 	  map.put("begin", pageUtil.getBegin() - 1);	// MySQL은 begin이 0부터 시작이라 -1 해준다.
 	  map.put("recordPerPage", pageUtil.getRecordPerPage());
 	  
-	  model.addAttribute("uploadList", uploadMapper.selectUploadList());
+	  model.addAttribute("uploadList", uploadMapper.selectUploadList(map));
 	  model.addAttribute("paging", pageUtil.getPaging("/upload/list"));
 	  
    }

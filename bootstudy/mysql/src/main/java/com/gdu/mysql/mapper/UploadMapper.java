@@ -1,6 +1,7 @@
 package com.gdu.mysql.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -10,7 +11,7 @@ import com.gdu.mysql.domain.UploadDTO;
 @Mapper
 public interface UploadMapper {
 	public int selectAllUploadCount();
-	public List<UploadDTO> selectUploadList();
+	public List<UploadDTO> selectUploadList(Map<String, Object> map);
 	public int insertUpload(UploadDTO upload);
 	public int insertAttach(AttachDTO attach);
 	public UploadDTO selectUploadByNo(int uploadNo);
