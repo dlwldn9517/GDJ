@@ -1,6 +1,6 @@
 package com.gdu.mysql.domain;
 
-import java.sql.Timestamp;
+import java.sql.Date;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -15,7 +15,7 @@ public class UploadDTO {
 	private int uploadNo;
 	private String title;
 	private String content;
-	private Timestamp createDate;
-	private Timestamp modifyDate;
+	private Date createDate;
+	private Date modifyDate;
 	private int attachCnt;
 }

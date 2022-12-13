@@ -1,20 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script src="${contextPath}/resources/js/jquery-3.6.1.min.js"></script>
+<script src="/resources/js/jquery-3.6.1.min.js"></script>
 </head>
 <body>
 
 	<div>
 
 		<div>
-			<a href="${contextPath}/upload/write">작성</a>
+			<a href="/upload/write">작성</a>
 		</div>
 		
 		<hr>
@@ -33,7 +32,7 @@
 					<c:forEach items="${uploadList}" var="upload">
 						<tr>
 							<td>${upload.uploadNo}</td>
-							<td><a href="${contextPath}/upload/detail?uploadNo=${upload.uploadNo}">${upload.title}</a></td>
+							<td><a href="/upload/detail?uploadNo=${upload.uploadNo}">${upload.title}</a></td>
 							<td>${upload.createDate}</td>
 							<td>${upload.attachCnt}</td>
 						</tr>

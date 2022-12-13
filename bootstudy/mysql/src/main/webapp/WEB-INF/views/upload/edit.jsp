@@ -1,14 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-<script src="${contextPath}/resources/js/jquery-3.6.1.min.js"></script>
+<script src="/resources/js/jquery-3.6.1.min.js"></script>
 <script>
 	
 	$(function(){
@@ -64,11 +63,11 @@
 	
 		<h1>수정화면</h1>
 		
-		<form action="${contextPath}/upload/modify" method="post" enctype="multipart/form-data">
+		<form action="/upload/modify" method="post" enctype="multipart/form-data">
 		
 			<div>
 				<button>수정완료</button>
-				<input type="button" value="목록" onclick="location.href='${contextPath}/upload/list'">
+				<input type="button" value="목록" onclick="location.href='/upload/list'">
 			</div>
 
 			<input type="hidden" name="uploadNo" value="${upload.uploadNo}">
@@ -93,7 +92,7 @@
 			<h3>첨부삭제</h3>	
 			<c:forEach items="${attachList}" var="attach">
 				<div>
-					${attach.origin}<a class="lnk_remove_attach" href="${contextPath}/upload/attach/remove?uploadNo=${upload.uploadNo}&attachNo=${attach.attachNo}"><i class="fa-regular fa-trash-can"></i></a>
+					${attach.origin}<a class="lnk_remove_attach" href="/upload/attach/remove?uploadNo=${upload.uploadNo}&attachNo=${attach.attachNo}"><i class="fa-regular fa-trash-can"></i></a>
 				</div>
 			</c:forEach>
 		</div>

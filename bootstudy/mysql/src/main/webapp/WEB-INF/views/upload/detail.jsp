@@ -1,13 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script src="${contextPath}/resources/js/jquery-3.6.1.min.js"></script>
+<script src="/resources/js/jquery-3.6.1.min.js"></script>
 <!-- jquery-ui 사용을 위한 js와 css -->
 <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
@@ -73,19 +72,19 @@
 		<h3>첨부 목록 및 다운로드</h3>
 		<div>
 			<c:forEach items="${attachList}" var="attach">
-				<a href="${contextPath}/upload/download?attachNo=${attach.attachNo}">
+				<a href="/upload/download?attachNo=${attach.attachNo}">
 					<c:if test="${attach.hasThumbnail == 1}">
-						<img src="${contextPath}/upload/display?attachNo=${attach.attachNo}" class="attach_img" title="${attach.origin}">
+						<img src="/upload/display?attachNo=${attach.attachNo}" class="attach_img" title="${attach.origin}">
 					</c:if>
 					<c:if test="${attach.hasThumbnail == 0}">
-						<img src="${contextPath}/resources/images/attach.png" width="50px" class="attach_img" title="${attach.origin}">
+						<img src="/resources/images/attach.png" width="50px" class="attach_img" title="${attach.origin}">
 					</c:if>
 				</a>
 			</c:forEach>
 		</div>
 		<br><br>
 		<div>
-			<a href="${contextPath}/upload/downloadAll?uploadNo=${upload.uploadNo}">모두 다운로드</a>
+			<a href="/upload/downloadAll?uploadNo=${upload.uploadNo}">모두 다운로드</a>
 		</div>
 	</div>
 	
