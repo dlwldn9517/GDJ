@@ -6,31 +6,31 @@
 
 <mapper namespace="com.gdu.mysql.mapper.UploadMapper">
 
-	<select id="selectUploadList" resultType="UploadDTO">
+	<select id="selectAllUploadCount" resultType="int">
+		SELECT COUNT(*)
+		  FROM UPLOAD
+	</select>
+
+	<select id="selectUploadList" parameterType="Map" resultType="UploadDTO">
 		SELECT U.UPLOAD_NO, U.TITLE, U.CONTENT, U.CREATE_DATE, U.MODIFY_DATE, (SELECT COUNT(*) FROM ATTACH A WHERE U.UPLOAD_NO = A.UPLOAD_NO) AS ATTACH_CNT
 		  FROM UPLOAD U
+		 ORDER BY U.UPLOAD_NO DESC
+		 LIMIT #{begin}, #{recordPerPage}
 	</select>
 	
-	<!--
-		UPLOAD_SEQ.NEXTVAL 값을 INSERT 수행 이전에(BEFORE)
-		parameter로 전달되는 UploadDTO의 uploadNo에 넣어 주시오.
-	-->
-	<insert id="insertUpload" parameterType="UploadDTO">
-		<selectKey keyProperty="uploadNo" resultType="int" order="BEFORE">
-			SELECT UPLOAD_SEQ.NEXTVAL
-			  FROM DUAL
-		</selectKey>
+	<!-- useGeneratedKeys/keyProperty : AUTO_INCREMENT된 값이 uploadNo에 저장된다. -->
+	<insert id="insertUpload" parameterType="UploadDTO" useGeneratedKeys="true" keyProperty="uploadNo">
 		INSERT INTO UPLOAD
-			(UPLOAD_NO, TITLE, CONTENT, CREATE_DATE, MODIFY_DATE)
+			(TITLE, CONTENT, CREATE_DATE, MODIFY_DATE)
 		VALUES
-			(#{uploadNo}, #{title}, #{content}, SYSTIMESTAMP, SYSTIMESTAMP)
+			(#{title}, #{content}, NOW(), NOW())
 	</insert>
 	
 	<insert id="insertAttach" parameterType="AttachDTO">
 		INSERT INTO ATTACH
-			(ATTACH_NO, PATH, ORIGIN, FILESYSTEM, DOWNLOAD_CNT, HAS_THUMBNAIL, UPLOAD_NO)
+			(PATH, ORIGIN, FILESYSTEM, DOWNLOAD_CNT, HAS_THUMBNAIL, UPLOAD_NO)
 		VALUES
-			(ATTACH_SEQ.NEXTVAL, #{path}, #{origin}, #{filesystem}, 0, #{hasThumbnail}, #{uploadNo})
+			(#{path}, #{origin}, #{filesystem}, 0, #{hasThumbnail}, #{uploadNo})
 	</insert>
 	
 	<select id="selectUploadByNo" parameterType="int" resultType="UploadDTO">
@@ -61,7 +61,7 @@
 		UPDATE UPLOAD
 		   SET TITLE = #{title}
 		     , CONTENT = #{content}
-		     , MODIFY_DATE = SYSTIMESTAMP
+		     , MODIFY_DATE = NOW()
 		 WHERE UPLOAD_NO = #{uploadNo}
 	</update>
 	
@@ -77,10 +77,11 @@
 		 WHERE UPLOAD_NO = #{uploadNo}
 	</delete>
 	
+	<!-- CONCAT() : 연결해주는 아이 -->
 	<select id="selectAttachListInYesterday" resultType="AttachDTO">
 		SELECT ATTACH_NO, PATH, ORIGIN, FILESYSTEM, DOWNLOAD_CNT, HAS_THUMBNAIL, UPLOAD_NO
 		  FROM ATTACH
-		 WHERE PATH = CONCAT('storage\\', TO_CHAR(SYSDATE - 1, 'yyyy\\mm\\dd'))
+		 WHERE PATH = CONCAT('/storage', DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 1 DAY), '%Y/%m/%d'))
 	</select>
 	
 </mapper>

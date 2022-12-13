@@ -9,6 +9,7 @@ import com.gdu.mysql.domain.UploadDTO;
 
 @Mapper
 public interface UploadMapper {
+	public int selectAllUploadCount();
 	public List<UploadDTO> selectUploadList();
 	public int insertUpload(UploadDTO upload);
 	public int insertAttach(AttachDTO attach);
